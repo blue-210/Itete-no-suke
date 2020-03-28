@@ -7,6 +7,7 @@ INSERT INTO users (
     age,
     role,
     status,
+    updated_at,
     created_at)
 VALUES(
     '$2a$10$xRTXvpMWly0oGiu65WZlm.3YL95LGVV2ASFjDhe6WF4.Qji1huIPa',
@@ -16,5 +17,6 @@ VALUES(
      31,
      'ROLE_GENERAL',
      true,
+     NOW(),
      NOW()
  );
