@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <th:block th:fragment="image_list_contents">
+        <div class="row">
+        	<h3 class="col-sm-12 mt-2">アルバム</h3>
+        </div>
+        
+        <th:block th:each="images : ${imageList}">
+            <div class="row">
+                <div class="col-1 col-sm-1" th:text="${#temporals.format(images.createdAt, 'M/dd（E）')}"></div>
+                <th:block th:if="${not #lists.isEmpty(images.imageList) and imageStat.index < 3}" th:each="image : ${images.imageList}">
+                    <div class="col-3 col-sm-3">
+	               	    <img class="resize-img" th:src="${image.imagePath}" oneror="/images/no_image_square.jpg" src="" alt=""/>
+                    </div>
+                </th:block>
+                <div class="col-2 col-sm-2 ml-auto">
+                    <button type="button" class="btn btn-info" th:onclick="|location.href='/image/detail/${images.noteId}'|">くわしく</button>
+                </div>
+            </div>
+        </th:block>
+    </th:block>
+</body>
+</html>

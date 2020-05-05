@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+</head>
+<body>
+    <div th:fragment="medicine_contents">
+        <div class="col-sm-12 my-2 text-center">
+            <h3>おくすりとうろく</h3>
+        </div>
+		<div class="alert alert-danger" role="alert"
+		  th:if="${!#strings.isEmpty(resultMessage)}"
+		  th:text="${resultMessage}"></div>
+        <div class="col-sm-12 my-2">
+            <form method="post" th:action="@{/medicine/add}">
+			  <div class="input-group mb-3">
+			    <input type="text" class="form-control" id="medicineInput" name="medicineName"/>
+				<div class="input-group-append">
+				  <button class="btn btn-outline-secondary" type="button" name="add" onclick="form.submit()">ついか</button>
+				</div>
+			  </div>
+            </form>
+			<div class="input-group"
+		      th:if="${!#lists.isEmpty(medicineList)}"
+		      th:each="medicine : ${medicineList}">
+			  <input th:id="${#ids.seq('editContents')}" type="text" class="form-control" aria-describedby="button-addon4"
+			     th:value="${medicine.medicineName}">
+              <input th:id="${#ids.seq('editMedicineId')}" type="hidden"
+                 th:value="${medicine.medicineId}"/>
+			  <div class="input-group-append" id="button-addon4">
+                 <button th:id="${#ids.seq('editMedicineButton')}" class="btn btn-outline-secondary" type="button" onclick="editButton(this)">編集</button>
+                 <button class="btn btn-outline-danger" type="button" th:onclick="|location.href='/medicine/delete/${medicine.medicineId}'|">削除</button>
+			  </div>
+			</div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="editResultModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div id="editResult" class="modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

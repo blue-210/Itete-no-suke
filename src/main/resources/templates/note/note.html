@@ -3,31 +3,178 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
     <div th:fragment="note_contents">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="page-header">
-                    <h1>痛み記録</h1>
-                </div>
-                <form method="post" th:action="@{/note}">
-                    <div class="form-group">
-                        <label for=""></label>
-                    </div>
+          <div class="col-sm-12 my-2">
+              <form method="post" enctype="multipart/form-data" th:action="@{/note}">
 					<div class="form-group">
-					   <label for="memo">メモ</label>
-					   <textarea id="memo" name="memo" class="form-control"
-					       th:text="${note != null} ? ${note.memo} : ''">
+					    <label for="painLevel">今どんなかんじ？</label><br>
+					    <div class="form-check form-check-inline"
+					        th:each="item : ${painLevelMap}">
+					        <label>
+	                            <input class="form-check-input position-static radio" id="painLevel" type="radio" name="painLevel"
+	                             th:value="${item.value}"
+	                             th:checked="${noteForm != null} ? ${noteForm.painLevel eq item.value} : ${item.value eq 0}"/>
+				                <img class="radio-image" th:if="${item.value eq T(app.itetenosuke.domain.note.model.PainLevel).NO_PAIN.code}" th:src="@{/images/face-icon-no-pain.png}">
+				                <img class="radio-image" th:if="${item.value eq T(app.itetenosuke.domain.note.model.PainLevel).MODERATE.code}" th:src="@{/images/face-icon-moderate.png}">
+				                <img class="radio-image" th:if="${item.value eq T(app.itetenosuke.domain.note.model.PainLevel).VERY_SEVERE_PAIN.code}" th:src="@{/images/face-icon-very-severe-pain.png}">
+				                <img class="radio-image" th:if="${item.value eq T(app.itetenosuke.domain.note.model.PainLevel).WORST_PAIN_POSSIBLE.code}" th:src="@{/images/face-icon-worst-pain-possible.png}">
+					       </label>
+					    </div>
+	                    <div class="text-danger"
+	                        th:if="${#fields.hasErrors('noteForm.painLevel')}"
+	                        th:errors="*{noteForm.painLevel}"
+	                    >painLevel error</div>
+					</div>
+					<label for="medicine">おくすりのんだ？</label>
+                    <div id="medicineArea">
+                        <div class="unit input-group mb-2"
+                            th:object="${noteForm}"
+                            th:if="${not #lists.isEmpty(noteForm.medicineList)}"
+                            th:each="medicine,stat : ${noteForm.medicineList}">
+                          <div class="input-group-prepend">
+                               <span class="input-group-text" id="basic-addon" th:text="${stat.count}">1</span>
+                          </div>
+                          <input class="form-control" type="text" list="medicinOption"
+                                 th:name="${'medicineList[' + stat.index + '].medicineName'}"
+                                 th:value="${medicine.medicineName}"/>
+                           <input type="hidden" class="form-control"
+                            th:name="*{'medicineList[' + __${stat.index}__ + '].medicineSeq'}"
+                            th:value="${medicine.medicineSeq}"/>
+                           <input type="hidden" class="form-control"
+                            th:name="*{'medicineList[' + __${stat.index}__ + '].medicineId'}"
+                            th:value="${medicine.medicineId}"/>
+                           <div class="text-danger"
+                            th:if="${#fields.hasErrors('medicineList[' + stat.index + '].medicineName')}" 
+                            th:errors="*{medicineList[__${stat.index}__].medicineName}">medicineName error</div>
+                        </div>
+	                    <div class="unit input-group mb-2"
+	                            th:if="*{#lists.isEmpty(noteForm.medicineList)}">
+							  <div class="input-group-prepend">
+						           <span class="input-group-text" id="basic-addon">1</span>
+						      </div>
+	                           <input type="text" class="form-control" list="medicineOption"
+	                            th:name="*{'medicineList[0].medicineName'}"/>
+	                           <input type="hidden"
+	                            th:name="*{'medicineList[0].medicineSeq'}"
+	                            th:value="${1}"/>
+	                           <input type="hidden" value=""
+	                            th:name="*{'medicineList[0].medicineId'}"/>
+	                    </div>
+	                </div>
+                    <datalist id="medicineOption">
+                      <th:block th:if="${not #lists.isEmpty(medicineSelectList)}"
+                          th:each="medicineOption : ${medicineSelectList}">
+                          <option th:value="${medicineOption.medicineName}"></option>
+                      </th:block>
+                    </datalist>
+                    <button type="button" class="btn btn-outline-danger btn-sm float-right ml-2" onclick="deleteInput('medicineArea')">さくじょ</button>
+                    <button type="button" class="btn btn-outline-info btn-sm float-right" onclick="addInput('medicineArea')">ついか</button>
+                    
+                    <br>
+                    <label for="medicine">いたいところは？</label>
+                    <div id="bodyPartsArea" class="form-group">
+	                    <div class="unit input-group mb-2"
+	                            th:object="${noteForm}"
+	                            th:if="*{!#lists.isEmpty(noteForm.bodyPartsList)}"
+	                            th:each="parts,stat : ${noteForm.bodyPartsList}">
+	                          <div class="input-group-prepend">
+	                               <span class="input-group-text" id="basic-addon" th:text="${stat.count}">1</span>
+	                          </div>
+	                           <input type="text" class="form-control" list="bodyPartsOption"
+	                            th:id="${#ids.seq('bodyParts')}"
+	                            th:name="${'bodyPartsList[' + stat.index + '].bodyPartsName'}"
+	                            th:value="${parts.bodyPartsName}"/>
+	                           <input type="hidden"
+	                            th:name="${'bodyPartsList[' + stat.index + '].bodyPartsSeq'}"
+	                            th:value="${parts.bodyPartsSeq}"/>
+	                           <input type="hidden"
+	                            th:name="${'bodyPartsList[' + stat.index + '].bodyPartsId'}" 
+	                            th:value="${parts.bodyPartsId}"/>
+	                            <div class="text-danger"
+	                               th:if="${#fields.hasErrors('bodyPartsList[' + stat.index + '].bodyPartsName')}" 
+	                               th:errors="*{bodyPartsList[__${stat.index}__].bodyPartsName}">bodyPartsName error</div>
+	                    </div>
+	                    <div class="unit input-group mb-2"
+	                            th:if="*{#lists.isEmpty(noteForm.bodyPartsList)}">
+	                          <div class="input-group-prepend">
+	                               <span class="input-group-text" id="basic-addon">1</span>
+	                          </div>
+	                           <input type="text" class="form-control" id="bodyParts1" list="bodyPartsOption"
+	                            th:name="*{'bodyPartsList[0].bodyPartsName'}"/>
+	                           <input type="hidden"
+	                            th:name="*{'bodyPartsList[0].bodyPartsSeq'}"
+	                            th:value="${1}"/>
+	                           <input type="hidden" value=""
+	                            th:name="*{'bodyPartsList[0].bodyPartsId'}"/>
+	                    </div>
+                    </div>
+                    <datalist id="bodyPartsOption">
+                      <th:block th:if="${not #lists.isEmpty(bodyPartsSelectList)}"
+                          th:each="bodyPartsOption : ${bodyPartsSelectList}">
+                          <option th:value="${bodyPartsOption.bodyPartsName}"></option>
+                      </th:block>
+                    </datalist>
+                    <button type="button" class="btn btn-outline-danger btn-sm float-right ml-2" onclick="deleteInput('bodyPartsArea')">さくじょ</button>
+                    <button type="button" class="btn btn-outline-info btn-sm float-right" onclick="addInput('bodyPartsArea')">ついか</button>
+                    
+                    <br>
+					<div class="form-group">
+					   <label for="memo">どんなきもち？</label>
+					   <textarea class="form-control" id="memo" name="memo"
+					       th:text="${noteForm != null} ? ${noteForm.memo} : ''">
 					   </textarea>
 					</div>
-					<input type="hidden" name="noteId" th:value="${note != null} ? ${note.noteId} : ''"/>
-                    <button class="btn btn-primary btn-lg" type="submit"
-                        th:name="${note != null} ? 'edit' : 'create'"
-                        th:text="${note != null} ? '更新' : '登録'">登録</button>
-                </form>
-            </div>
-        </div>
+					
+					<div class="row" th:if="${!#lists.isEmpty(noteForm.imageList)}" th:each="image,stat : ${noteForm.imageList}">
+					   <div class="col-sm-12">
+					       <div id="preview-img" class="mt-1 mb-2">
+					           <img class='img-fluid img-thumbnail'
+					               th:src="${image.imagePath}"></img>
+					           <input type="hidden" th:name="${'imageList[' + stat.index + '].imageId'}" th:value="${image.imageId}"/>
+					           <input type="hidden" th:name="${'imageList[' + stat.index + '].imagePath'}" th:value="${image.imagePath}"/>
+					       </div>
+					   </div>
+					</div>
+					<div class="row mt-1 mb-2" th:if="${#lists.isEmpty(noteForm.imageList)}">
+					   <div class="col-sm-12">
+					       <div id="preview-img">
+					           <img class='img-fluid img-thumbnail'></img>
+					       </div>
+					   </div>
+					</div>
+                    
+					<div class="custom-file mb-2">
+					  <input type="file" class="custom-file-input" id="upload-images" name="image-files" accept="image/*" multiple>
+					  <label class="custom-file-label" for="customFile" data-browse="ついか">ファイル選択</label>
+					</div>
+					
+					
+                    <input type="hidden" name="noteId" th:value="${noteForm != null} ? ${noteForm.noteId} : ''"/>
+                    <button class="btn btn-primary btn-md" type="submit"
+                      th:name="${isCreate} ? 'create' : 'edit'"
+                      th:text="${isCreate} ? 'おしまい!' : 'こうしん'">おしまい!</button>
+              </form>
+          </div>
     </div>
+	<div class="modal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p th:if="${resultMessage != null}" th:text="${resultMessage}"></p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
 </html>

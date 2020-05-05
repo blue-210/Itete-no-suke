@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <div th:fragment="note_list_contents">
+        <div class="d-flex flex-row m-2"><h3>一覧</h3></div>
+        <div class="d-flex flex-row justify-content-between mb-2 border-top border-bottom" th:each="note : ${noteList}">
+   			<div>
+   				<div th:text="${#temporals.format(note.createdAt,'M/dd（E）')}"></div>
+   			</div>
+   			<div class="d-flex align-self-start flex-fill">
+   				<div th:if="${note.painLevel == T(app.itetenosuke.domain.note.model.PainLevel).NO_PAIN.code}" th:class="${T(app.itetenosuke.domain.note.model.PainLevel).NO_PAIN.cssClass}"></div>
+   				<div th:if="${note.painLevel == T(app.itetenosuke.domain.note.model.PainLevel).MODERATE.code}" th:class="${T(app.itetenosuke.domain.note.model.PainLevel).MODERATE.cssClass}"></div>
+   				<div th:if="${note.painLevel == T(app.itetenosuke.domain.note.model.PainLevel).VERY_SEVERE_PAIN.code}" th:class="${T(app.itetenosuke.domain.note.model.PainLevel).VERY_SEVERE_PAIN.cssClass}"></div>
+   				<div th:if="${note.painLevel == T(app.itetenosuke.domain.note.model.PainLevel).WORST_PAIN_POSSIBLE.code}" th:class="${T(app.itetenosuke.domain.note.model.PainLevel).WORST_PAIN_POSSIBLE.cssClass}"></div>
+   			</div>
+			<div class="d-flex flex-column align-items-start flex-fill">
+			    <th:block th:if="${not #lists.isEmpty(note.bodyPartsList)}" th:each="bodyParts,stat : ${note.bodyPartsList}">
+		              <div class="" th:if="${stat.index < 3}" th:text="${bodyParts.bodyPartsName}"></div>
+			    </th:block>
+			</div>
+			<div class="d-flex mt-2">
+			     <button type="button" class="btn btn-info" th:onclick="|location.href='/note/show/${note.noteId}'|">くわしく</button></td>
+			</div>
+        </div>
+    </div>
+</body>
+</html>

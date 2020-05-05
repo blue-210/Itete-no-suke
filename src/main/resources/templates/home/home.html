@@ -3,29 +3,25 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
 </head>
 <body>
     <div th:fragment="home_contents">
-        <div class="page-header">
-            <h1>ホーム</h1>
+        <div class="col-sm-12 my-2">
+          <button type="button" class="btn btn-success btn-lg btn-block" th:onclick="|location.href='@{/note/add}'|">今どんなかんじ？</button>
         </div>
-        <div class="row">
-			<div class="card">
-			  <div class="card-body">
-			    <h5 class="card-title"></h5>
-			    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-			    <a href="#" class="btn btn-primary">Go somewhere</a>
-			  </div>
-			</div>
-            <div class="col-sm" th:each="note : ${noteList}">
-                <button type="button" class="btn btn-info" th:onclick="|location.href='@{/note/show/__${note.noteId}__}'|">編集</button>
-            </div>
+        <div class="col-sm-12 my-2">
+          <button type="button" class="btn btn-success btn-lg btn-block" th:onclick="|location.href='@{/note/list}'|">いつもどんなかんじ？</button>
         </div>
-        <div class="row fixed-bottom">
-            <div class="col-sm">
-                <button type="button" class="btn btn-success" th:onclick="|location.href='@{/note/add}'|">追加</button>
-            </div>
-            
+        <div class="col-sm-12 my-2">
+          <button type="button" class="btn btn-success btn-lg btn-block" th:onclick="|location.href='@{/image/imagelist}'|">アルバム</button>
+        </div>
+        <div class="col-sm-12 my-2">
+          <button type="button" class="btn btn-success btn-lg btn-block" th:onclick="|location.href='@{/medicine}'|">おくすりとうろく</button>
+        </div>
+        <div class="col-sm-12 my-2">
+          <button type="button" class="btn btn-success btn-lg btn-block" th:onclick="|location.href='@{/bodyparts}'|">いたいところとうろく</button>
         </div>
     </div>
 </body>

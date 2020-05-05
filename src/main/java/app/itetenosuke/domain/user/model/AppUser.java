@@ -6,12 +6,12 @@ import lombok.Data;
 
 @Data
 public class AppUser {
-	private long userId;
+	private Long userId;
 	private String userName;
 	private String password;
 	private String email;
 	private int age;
 	private Date birthday;
 	private String role;
-	private boolean status;
+	private String status;
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+	<div th:fragment="image_contents">
+	   <div class="d-flex flex-row">
+		   <div class="m-2">
+		       <h3 th:text="*{#temporals.format(images.createdAt, 'M/dd（E）')}">アルバムタイトル</h3>
+		   </div>
+	   </div>
+	   <div class="d-flex flex-row">
+		   	<div class="m-2" th:each="image : ${images.imageList}">
+		   	  <a th:href="*{image.imagePath}" data-lightbox="roadtrip"><img src="" alt="" class="img-fluid flex-fill" th:src="*{image.imagePath}" /></a>
+		   	</div>
+	   </div>
+	   <div class="d-flex frex-row"><button class="btn btn-info" type="button" th:onclick="|location.href='/note/show/${images.noteId}'|">しょうさい</button></div>
+	</div>
+</body>
+</html>

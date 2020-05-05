@@ -1,14 +1,8 @@
 package app.itetenosuke.domain.user.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
-import org.springframework.context.annotation.Role;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.User;
 
 public class UserDetailsImpl extends User {
@@ -50,6 +44,10 @@ public class UserDetailsImpl extends User {
 		return this.user.getRole();
 	}
 	
+	public String getStatus() {
+		return this.user.getStatus();
+	}
+	
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
@@ -70,7 +68,7 @@ public class UserDetailsImpl extends User {
 
 	@Override
 	public boolean isEnabled() {
-		return this.user.isStatus();
+		return "ALIVE".equals(this.user.getStatus());
 	}
 
 }

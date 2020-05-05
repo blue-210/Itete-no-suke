@@ -10,26 +10,20 @@ import org.springframework.transaction.annotation.Transactional;
 import app.itetenosuke.domain.note.model.NoteForm;
 import app.itetenosuke.domain.note.repository.NoteDao;
 
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @Service
 public class NoteService {
 	@Autowired
-	@Qualifier("NoteDaoJdbcImpl")
+	@Qualifier("NoteDaoNamedJdbcImpl")
 	NoteDao noteDao;
 	
-	public int createNote(NoteForm noteForm) {
+	public Integer createNote(NoteForm noteForm) {
 		int noteId = noteDao.createNote(noteForm);
-		
-		boolean result = false;
-		if ( noteId > 0 ) {
-			result = true;
-		}
-		
 		return noteId;
 	}
 	
-	public NoteForm getNote(long noteId) {
-		return noteDao.getNote(noteId);
+	public NoteForm getNote(long userId, long noteId) {
+		return noteDao.getNote(userId, noteId);
 	}
 	
 	public List<NoteForm> getNoteList(long userId){
@@ -37,13 +31,7 @@ public class NoteService {
 	}
 	
 	
-	public boolean editNote(NoteForm noteForm) {
-		int rowNum = noteDao.editNote(noteForm);
-		
-		boolean result = false;
-		if ( rowNum > 0) {
-			result = true;
-		}
-		return result;
+	public Integer editNote(NoteForm noteForm) {
+		return noteDao.editNote(noteForm);
 	}
 }

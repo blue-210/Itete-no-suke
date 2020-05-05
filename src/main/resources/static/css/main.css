@@ -1,0 +1,66 @@
+.resize-img {
+  height: 100px;
+  width: 100px;
+  object-fit: contain;
+  object-position: 50% 50%;
+  font-family: 'object-fit: cover; object-position: 50% 50%;
+}
+
+.img-zone {
+    border-radius:5px;
+    border:solid 1px black;
+    padding:10px;
+    min-width:300px;
+    min-height:300px;
+}
+
+.radio {
+    display: none;
+}
+ 
+.radio + .radio-image {
+    height: 45px;
+    width: 45px;
+	border: 3px #ffffff solid;
+    background-color: #ffffff;
+}
+.radio:checked + .radio-image {
+    border: 3px #ff0000 solid;
+    background-color: #ffeeee;
+}
+
+.no-pain {
+    height: 45px;
+    width: 45px;
+    background-image: url(/images/face-icon-no-pain.png);
+    background-size: 45px 45px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.moderate {
+    height: 45px;
+    width: 45px;
+    background-image: url(/images/face-icon-moderate.png);
+    background-size: 45px 45px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.very-severe-pain {
+    height: 45px;
+    width: 45px;
+    background-image: url(/images/face-icon-very-severe-pain.png);
+    background-size: 45px 45px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
+
+.worst-pain-possible {
+    height: 45px;
+    width: 45px;
+    background-image: url(/images/face-icon-worst-pain-possible.png);
+    background-size: 45px 45px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+}
