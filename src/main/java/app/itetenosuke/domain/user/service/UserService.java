@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import app.itetenosuke.domain.user.model.AppUser;
 import app.itetenosuke.domain.user.model.SignupForm;
 import app.itetenosuke.domain.user.repository.UserDao;
 import lombok.extern.slf4j.Slf4j;
@@ -46,5 +47,9 @@ public class UserService {
 			canCreated = true;
 		}
 		return canCreated;
+	}
+	
+	public AppUser selectOne(String userName) {
+		return userDao.selectOne(userName);
 	}
 }
