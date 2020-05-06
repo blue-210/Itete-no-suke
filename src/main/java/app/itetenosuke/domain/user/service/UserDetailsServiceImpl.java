@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import app.itetenosuke.domain.user.model.AppUser;
 import app.itetenosuke.domain.user.model.UserDetailsImpl;
 import app.itetenosuke.domain.user.repository.UserDao;
-import app.itetenosuke.domain.user.repository.jdbc.UserDaoJdbcImpl;
 
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
