@@ -36,7 +36,7 @@ public class ImageService {
 		// 画像を保存
 		List<Image> imagesList = new ArrayList<>();
 		try {
-			Path dir = Paths.get("src", "main","resources","images", String.valueOf(userId));
+			Path dir = Paths.get("static","images", String.valueOf(userId)).toAbsolutePath();
 			if( Files.notExists(dir) ) {
 				Files.createDirectories(dir);
 			}
@@ -46,7 +46,7 @@ public class ImageService {
 				Random random = SecureRandom.getInstanceStrong();
 				String originalName = uploadFile.getOriginalFilename();
 				String fileName = String.valueOf(userId) + String.valueOf(random.nextInt()) + originalName.substring(originalName.lastIndexOf("."));
-				Path path = Paths.get("static", "images", String.valueOf(userId),fileName);
+				Path path = Paths.get("static", "images", String.valueOf(userId),fileName).toAbsolutePath();
 				Files.createFile(path);
 				uploadFile.transferTo(path);
 				
