@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,7 +69,7 @@ public class MedicineController {
 	
 	@PostMapping(path = "/medicine/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String addMedicine(@RequestBody Medicine medicine,
+	public String editMedicine(@RequestBody Medicine medicine,
 			@AuthenticationPrincipal UserDetailsImpl userDetails, 
 			Model model) throws JsonProcessingException {
 		
@@ -85,6 +87,25 @@ public class MedicineController {
 		Map<String,String> messageMap = new HashMap<>();
 		messageMap.put("resultMessage", resultMessage);
 		return mapper.writeValueAsString(messageMap);
+	}
+	
+	@PostMapping("/medicine/add")
+	public String addMedicine(@ModelAttribute @Validated Medicine medicine
+			, BindingResult bindingResult
+			, @AuthenticationPrincipal UserDetailsImpl userDetails
+			, Model model) {
+		
+		medicine.setUserId(userDetails.getUserId());
+		
+		boolean result = medicineService.addMedicine(medicine);
+		
+		if(result) {
+			model.addAttribute("resultMessage", message.getMessage("medicine.create.completed", null, Locale.JAPANESE));
+		} else {
+			model.addAttribute("resultMessage", message.getMessage("medicine.create.failed", null, Locale.JAPANESE));
+		}
+		
+		return "redirect:/medicine";
 	}
 	
 }

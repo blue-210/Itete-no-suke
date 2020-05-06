@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
 public class UserDetailsImpl extends User {
+	private static final long serialVersionUID = 245907654695993450L;
 	private AppUser user;
 	
 	public UserDetailsImpl(AppUser user) {

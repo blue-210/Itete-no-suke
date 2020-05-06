@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+	<div th:fragment="signup_contents">
+		<div class="col-sm-12 m-2">
+		  <h3>新規登録</h3>
+		</div>
+		<div class="col-sm-12">
+			<form method="post" th:action="@{/signup}" th:object="${signupForm}">
+				<div class="form-group" th:classappend="${#fields.hasErrors('email')} ? 'has-error'">
+				    <label for="email">メールアドレス</label>
+				    <input name="email" type="email" class="form-control" th:field="*{email}"/>
+				    <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</div>
+				</div>
+				<div class="form-group" th:classappend="${#fields.hasErrors('userName')} ? 'has-error'">
+				    <label for="userName">ユーザー名</label>
+				    <input name="userName" type="text" class="form-control" th:field="*{userName}"/>
+		            <div class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">userName error</div>
+		        </div>
+		        <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'has-error'">
+		          <label for="password">パスワード</label>
+		          <input name="password" type="password" class="form-control" th:field="*{password}"/>
+		          <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
+		        </div>
+		        <button type="submit" class="btn btn-primary">とうろくする</button>
+			</form>
+		</div>
+	</div>
+</body>
