@@ -13,7 +13,7 @@
         
         <th:block th:each="images : ${imageList}">
             <div class="row">
-                <div class="col-1 col-sm-1" th:text="${#temporals.format(images.createdAt, 'M/dd（E）')}"></div>
+                <div class="col-1 col-sm-1" th:text="${#temporals.format(images.createdAt,'M/d（E）HH:mm')}"></div>
                 <th:block th:if="${not #lists.isEmpty(images.imageList) and imageStat.index < 3}" th:each="image : ${images.imageList}">
                     <div class="col-3 col-sm-3">
 	               	    <img class="resize-img" th:src="${image.imagePath}" oneror="/images/no_image_square.jpg" src="" alt=""/>
