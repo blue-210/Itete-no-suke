@@ -48,7 +48,7 @@ function editButton(button){
 }
 
 function addInput(type) {
-	const maxCount = 5;
+	const maxCount = 10;
 	const inputCount = $('#' + type + ' .unit').length;
 	if (inputCount < maxCount) {
 		var element = $('#' + type + ' .unit:last-child').clone();
