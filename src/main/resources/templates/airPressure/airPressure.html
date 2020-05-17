@@ -33,7 +33,7 @@
 	           document.getElementById("lat").innerText = lat;
 	           document.getElementById("long").innerText = lng;
 	           
-	            fetch("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lng + "&APPID=[(${@environment.getProperty('open-weather-api.key')})]")
+	            fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lng + "&APPID=[(${@environment.getProperty('open-weather-api.key')})]")
 	               .then(response => response.json())
 	               .then(data => document.getElementById("airpressure").innerText = data.main.pressure);
 	       };
