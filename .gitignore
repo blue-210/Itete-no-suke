@@ -104,3 +104,17 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 .DS_Store
+
+.classpath
+
+.mvn/wrapper/maven-wrapper.properties
+
+.mvn/wrapper/MavenWrapperDownloader.java
+
+.project
+
+HELP.md
+
+src/main/resources/static/.DS_Store
+
+src/main/resources/static/.DS_Store
