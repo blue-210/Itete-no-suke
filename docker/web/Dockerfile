@@ -15,5 +15,3 @@ USER spring:spring
 
 COPY --from=builder /itetenosuke/target/Itete-no-suke-1.0.0-SNAPSHOT.jar /
 ENV CLASSPATH /Itete-no-suke-1.0.0-SNAPSHOT.jar
-
-CMD [ "java", "-jar", "Itete-no-suke-1.0.0-SNAPSHOT.jar" ]
