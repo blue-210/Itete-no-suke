@@ -15,5 +15,5 @@ USER spring:spring
 
 COPY --from=builder /itetenosuke/target/Itete-no-suke-1.0.0-SNAPSHOT.jar /
 COPY ./wait-for-postgres.sh /itetenosuke/
-RUN chmod +x wait-for-postgres.sh
+RUN chmod +x /itetenosuke/wait-for-postgres.sh
 ENV CLASSPATH /Itete-no-suke-1.0.0-SNAPSHOT.jar
