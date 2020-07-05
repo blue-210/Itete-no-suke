@@ -14,13 +14,11 @@ services:
       DATABASE_URL_SPRINGBOOT: jdbc:postgresql://db:5432/itetenosuke
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-    networks:
-      - web-network
     depends_on:
       - db
     command:
       [
-        "./wait-for-postgres.sh",
+        "./itetenosuke/wait-for-postgres.sh",
         "db",
         "java",
         "-jar",
@@ -44,7 +42,3 @@ services:
 
 volumes:
   dbdata:
-
-networks:
-  web-network:
-    external: true
