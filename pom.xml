@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>app.itetenosuke</groupId>
 	<artifactId>Itete-no-suke</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>Itete-no-suke</name>
 	<packaging>jar</packaging>
 	<description>App for My wife</description>
