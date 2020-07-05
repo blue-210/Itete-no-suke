@@ -20,7 +20,7 @@ services:
       - db
     command:
       [
-        "./wait-for-potgres.sh",
+        "./wait-for-postgres.sh",
         "db",
         "java",
         "-jar",
