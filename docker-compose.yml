@@ -16,14 +16,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     depends_on:
       - db
-    command:
-      [
-        "./itetenosuke/wait-for-postgres.sh",
-        "db",
-        "java",
-        "-jar",
-        "Itete-no-suke-1.0.0-SNAPSHOT.jar",
-      ]
+    command: ["java", "-jar", "Itete-no-suke-1.0.0-SNAPSHOT.jar"]
 
   db:
     image: postgres:12-alpine
