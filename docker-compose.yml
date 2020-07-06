@@ -5,9 +5,12 @@ services:
     image: nginx:latest
     ports:
       - 80:80
+      - 443:443
     volumes:
       - $PWD/docker/nginx:/etc/nginx
       - nginxlog:/var/nginx/log
+    depends_on:
+      - web
 
   web:
     build:
@@ -24,7 +27,6 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     depends_on:
       - db
-      - nginx
     command: ["java", "-jar", "Itete-no-suke-1.0.0-SNAPSHOT.jar"]
 
   db:
