@@ -6,7 +6,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - $PWD/docker/nginx:/etc/nginx/conf.d
+      - $PWD/docker/nginx:/etc/nginx
       - nginxlog:/var/nginx/log
 
   web:
