@@ -24,6 +24,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     depends_on:
       - db
+      - nginx
     command: ["java", "-jar", "Itete-no-suke-1.0.0-SNAPSHOT.jar"]
 
   db:
