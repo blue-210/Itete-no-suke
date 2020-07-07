@@ -8,6 +8,8 @@ services:
       - 443:443
     volumes:
       - $PWD/docker/nginx:/etc/nginx
+      - /etc/letsencrypt/live/itetenosuke.com:/etc/letsencrypt/live/itetenosuke.com
+      - /etc/letsencrypt:/etc/letsencrypt
       - nginxlog:/var/nginx/log
     depends_on:
       - web
