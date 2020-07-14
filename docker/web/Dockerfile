@@ -10,9 +10,7 @@ RUN mvn -B package
 FROM openjdk:8-jdk-alpine
 
 RUN addgroup -S spring && adduser -S spring -G spring
-RUN mkdir -p static/images && chmod -R 777 static/images
 USER spring:spring
 
 COPY --from=builder /itetenosuke/target/Itete-no-suke-1.0.0-SNAPSHOT.jar /
-COPY ./wait-for-postgres.sh /itetenosuke/
 ENV CLASSPATH /Itete-no-suke-1.0.0-SNAPSHOT.jar

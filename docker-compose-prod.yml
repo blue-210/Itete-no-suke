@@ -8,6 +8,8 @@ services:
       - 443:443
     volumes:
       - $PWD/docker/nginx:/etc/nginx
+      - ${LETS_ENCRYPT_PATH}
+      - ${LETS_ENCRYPT_CERT_PATH}
       - nginxlog:/var/nginx/log
     depends_on:
       - web
