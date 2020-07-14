@@ -118,3 +118,5 @@ HELP.md
 src/main/resources/static/.DS_Store
 
 .env
+
+settings.json
