@@ -123,6 +123,7 @@ settings.json
 
 .DS_Store
 node_modules
+front-src/node_modules
 /dist
 
 /tests/e2e/reports/
