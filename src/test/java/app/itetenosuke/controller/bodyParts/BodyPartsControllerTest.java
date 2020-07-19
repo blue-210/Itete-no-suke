@@ -27,31 +27,29 @@ import app.itetenosuke.domain.bodyParts.model.BodyParts;
 @SpringBootTest
 @AutoConfigureMockMvc
 class BodyPartsControllerTest {
-	@Autowired
-	private MockMvc mock;
-	
-	@Test
-	@WithUserDetails
-	@DisplayName("いたいところ入力画面が表示できること")
-	void testShowBodyParts() throws Exception {
-		mock.perform(get("/bodyparts"))
-			.andExpect(status().isOk())
-			.andExpect(content().string(containsString("いたいところとうろく")));
-	}
+  @Autowired
+  private MockMvc mock;
 
-	@Test
-	@Sql("/bodyparts/testdata_bodypartslist.sql")
-	@Transactional
-	@WithUserDetails
-	@DisplayName("いたいところ入力画面が表示できること")
-	void testShowBodyPartsList() throws Exception {
-		MvcResult result = mock.perform(get("/bodyparts"))
-			.andExpect(status().isOk())
-			.andReturn();
-		
-		@SuppressWarnings("unchecked")
-		List<BodyParts> actual = (List<BodyParts>)result.getModelAndView().getModel().get("bodyPartsList");
-		assertEquals(2, actual.size());
-	}
+  @Test
+  @WithUserDetails
+  @DisplayName("いたいところ入力画面が表示できること")
+  void testShowBodyParts() throws Exception {
+    mock.perform(get("/bodyparts")).andExpect(status().isOk())
+        .andExpect(content().string(containsString("いたいところとうろく")));
+  }
+
+  @Test
+  @Sql("/bodyparts/testdata_bodypartslist.sql")
+  @Transactional
+  @WithUserDetails
+  @DisplayName("いたいところ入力画面が表示できること")
+  void testShowBodyPartsList() throws Exception {
+    MvcResult result = mock.perform(get("/bodyparts")).andExpect(status().isOk()).andReturn();
+
+    @SuppressWarnings("unchecked")
+    List<BodyParts> actual =
+        (List<BodyParts>) result.getModelAndView().getModel().get("bodyPartsList");
+    assertEquals(2, actual.size());
+  }
 }
 

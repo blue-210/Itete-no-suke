@@ -13,24 +13,24 @@ import app.itetenosuke.domain.medicine.repository.MedicineDao;
 @Transactional(rollbackFor = Exception.class)
 @Service
 public class MedicineService {
-	@Autowired
-	@Qualifier("MedicineDaoNamedJdbcImpl")
-	MedicineDao medicineDao;
-	
-	public List<Medicine> getMedicineList(long userId) {
-		return medicineDao.getMedicineList(userId);
-	}
-	
-	public boolean addMedicine(Medicine medicine) {
-		return medicineDao.addMedicine(medicine);
-	}
+  @Autowired
+  @Qualifier("MedicineDaoNamedJdbcImpl")
+  MedicineDao medicineDao;
 
-	public boolean deleteMedicine(Medicine medicine) {
-		return medicineDao.deleteMedicine(medicine);
-	}
+  public List<Medicine> getMedicineList(long userId) {
+    return medicineDao.getMedicineList(userId);
+  }
 
-	public boolean editMedicine(Medicine medicine) {
-		return medicineDao.editMedicine(medicine);
-	}
+  public boolean addMedicine(Medicine medicine) {
+    return medicineDao.addMedicine(medicine);
+  }
+
+  public boolean deleteMedicine(Medicine medicine) {
+    return medicineDao.deleteMedicine(medicine);
+  }
+
+  public boolean editMedicine(Medicine medicine) {
+    return medicineDao.editMedicine(medicine);
+  }
 
 }

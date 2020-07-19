@@ -17,58 +17,43 @@ import app.itetenosuke.domain.user.service.UserDetailsServiceImpl;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder(); 
-	}
-	
-	@Autowired
-	private UserDetailsServiceImpl userService;
-	
-	
-	@Override
-	public void configure(WebSecurity web) throws Exception{
-		web.ignoring().antMatchers("/webjars/**","/css/**","/images/**");
-	}
-	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception{
-		http.authorizeRequests()
-		.antMatchers("/webjars/**").permitAll()
-		.antMatchers("/css/**").permitAll()
-		.antMatchers("/images/**").permitAll()
-		.antMatchers("/login").permitAll()
-		.antMatchers("/signup").permitAll()
-		.anyRequest().authenticated();
-		
-		http.formLogin()
-			.loginProcessingUrl("/login")
-			.loginPage("/login")
-			.failureUrl("/login")
-			.usernameParameter("email")
-			.passwordParameter("password")
-			.defaultSuccessUrl("/home", true);
-		
-		http
-			.logout()
-				//.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutUrl("/logout")
-				.logoutSuccessUrl("/login")
-				.and()
-				.rememberMe()
-					.alwaysRemember(false)
-					.useSecureCookie(true);
-	}
-	
-	@Override
-	public void configure(AuthenticationManagerBuilder auth) throws Exception{
-		auth.userDetailsService(userService)
-			.passwordEncoder(passwordEncoder());
-	}
-	
-	@Override
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+
+  @Autowired
+  private UserDetailsServiceImpl userService;
+
+
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers("/webjars/**", "/css/**", "/images/**");
+  }
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests().antMatchers("/webjars/**").permitAll().antMatchers("/css/**")
+        .permitAll().antMatchers("/images/**").permitAll().antMatchers("/login").permitAll()
+        .antMatchers("/signup").permitAll().anyRequest().authenticated();
+
+    http.formLogin().loginProcessingUrl("/login").loginPage("/login").failureUrl("/login")
+        .usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/home", true);
+
+    http.logout()
+        // .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+        .logoutUrl("/logout").logoutSuccessUrl("/login").and().rememberMe().alwaysRemember(false)
+        .useSecureCookie(true);
+  }
+
+  @Override
+  public void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+  }
+
+  @Override
+  @Bean
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 }

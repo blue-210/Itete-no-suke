@@ -13,25 +13,25 @@ import app.itetenosuke.domain.note.repository.NoteDao;
 @Transactional(rollbackFor = Exception.class)
 @Service
 public class NoteService {
-	@Autowired
-	@Qualifier("NoteDaoNamedJdbcImpl")
-	NoteDao noteDao;
-	
-	public Integer createNote(NoteForm noteForm) {
-		int noteId = noteDao.createNote(noteForm);
-		return noteId;
-	}
-	
-	public NoteForm getNote(long userId, long noteId) {
-		return noteDao.getNote(userId, noteId);
-	}
-	
-	public List<NoteForm> getNoteList(long userId){
-		return noteDao.getNoteList(userId);
-	}
-	
-	
-	public Integer editNote(NoteForm noteForm) {
-		return noteDao.editNote(noteForm);
-	}
+  @Autowired
+  @Qualifier("NoteDaoNamedJdbcImpl")
+  NoteDao noteDao;
+
+  public Integer createNote(NoteForm noteForm) {
+    int noteId = noteDao.createNote(noteForm);
+    return noteId;
+  }
+
+  public NoteForm getNote(long userId, long noteId) {
+    return noteDao.getNote(userId, noteId);
+  }
+
+  public List<NoteForm> getNoteList(long userId) {
+    return noteDao.getNoteList(userId);
+  }
+
+
+  public Integer editNote(NoteForm noteForm) {
+    return noteDao.editNote(noteForm);
+  }
 }

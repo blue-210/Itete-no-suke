@@ -17,16 +17,15 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 class HomeControllerTest {
-	@Autowired
-	private MockMvc mock;
-	
-	@Test
-	@WithUserDetails(value="test1234@gmail.com")
-	@DisplayName("ホーム画面表示テスト")
-	void testGetHome() throws Exception {
-		mock.perform(get("/home"))
-			.andExpect(status().isOk())
-			.andExpect(content().string(containsString("いててのすけ")));
-	}
+  @Autowired
+  private MockMvc mock;
+
+  @Test
+  @WithUserDetails(value = "test1234@gmail.com")
+  @DisplayName("ホーム画面表示テスト")
+  void testGetHome() throws Exception {
+    mock.perform(get("/home")).andExpect(status().isOk())
+        .andExpect(content().string(containsString("いててのすけ")));
+  }
 
 }

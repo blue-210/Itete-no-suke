@@ -10,14 +10,13 @@ import app.itetenosuke.domain.user.model.UserDetailsImpl;
 @Controller
 public class LoginController {
 
-	@GetMapping("/login")
-	public String getLogin(Model model
-			, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-		if(userDetails != null) {
-			model.addAttribute("contents", "home/home :: home_contents");
-			return "home/homeLayout";
-		}
-		
-		return "login/login";
-	}
+  @GetMapping("/login")
+  public String getLogin(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    if (userDetails != null) {
+      model.addAttribute("contents", "home/home :: home_contents");
+      return "home/homeLayout";
+    }
+
+    return "login/login";
+  }
 }

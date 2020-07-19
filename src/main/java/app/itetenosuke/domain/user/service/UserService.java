@@ -20,36 +20,36 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class UserService {
-	@Autowired
-	@Qualifier("UserDaoJdbcImpl")
-	UserDao userDao;
-	
-	@Autowired
-	AuthenticationManager authenticationManager;
-	
-	public boolean createUser(SignupForm form, final HttpServletRequest request) {
-		boolean canCreated = false;
-		
-		// すでに登録されていないかチェックする
-		if(userDao.exists(form.getEmail())) {
-			log.info("User already exists.");
-			return canCreated;
-		}
-		
-		OptionalInt insertResultOpt = OptionalInt.of(userDao.insertOne(form));
-		
-		if(insertResultOpt.isPresent()) {
-			try {
-				request.login(form.getEmail(), form.getPassword());
-			} catch(ServletException se) {
-				log.error("Authentication Failed");
-			}
-			canCreated = true;
-		}
-		return canCreated;
-	}
-	
-	public AppUser selectOne(String userName) {
-		return userDao.selectOne(userName);
-	}
+  @Autowired
+  @Qualifier("UserDaoJdbcImpl")
+  UserDao userDao;
+
+  @Autowired
+  AuthenticationManager authenticationManager;
+
+  public boolean createUser(SignupForm form, final HttpServletRequest request) {
+    boolean canCreated = false;
+
+    // すでに登録されていないかチェックする
+    if (userDao.exists(form.getEmail())) {
+      log.info("User already exists.");
+      return canCreated;
+    }
+
+    OptionalInt insertResultOpt = OptionalInt.of(userDao.insertOne(form));
+
+    if (insertResultOpt.isPresent()) {
+      try {
+        request.login(form.getEmail(), form.getPassword());
+      } catch (ServletException se) {
+        log.error("Authentication Failed");
+      }
+      canCreated = true;
+    }
+    return canCreated;
+  }
+
+  public AppUser selectOne(String userName) {
+    return userDao.selectOne(userName);
+  }
 }

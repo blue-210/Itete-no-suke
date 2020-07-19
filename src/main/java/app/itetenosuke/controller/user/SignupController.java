@@ -16,32 +16,30 @@ import app.itetenosuke.domain.user.service.UserService;
 
 @Controller
 public class SignupController {
-	@Autowired
-	private UserService userService;
-	
-	@GetMapping("/signup")
-	public String showSignupPage(@ModelAttribute SignupForm signupForm, Model model) {
-		model.addAttribute("contents", "login/signup :: signup_contents");
-		return "home/homeLayout";
-	}
-	
-	
-	@PostMapping("/signup")
-	public String createUser(@ModelAttribute @Validated SignupForm signupForm
-			, BindingResult bindingResult
-			, final HttpServletRequest request
-			, Model model) {
-		
-		if(bindingResult.hasErrors()) {
-			model.addAttribute("contents", "login/signup :: signup_contents");
-			return "home/homeLayout";
-		}
-		
-		String returnPath = "redirect:/home";
-		if( !userService.createUser(signupForm, request)) {
-			model.addAttribute("contents", "login/signup :: signup_contents");
-			returnPath = "home/homeLayout";
-		}
-		return returnPath; 
-	}
+  @Autowired
+  private UserService userService;
+
+  @GetMapping("/signup")
+  public String showSignupPage(@ModelAttribute SignupForm signupForm, Model model) {
+    model.addAttribute("contents", "login/signup :: signup_contents");
+    return "home/homeLayout";
+  }
+
+
+  @PostMapping("/signup")
+  public String createUser(@ModelAttribute @Validated SignupForm signupForm,
+      BindingResult bindingResult, final HttpServletRequest request, Model model) {
+
+    if (bindingResult.hasErrors()) {
+      model.addAttribute("contents", "login/signup :: signup_contents");
+      return "home/homeLayout";
+    }
+
+    String returnPath = "redirect:/home";
+    if (!userService.createUser(signupForm, request)) {
+      model.addAttribute("contents", "login/signup :: signup_contents");
+      returnPath = "home/homeLayout";
+    }
+    return returnPath;
+  }
 }
