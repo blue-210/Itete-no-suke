@@ -32,7 +32,6 @@ URL：[いててのすけ](https://itetenosuke.com/login)
    1. 登録したものを更新・削除可能（すでに痛み記録に登録されている場合、痛み記録側には反映されません。）
 
 ## ライセンス
-
 [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
 
 ## 作者
