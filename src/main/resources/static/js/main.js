@@ -82,6 +82,12 @@ function deleteInput(type) {
 	}
 }
 
+function loginWithTrialUser(form) {
+    form["email"].value = "test@gmail.com";
+    form["password"].value = "Test1234";
+    form.submit();
+}
+
 $(function(){
 	$(document).ready(function(){
 	    $("#upload-images").on('change', function(e){

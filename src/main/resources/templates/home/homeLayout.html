@@ -34,7 +34,7 @@
                 <a class="navbar-brand" 
                     th:href="@{/home}">いててのすけ</a>
             </div>
-            <form method="post" th:action="@{/logout}">
+            <form sec:authorize="isAuthenticated()" method="post" th:action="@{/logout}">
                 <button class="btn btn-link pull-right navbar-brand" type="submit">
                     ログアウト
                 </button>
