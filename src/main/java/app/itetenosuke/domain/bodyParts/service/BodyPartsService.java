@@ -13,23 +13,23 @@ import app.itetenosuke.domain.bodyParts.repository.BodyPartsDao;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class BodyPartsService {
-	@Autowired
-	@Qualifier("BodyPartsDaoNamedJdbcImpl")
-	private BodyPartsDao bodyPartsDao;
-	
-	public List<BodyParts> getBodyPartsList(Long userId) {
-		return  bodyPartsDao.getBodyPartsList(userId);
-	}
-	
-	public boolean addBodyParts(BodyParts bodyParts) {
-		return bodyPartsDao.addBodyParts(bodyParts);
-	}
-	
-	public boolean deleteBodyParts(BodyParts bodyParts) {
-		return bodyPartsDao.deleteBodyParts(bodyParts);
-	}
+  @Autowired
+  @Qualifier("BodyPartsDaoNamedJdbcImpl")
+  private BodyPartsDao bodyPartsDao;
 
-	public boolean editBodyParts(BodyParts bodyParts) {
-		return bodyPartsDao.editBodyParts(bodyParts);
-	}
+  public List<BodyParts> getBodyPartsList(Long userId) {
+    return bodyPartsDao.getBodyPartsList(userId);
+  }
+
+  public boolean addBodyParts(BodyParts bodyParts) {
+    return bodyPartsDao.addBodyParts(bodyParts);
+  }
+
+  public boolean deleteBodyParts(BodyParts bodyParts) {
+    return bodyPartsDao.deleteBodyParts(bodyParts);
+  }
+
+  public boolean editBodyParts(BodyParts bodyParts) {
+    return bodyPartsDao.editBodyParts(bodyParts);
+  }
 }

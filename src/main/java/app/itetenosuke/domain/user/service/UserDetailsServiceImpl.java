@@ -11,13 +11,13 @@ import app.itetenosuke.domain.user.model.UserDetailsImpl;
 
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
-	@Autowired
-	UserService userService;
+  @Autowired
+  UserService userService;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		AppUser user = userService.selectOne(username);
-		return new UserDetailsImpl(user);
-	}
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    AppUser user = userService.selectOne(username);
+    return new UserDetailsImpl(user);
+  }
 
 }

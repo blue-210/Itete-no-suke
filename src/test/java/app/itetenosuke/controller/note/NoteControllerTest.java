@@ -22,32 +22,31 @@ import app.itetenosuke.domain.note.model.PainLevel;
 @SpringBootTest
 @AutoConfigureMockMvc
 class NoteControllerTest {
-	@Autowired
-	MockMvc mockMvc;
-	
-	private static Map<String, Integer> painLevelMap = new LinkedHashMap<>();
-	static {
-		painLevelMap.put(PainLevel.NO_PAIN.getName(), PainLevel.NO_PAIN.getCode());
-		painLevelMap.put(PainLevel.MODERATE.getName(), PainLevel.MODERATE.getCode());
-		painLevelMap.put(PainLevel.VERY_SEVERE_PAIN.getName(), PainLevel.VERY_SEVERE_PAIN.getCode());
-		painLevelMap.put(PainLevel.WORST_PAIN_POSSIBLE.getName(), PainLevel.WORST_PAIN_POSSIBLE.getCode());
-	}
+  @Autowired
+  MockMvc mockMvc;
 
-	@Test
-	@WithUserDetails(value="test1234@gmail.com")
-	@DisplayName("痛み記録入力画面表示テスト")
-	void testShowBlankNote() throws Exception {
-		mockMvc.perform(get("/note/add"))
-			.andExpect(status().isOk())
-			.andExpect(model().attribute("painLevelMap", painLevelMap))
-			// TODO 痛みレベルのデフォルトが0であることの確認
-			.andExpect(content().string(containsString("おしまい!")));
-	}
-	
-	@Test
-	@WithUserDetails(value="test1234@gmail.com")
-	@DisplayName("痛み記録作成テスト")
-	void testPostNoteCreate() throws Exception {
-	}
+  private static Map<String, Integer> painLevelMap = new LinkedHashMap<>();
+  static {
+    painLevelMap.put(PainLevel.NO_PAIN.getName(), PainLevel.NO_PAIN.getCode());
+    painLevelMap.put(PainLevel.MODERATE.getName(), PainLevel.MODERATE.getCode());
+    painLevelMap.put(PainLevel.VERY_SEVERE_PAIN.getName(), PainLevel.VERY_SEVERE_PAIN.getCode());
+    painLevelMap.put(PainLevel.WORST_PAIN_POSSIBLE.getName(),
+        PainLevel.WORST_PAIN_POSSIBLE.getCode());
+  }
+
+  @Test
+  @WithUserDetails(value = "test1234@gmail.com")
+  @DisplayName("痛み記録入力画面表示テスト")
+  void testShowBlankNote() throws Exception {
+    mockMvc.perform(get("/note/add")).andExpect(status().isOk())
+        .andExpect(model().attribute("painLevelMap", painLevelMap))
+        // TODO 痛みレベルのデフォルトが0であることの確認
+        .andExpect(content().string(containsString("おしまい!")));
+  }
+
+  @Test
+  @WithUserDetails(value = "test1234@gmail.com")
+  @DisplayName("痛み記録作成テスト")
+  void testPostNoteCreate() throws Exception {}
 
 }

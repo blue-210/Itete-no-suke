@@ -15,30 +15,28 @@ import app.itetenosuke.domain.user.model.UserDetailsImpl;
 
 @Controller
 public class ImagesController {
-	@Autowired
-	private NoteService noteService;
-	
-	@GetMapping("/image/imagelist")
-	public String showImageList(@AuthenticationPrincipal UserDetailsImpl userDetails
-			, Model model) {
-		
-		List<NoteForm> noteList = noteService.getNoteList(userDetails.getUserId());
-		
-		model.addAttribute("imageList", noteList);
-		model.addAttribute("contents", "images/imageList :: image_list_contents");
-		return "home/homeLayout";
-	}
-	
-	@GetMapping("/image/detail/{noteId}")
-	public String showImageDetail(@PathVariable("noteId") Long noteId
-			, @AuthenticationPrincipal UserDetailsImpl userDetails
-			, Model model) {
-		
-		NoteForm note = noteService.getNote(userDetails.getUserId(), noteId);
-		
-		model.addAttribute("images", note);
-		model.addAttribute("contents", "images/image :: image_contents");
-		
-		return "home/homeLayout";
-	}
+  @Autowired
+  private NoteService noteService;
+
+  @GetMapping("/image/imagelist")
+  public String showImageList(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+
+    List<NoteForm> noteList = noteService.getNoteList(userDetails.getUserId());
+
+    model.addAttribute("imageList", noteList);
+    model.addAttribute("contents", "images/imageList :: image_list_contents");
+    return "home/homeLayout";
+  }
+
+  @GetMapping("/image/detail/{noteId}")
+  public String showImageDetail(@PathVariable("noteId") Long noteId,
+      @AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+
+    NoteForm note = noteService.getNote(userDetails.getUserId(), noteId);
+
+    model.addAttribute("images", note);
+    model.addAttribute("contents", "images/image :: image_contents");
+
+    return "home/homeLayout";
+  }
 }

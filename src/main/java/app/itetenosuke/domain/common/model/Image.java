@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Image {
-	private String imagePath;
-	private Long imageId;
-	private Integer imageSeq;
+  private String imagePath;
+  private Long imageId;
+  private Integer imageSeq;
 }
