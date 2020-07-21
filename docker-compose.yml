@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   nginx:
+    container_name: itetenosuke-nginx
     image: nginx:latest
     ports:
       - 80:80
@@ -13,6 +14,7 @@ services:
       - web
 
   web:
+    container_name: itetenosuke-app
     build:
       context: .
       dockerfile: $PWD/docker/web/Dockerfile
@@ -32,6 +34,7 @@ services:
     command: ["java", "-jar", "Itete-no-suke-1.0.0-SNAPSHOT.jar"]
 
   db:
+    container_name: itetenosuke-db
     image: postgres:12-alpine
     restart: always
     ports:
