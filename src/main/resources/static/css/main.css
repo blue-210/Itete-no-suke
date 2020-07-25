@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 .resize-img {
   height: 100px;
   width: 100px;
@@ -17,7 +21,7 @@
 .radio {
     display: none;
 }
- 
+
 .radio + .radio-image {
     height: 45px;
     width: 45px;
@@ -67,4 +71,9 @@
 
 #map {
   height: 100%;
+}
+
+.jumbotron {
+    background:url(/images/PAK85_pentonote20140313000808_TP_V.jpg) center no-repeat;
+    background-size: cover;
 }
