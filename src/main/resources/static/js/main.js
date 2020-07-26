@@ -1,6 +1,6 @@
 function editButton(button){
 	const buttonId = $(button).attr("id");
-	
+
 	var urlStr
 	var idKey;
 	var nameKey;
@@ -13,20 +13,20 @@ function editButton(button){
 		idKey = "bodyPartsId";
 		nameKey = "bodyPartsName";
 	}
-	
+
 	var idValue = $(button).parent().siblings().get(1).value;
 	var nameValue = $(button).parent().siblings().get(0).value;
-	
+
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     $(document).ajaxSend(function(e, xhr, options) {
       xhr.setRequestHeader(header, token);
     });
-    
+
     var data = {}
     data[idKey] = idValue;
     data[nameKey] = nameValue;
-    
+
     try {
     	$.ajax({
     		url : urlStr,
@@ -38,7 +38,7 @@ function editButton(button){
     	.done(function(data){
     		$("#editResult").text(data.resultMessage);
     		$("#editResultModal").modal("show");
-    	})	
+    	})
     	.fail(function(data){
     		console.log(data);
     	});
@@ -68,7 +68,7 @@ function addInput(type) {
 				$(elem).attr("value", i);
 			}
 		});
-		
+
 		$('#' + type + ' .unit').parent().append(element);
 	}
 }
@@ -76,10 +76,16 @@ function addInput(type) {
 function deleteInput(type) {
 	const minCount = 1;
 	const inputCount = $('#' + type + ' .unit').length;
-	
+
 	if (inputCount > minCount){
 		$('#' + type + ' .unit:last-child').remove();
 	}
+}
+
+function loginWithTrialUser(form) {
+    form["email"].value = "test@gmail.com";
+    form["password"].value = "Test1234";
+    form.submit();
 }
 
 $(function(){
@@ -87,7 +93,7 @@ $(function(){
 	    $("#upload-images").on('change', function(e){
 	            var tgt = e.target || window.event.srcElement,
 	                files = tgt.files;
-	            
+
 	            if (FileReader && files && files.length) {
 	                for (var i = 0; i < files.length; i++)
 	                    {

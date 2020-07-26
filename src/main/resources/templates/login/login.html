@@ -1,54 +1,88 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <!-- Bootstrapの設定 -->
-    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/2.0.2/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
-    
-    <link th:href="@{/css/home.css}" rel="stylesheet"></link>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"></link>
-    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
-    <link rel="apple-touch-icon" th:href="@{images/apple-touch-icon.png}">
-    <title>Login</title>
 </head>
-<body class="text-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-			    <h1>Login</h1>
-			    <form method="post" action="/login">
-			        <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
-			            th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-			            class="text-danger">
-			            ログインエラーメッセージ
-			        </p>
-                   <div class="form-group">
-                        <label>メールアドレス</label>
-                        <input type="text" name="email" class="form-control"/>
-                   </div>
-                   <div class="form-group">
-                        <label>パスワード</label>
-                        <input type="password" name="password" class="form-control"/>
-                   </div>
-			        <div class="form-group">
-			            <label>ログイン状態を維持する</label>
-				        <input type="checkbox" name="remember-me" />
-			        </div>
-			        <!-- ログインボタン -->
-			        <button class="btn btn-primary" type="submit">ログイン</button>
-			        <input type="hidden"
-			            th:name="${_csrf.parameterName}"
-			            th:value="${_csrf.token}"/>
-			    </form>
-			    <br />
-			    <!-- ユーザー登録画面へのリンク -->
-			    <a th:href="@{'/signup'}">ユーザー新規登録はこちら</a>
-            </div>
-        </div>
-    </div>
+<body>
+	<div th:fragment="login_contents" class="text-center">
+		<div class="row">
+			<div class="col-sm-12 p-0">
+				<div class="jumbotron jumbotron-fluid border-bottom">
+					<div class="container">
+						<h1 class="text-left text-black-50">日々の症状を、</h1>
+						<h1 class="text-left text-black-50">記録する。</h1>
+						<p class="lead text-left text-black-50">日々の痛みと、毎日のお薬と、患部を１つのアプリで記録できます。</p>
+					</div>
+					</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 col-md-4"></div>
+			<div class="col-sm-12 col-md-4 mb-5 pb-4 border-bottom">
+				<h1 id="login">Login</h1>
+				<form name="loginForm" method="post" action="/login">
+					<p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
+						th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
+						class="text-danger">
+						ログインエラーメッセージ
+					</p>
+					<div class="form-group">
+						<label>メールアドレス</label>
+						<input type="text" name="email" class="form-control"/>
+					</div>
+					<div class="form-group">
+						<label>パスワード</label>
+						<input type="password" name="password" class="form-control"/>
+					</div>
+					<div class="form-group">
+						<label>ログイン状態を維持する</label>
+						<input type="checkbox" name="remember-me" />
+					</div>
+					<!-- ログインボタン -->
+					<button class="btn btn-primary" type="submit">ログイン</button>
+					<!-- お試しログインボタン -->
+					<button class="btn btn-secondary" type="button" onclick="loginWithTrialUser(this.form);">お試しログイン</button>
+					<input type="hidden"
+						th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}"/>
+				</form>
+				<br />
+				<!-- ユーザー登録画面へのリンク -->
+				<a th:href="@{'/signup'}">ユーザー新規登録はこちら</a>
+			</div>
+			<div class="col-sm-12 col-md-4"></div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4">
+				<img id="feature" class="img-fluid" width="64px" height="64px" th:src="@{/images/note.png}"/>
+				<h2 class="mt-4">痛み記録機能</h2>
+				<p>痛みの強さ、服用したお薬、患部とその画像を記録することができます。それ以外のことを記録しておくためのメモも書くことができます。</p>
+			</div>
+			<div class="col-lg-4">
+				<img class="img-fluid" width="64px" height="64px" th:src="@{/images/list.png}"/>
+				<h2 class="mt-4">痛み記録一覧機能</h2>
+				<p>登録した痛み記録を一覧できる機能です。</p>
+			</div>
+			<div class="col-lg-4">
+				<img class="img-fluid" width="64px" height="64px" th:src="@{/images/medicine.png}"/>
+				<h2 class="mt-4">お薬登録機能</h2>
+				<p>普段服用されているお薬をあらかじめ登録しておくことができます。登録したお薬は痛み記録で選択できるようになります。</p>
+			</div>
+			<div class="col-lg-3"></div>
+			<div class="col-lg-3">
+				<img class="img-fluid" width="64px" height="64px" th:src="@{/images/bodyparts.png}"/>
+				<h2 class="mt-4">患部登録機能</h2>
+				<p>痛む患部をあらかじめ登録しておくことができます。お薬と同じように痛み記録で選択できるようになります。</p>
+			</div>
+			<div class="col-lg-3">
+				<img class="img-fluid" width="64px" height="64px" th:src="@{/images/image.png}"/>
+				<h2 class="mt-4">画像一覧機能</h2>
+				<p>痛み記録で登録した患部の画像を一覧に確認することができる機能です。</p>
+			</div>
+			<div class="col-lg-3"></div>
+		</div>
+	</div>
 </body>
 </html>
