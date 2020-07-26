@@ -5,13 +5,6 @@ on:
       - master
 
 jobs:
-  build:
-    name: itetenosuke-build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: ls -la; docker build -f docker/web/Dockerfile .
-
   deploy:
     name: itetenosuke-deploy
     runs-on: ubuntu-latest
@@ -22,6 +15,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           name: id_rsa # optional
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      - name: build&deploy
+        uses: actions/checkout@v2
+        run: ls -la; docker build -f docker/web/Dockerfile .
       - name: rsync over ssh
         run: |
           rsync ./ sukeroku@itetenosuke.com:itetenosuke/
