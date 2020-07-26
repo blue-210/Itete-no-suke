@@ -17,8 +17,6 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: build&deploy
         uses: actions/checkout@v2
-        run: ls -la; docker build -f docker/web/Dockerfile .
+        run: docker build -f docker/web/Dockerfile .
       - name: rsync over ssh
-        run: |
-          rsync ./ sukeroku@itetenosuke.com:itetenosuke/
-          bash deploy.sh
+        run: bash deploy.sh
