@@ -17,5 +17,6 @@ jobs:
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
     - name: build
       uses: actions/checkout@v2
-      run: docker build -f docker/web/Dockerfile .
-      run: bash deploy.sh
+      run: |
+        docker build -f docker/web/Dockerfile .
+        bash deploy.sh
