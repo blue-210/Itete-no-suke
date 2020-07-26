@@ -11,3 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: ls -la; docker build -f docker/web/Dockerfile .
+
+  deploy:
+    name: itetenosuke-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: install SSH key
+        uses: buntu-latest
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_rsa # optional
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      - name: rsync over ssh
+        run: |
+          rsync . sukeroku@itetenosuke.com:itetenosuke/
+          bash deploy.sh
