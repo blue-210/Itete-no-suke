@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: install SSH key
-        uses: buntu-latest
+        uses: ubuntu-latest
         with:
           key: ${{ secrets.SSH_KEY }}
           name: id_rsa # optional
