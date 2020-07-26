@@ -25,4 +25,4 @@ jobs:
       - name: rsync over ssh
         run: |
           rsync ./ sukeroku@itetenosuke.com:itetenosuke/
-          bash ./deploy.sh
+          bash deploy.sh
