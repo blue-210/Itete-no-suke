@@ -18,5 +18,4 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: build
         run: |
-          docker build -f docker/web/Dockerfile .
           bash deploy.sh
