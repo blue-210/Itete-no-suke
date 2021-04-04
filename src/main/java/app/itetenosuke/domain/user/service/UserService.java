@@ -1,16 +1,11 @@
 package app.itetenosuke.domain.user.service;
 
 import java.util.OptionalInt;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import app.itetenosuke.domain.user.model.AppUser;
 import app.itetenosuke.domain.user.model.SignupForm;
 import app.itetenosuke.domain.user.repository.UserDao;
@@ -20,12 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 public class UserService {
-  @Autowired
-  @Qualifier("UserDaoJdbcImpl")
-  UserDao userDao;
+  private final UserDao userDao;
+  private final AuthenticationManager authenticationManager;
 
-  @Autowired
-  AuthenticationManager authenticationManager;
+  public UserService(UserDao userDao, AuthenticationManager authenticationManager) {
+    this.userDao = userDao;
+    this.authenticationManager = authenticationManager;
+  }
 
   public boolean createUser(SignupForm form, final HttpServletRequest request) {
     boolean canCreated = false;

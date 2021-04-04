@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -13,7 +11,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-
 import app.itetenosuke.domain.user.model.AppUser;
 import app.itetenosuke.domain.user.model.SignupForm;
 import app.itetenosuke.domain.user.model.UserRole;
@@ -21,11 +18,15 @@ import app.itetenosuke.domain.user.repository.UserDao;
 
 @Repository("UserDaoJdbcImpl")
 public class UserDaoJdbcImpl implements UserDao {
-  @Autowired
-  private NamedParameterJdbcTemplate jdbc;
 
-  @Autowired
-  private PasswordEncoder passwordEncoder;
+  private final NamedParameterJdbcTemplate jdbc;
+
+  private final PasswordEncoder passwordEncoder;
+
+  public UserDaoJdbcImpl(NamedParameterJdbcTemplate jdbc, PasswordEncoder passwordEncoder) {
+    this.jdbc = jdbc;
+    this.passwordEncoder = passwordEncoder;
+  }
 
   @Override
   public int insertOne(SignupForm form) throws DataAccessException {
