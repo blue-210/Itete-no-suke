@@ -13,9 +13,9 @@ jobs:
       - name: install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY }} # 必須
+          public-key: ${{ secrets.SSH_KEY_PUBLIC }} # 必須
           name: id_rsa # optional
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
-      - name: build
-        run: |
-          bash deploy.sh
+          known_hosts: ${{ secrets.KNOWN_HOSTS }} # 省略可だが、セキュリティ上設定したほうがよい
+      - name: deploy
+        run: bash deploy.sh
