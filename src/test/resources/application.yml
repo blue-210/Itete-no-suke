@@ -1,0 +1,8 @@
+spring:
+    datasource:
+        driver-class-name: org.h2.Driver
+        url: jdbc:h2:mem:db;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
+        username: sa
+        password: sa
+        initialization-mode: always  # 常に以下のschema,dataのSQLを使って初期化
+        schema: classpath:schema.sql # test/resources/schema.sql
