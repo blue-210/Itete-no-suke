@@ -27,7 +27,16 @@ public class PainRecordUseCase {
     painRecord.setPainLevel(painRecordReq.getPainLevel());
     painRecord.setMemo(painRecordReq.getMemo());
     painRecord.setUpdatedAt(painRecordReq.getUpdatedAt());
-
     return painRecord;
+  }
+
+  @Transactional
+  public PainRecordDataModel createPainRecord(PainRecordRequest painRecordReq) {
+    PainRecordDataModel painRecord = new PainRecordDataModel();
+    painRecord.setPainLevel(painRecordReq.getPainLevel());
+    painRecord.setMemo(painRecordReq.getMemo());
+    painRecord.setCreatedAt(painRecordReq.getCreatedAt());
+    painRecord.setUpdatedAt(painRecordReq.getUpdatedAt());
+    return painRecordRepository.save(painRecord);
   }
 }
