@@ -1,4 +1,4 @@
-package app.itetenosuke.domain.note.model;
+package app.itetenosuke.domain.painrecord;
 
 public enum PainLevel {
   NO_PAIN(0, "痛くない", "no-pain"), MODERATE(1, "ちょっと痛い", "moderate"), VERY_SEVERE_PAIN(2, "そこそこ痛い",

@@ -1,4 +1,4 @@
-package app.itetenosuke.api.infrastructure.db.painrecord;
+package app.itetenosuke.infrastructure.db.painrecord;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;

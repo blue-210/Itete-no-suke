@@ -1,11 +1,9 @@
-package app.itetenosuke.repository.note;
+package app.itetenosuke.repository.painrecord;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,13 +16,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import app.itetenosuke.domain.bodyParts.model.BodyParts;
 import app.itetenosuke.domain.common.model.Image;
 import app.itetenosuke.domain.medicine.model.Medicine;
-import app.itetenosuke.domain.note.model.NoteForm;
-import app.itetenosuke.domain.note.model.PainLevel;
-import app.itetenosuke.domain.note.repository.NoteDao;
+import app.itetenosuke.domain.note.repository.PainRecordDao;
+import app.itetenosuke.domain.painrecord.PainLevel;
+import app.itetenosuke.domain.painrecord.PainRecord;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -32,7 +29,7 @@ import app.itetenosuke.domain.note.repository.NoteDao;
 public class NoteDaoTest {
   @Autowired
   @Qualifier("NoteDaoNamedJdbcImpl")
-  private NoteDao noteDao;
+  private PainRecordDao noteDao;
 
   protected final static Logger logger = LoggerFactory.getLogger(NoteDaoTest.class);
 
@@ -44,7 +41,7 @@ public class NoteDaoTest {
     Medicine expectedMedicine = new Medicine();
     expectedMedicine.setMedicineName("お薬1");
 
-    NoteForm result = noteDao.getNote(Long.valueOf(1), Long.valueOf(4));
+    PainRecord result = noteDao.getPainRecord(Long.valueOf(1), Long.valueOf(4));
     assertAll("result", () -> assertEquals(Integer.valueOf(0), result.getPainLevel()),
         () -> assertEquals("登録テスト", result.getMemo()),
         () -> assertEquals(expectedMedicine.getMedicineName(),
@@ -55,8 +52,8 @@ public class NoteDaoTest {
   @WithUserDetails(value = "test1234@gmail.com")
   @DisplayName("ノートを1件登録するテスト")
   public void testCreateNote() throws Exception {
-    NoteForm note = new NoteForm();
-    note.setUserId(Long.valueOf(1));
+    PainRecord note = new PainRecord();
+    note.setUserID(Long.valueOf(1));
     note.setPainLevel(PainLevel.NO_PAIN.getCode());
     note.setMemo("登録テスト");
 
@@ -81,7 +78,8 @@ public class NoteDaoTest {
     imageList.add(image);
     note.setImageList(imageList);
 
-    NoteForm createdNote = noteDao.getNote(note.getUserId(), noteDao.createNote(note));
+    PainRecord createdNote =
+        noteDao.getPainRecord(note.getUserID(), noteDao.createPainRecord(note));
     assertAll("createdNote", () -> assertEquals(note.getPainLevel(), createdNote.getPainLevel()),
         () -> assertEquals(note.getMemo(), createdNote.getMemo()),
         () -> assertEquals(parts.getBodyPartsName(),
@@ -97,7 +95,7 @@ public class NoteDaoTest {
   @Test
   @DisplayName("薬追加なし_部位追加なし_ノートを1件編集するテスト")
   public void testEditNoteNotAddMedicineAndBodyParts() throws Exception {
-    NoteForm targetNote = noteDao.getNote(Long.valueOf(1), Long.valueOf(27));
+    PainRecord targetNote = noteDao.getPainRecord(Long.valueOf(1), Long.valueOf(27));
     targetNote.setPainLevel(PainLevel.WORST_PAIN_POSSIBLE.getCode());
     targetNote.setMemo("編集テスト");
 
@@ -105,7 +103,8 @@ public class NoteDaoTest {
     targetNote.getBodyPartsList().get(0).setBodyPartsName("編集むこうずね");
     targetNote.getImageList().get(0).setImagePath("edittest");
 
-    NoteForm editedNote = noteDao.getNote(targetNote.getUserId(), noteDao.editNote(targetNote));
+    PainRecord editedNote =
+        noteDao.getPainRecord(targetNote.getUserID(), noteDao.updatePainRecord(targetNote));
     assertAll("editedNote",
         () -> assertEquals(targetNote.getPainLevel(), editedNote.getPainLevel()),
         () -> assertEquals(targetNote.getMemo(), editedNote.getMemo()),
@@ -122,7 +121,7 @@ public class NoteDaoTest {
   @Test
   @DisplayName("薬追加1_部位追加1_ノートを1件編集するテスト")
   public void testEditNoteAddOneMedicineAndBodyParts() throws Exception {
-    NoteForm targetNote = noteDao.getNote(Long.valueOf(1), Long.valueOf(27));
+    PainRecord targetNote = noteDao.getPainRecord(Long.valueOf(1), Long.valueOf(27));
     targetNote.setPainLevel(PainLevel.WORST_PAIN_POSSIBLE.getCode());
     targetNote.setMemo("編集テスト");
 
@@ -130,7 +129,8 @@ public class NoteDaoTest {
     targetNote.getBodyPartsList().get(0).setBodyPartsName("編集むこうずね");
     targetNote.getImageList().get(0).setImagePath("edittest");
 
-    NoteForm editedNote = noteDao.getNote(targetNote.getUserId(), noteDao.editNote(targetNote));
+    PainRecord editedNote =
+        noteDao.getPainRecord(targetNote.getUserID(), noteDao.updatePainRecord(targetNote));
     assertAll("editedNote",
         () -> assertEquals(targetNote.getPainLevel(), editedNote.getPainLevel()),
         () -> assertEquals(targetNote.getMemo(), editedNote.getMemo()),

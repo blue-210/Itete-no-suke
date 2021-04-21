@@ -1,9 +1,11 @@
-package app.itetenosuke.api.application.painrecord;
+package app.itetenosuke.application.painrecord;
 
 import java.util.Optional;
-import app.itetenosuke.api.domain.repository.painrecord.PainRecordRepository;
-import app.itetenosuke.api.infrastructure.db.painrecord.PainRecordDataModel;
-import app.itetenosuke.api.presentation.model.PainRecordRequest;
+
+import app.itetenosuke.domain.painrecord.PainRecordRepository;
+import app.itetenosuke.infrastructure.db.painrecord.PainRecordDataModel;
+import app.itetenosuke.presentation.model.PainRecordRequest;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import app.itetenosuke.domain.note.model.NoteForm;
 import app.itetenosuke.domain.note.repository.NoteDao;
+import app.itetenosuke.domain.painrecord.NoteForm;
 
 @Transactional(rollbackFor = Exception.class)
 @Service

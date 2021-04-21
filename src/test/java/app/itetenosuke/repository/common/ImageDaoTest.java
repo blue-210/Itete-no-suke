@@ -2,9 +2,7 @@ package app.itetenosuke.repository.common;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,10 +13,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import app.itetenosuke.domain.common.model.Image;
 import app.itetenosuke.domain.common.repository.ImageDao;
-import app.itetenosuke.domain.note.model.NoteForm;
+import app.itetenosuke.domain.painrecord.PainRecord;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -41,9 +38,9 @@ class ImageDaoTest {
     Image expected = new Image();
     expected.setImagePath("src/main/resources/images/1/1-848068945.jpeg");
 
-    NoteForm noteForm = new NoteForm();
-    noteForm.setUserId(Long.valueOf(1));
-    noteForm.setNoteId(Long.valueOf(4));
+    PainRecord noteForm = new PainRecord();
+    noteForm.setUserID(Long.valueOf(1));
+    noteForm.setPainRecordID(Long.valueOf(4));
 
     List<Image> imageList = imageDao.getImagesPath(noteForm);
     for (Image image : imageList) {

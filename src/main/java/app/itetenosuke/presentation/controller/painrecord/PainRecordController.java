@@ -1,9 +1,10 @@
-package app.itetenosuke.api.presentation.controller.painrecord;
+package app.itetenosuke.presentation.controller.painrecord;
 
-import app.itetenosuke.api.application.painrecord.PainRecordUseCase;
-import app.itetenosuke.api.infrastructure.db.painrecord.PainRecordDataModel;
-import app.itetenosuke.api.presentation.model.PainRecordRequest;
+import app.itetenosuke.application.painrecord.PainRecordUseCase;
 import app.itetenosuke.domain.user.model.UserDetailsImpl;
+import app.itetenosuke.infrastructure.db.painrecord.PainRecordDataModel;
+import app.itetenosuke.presentation.model.PainRecordRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

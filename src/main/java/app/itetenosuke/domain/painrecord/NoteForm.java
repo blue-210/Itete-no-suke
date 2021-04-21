@@ -1,4 +1,4 @@
-package app.itetenosuke.domain.note.model;
+package app.itetenosuke.domain.painrecord;
 
 import java.time.LocalDateTime;
 import java.util.List;

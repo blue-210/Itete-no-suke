@@ -27,9 +27,9 @@ import app.itetenosuke.domain.common.model.Image;
 import app.itetenosuke.domain.common.service.ImageService;
 import app.itetenosuke.domain.medicine.model.Medicine;
 import app.itetenosuke.domain.medicine.service.MedicineService;
-import app.itetenosuke.domain.note.model.NoteForm;
-import app.itetenosuke.domain.note.model.PainLevel;
 import app.itetenosuke.domain.note.service.NoteService;
+import app.itetenosuke.domain.painrecord.NoteForm;
+import app.itetenosuke.domain.painrecord.PainLevel;
 import app.itetenosuke.domain.user.model.UserDetailsImpl;
 
 @Controller

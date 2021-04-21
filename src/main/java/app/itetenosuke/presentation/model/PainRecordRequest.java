@@ -1,4 +1,4 @@
-package app.itetenosuke.api.presentation.model;
+package app.itetenosuke.presentation.model;
 
 import java.time.LocalDateTime;
 import java.util.List;

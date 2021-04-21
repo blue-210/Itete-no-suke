@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import app.itetenosuke.domain.note.model.NoteForm;
 import app.itetenosuke.domain.note.service.NoteService;
+import app.itetenosuke.domain.painrecord.NoteForm;
 import app.itetenosuke.domain.user.model.UserDetailsImpl;
 
 @Controller

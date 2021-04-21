@@ -1,7 +1,8 @@
-package app.itetenosuke.api.domain.repository.painrecord;
+package app.itetenosuke.domain.painrecord;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import app.itetenosuke.api.infrastructure.db.painrecord.PainRecordDataModel;
+
+import app.itetenosuke.infrastructure.db.painrecord.PainRecordDataModel;
 
 public interface PainRecordRepository extends JpaRepository<PainRecordDataModel, Long> {
 }
