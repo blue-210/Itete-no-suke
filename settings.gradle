@@ -3,3 +3,4 @@
  */
 
 rootProject.name = 'Itete-no-suke'
+include 'infra'
