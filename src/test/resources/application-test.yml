@@ -4,3 +4,5 @@ spring:
         url: jdbc:h2:mem:db;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
         username: sa
         password: sa
+    jooq:
+      sql-dialect: H2
