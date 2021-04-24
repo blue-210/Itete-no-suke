@@ -154,3 +154,6 @@ pnpm-debug.log*
 backup
 .gradle
 build
+
+# jOOQ
+/infra/src/main/java/app/itetenosuke/infra/db/jooq/generated/

@@ -2,43 +2,52 @@ package app.itetenosuke.application.painrecord;
 
 import java.util.Optional;
 
-import app.itetenosuke.domain.painrecord.PainRecordRepository;
-import app.itetenosuke.infrastructure.db.painrecord.PainRecordDataModel;
-import app.itetenosuke.presentation.model.PainRecordRequest;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import app.itetenosuke.domain.painrecord.IPainRecordRepository;
+import app.itetenosuke.domain.painrecord.PainRecord;
+import app.itetenosuke.infra.db.painrecord.PainRecordNotFoundException;
+import app.itetenosuke.presentation.model.PainRecordRequest;
+
 @Service
 public class PainRecordUseCase {
-  private final PainRecordRepository painRecordRepository;
+  private final IPainRecordRepository painRecordRepository;
 
-  public PainRecordUseCase(PainRecordRepository painRecordRepository) {
+  public PainRecordUseCase(IPainRecordRepository painRecordRepository) {
     this.painRecordRepository = painRecordRepository;
   }
 
   @Transactional(readOnly = true)
-  public PainRecordDataModel getPainRecord(Long painRecordID) {
-    Optional<PainRecordDataModel> painRecordDataModel = painRecordRepository.findById(painRecordID);
-    return painRecordDataModel.orElse(null);
+  public PainRecordDto getPainRecord(String painRecordID) {
+    Optional<PainRecord> painRecord = painRecordRepository.findById(painRecordID);
+    return painRecord.map(v -> new PainRecordDto(v)).orElseThrow(PainRecordNotFoundException::new);
   }
 
   @Transactional
-  public PainRecordDataModel updatePainRecord(PainRecordRequest painRecordReq) {
-    PainRecordDataModel painRecord = getPainRecord(painRecordReq.getPainRecordID());
-    painRecord.setPainLevel(painRecordReq.getPainLevel());
-    painRecord.setMemo(painRecordReq.getMemo());
-    painRecord.setUpdatedAt(painRecordReq.getUpdatedAt());
-    return painRecord;
+  public boolean updatePainRecord(PainRecordRequest req) {
+    PainRecord painRecord =
+        new PainRecord.Builder()
+            .setPainRecordId(req.getPainRecordId())
+            .setUserId(req.getUserId())
+            .setPainLevel(req.getPainLevel())
+            .setMemo(req.getMemo())
+            .setUpdatedAt(req.getUpdatedAt())
+            .build();
+    return painRecordRepository.updatePainRecord(painRecord);
   }
 
   @Transactional
-  public PainRecordDataModel createPainRecord(PainRecordRequest painRecordReq) {
-    PainRecordDataModel painRecord = new PainRecordDataModel();
-    painRecord.setPainLevel(painRecordReq.getPainLevel());
-    painRecord.setMemo(painRecordReq.getMemo());
-    painRecord.setCreatedAt(painRecordReq.getCreatedAt());
-    painRecord.setUpdatedAt(painRecordReq.getUpdatedAt());
-    return painRecordRepository.save(painRecord);
+  public boolean createPainRecord(PainRecordRequest req) {
+    PainRecord painRecord =
+        new PainRecord.Builder()
+            .setPainRecordId(req.getPainRecordId())
+            .setUserId(req.getUserId())
+            .setPainLevel(req.getPainLevel())
+            .setMemo(req.getMemo())
+            .setCreatedAt(req.getCreatedAt())
+            .setUpdatedAt(req.getUpdatedAt())
+            .build();
+    return painRecordRepository.createPainRecord(painRecord);
   }
 }

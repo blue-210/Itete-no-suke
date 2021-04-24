@@ -5,6 +5,7 @@ buildscript {
         }
     }
     dependencies {
+        classpath('org.postgresql:postgresql:42.2.10')
         classpath('nu.studer:gradle-jooq-plugin:5.2')
         classpath('org.flywaydb:flyway-gradle-plugin:7.8.1')
     }

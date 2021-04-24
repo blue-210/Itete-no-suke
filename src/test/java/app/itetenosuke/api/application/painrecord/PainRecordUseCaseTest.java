@@ -20,9 +20,9 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
+import app.itetenosuke.application.painrecord.PainRecordDto;
 import app.itetenosuke.application.painrecord.PainRecordUseCase;
 import app.itetenosuke.domain.painrecord.PainLevel;
-import app.itetenosuke.domain.painrecord.PainRecord;
 import app.itetenosuke.presentation.model.PainRecordRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,15 +36,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 class PainRecordUseCaseTest {
   @Autowired private PainRecordUseCase painRecordUseCase;
-
+  // TODO jOOQのバナー表示をなくす
   @Test
   @DisplayName("痛み記録を1件取得できる")
   @DatabaseSetup("/painrecord/setup_get_a_record.xml")
   public void testGetPainRecord() {
-    PainRecord result = painRecordUseCase.getPainRecord(1L);
+    PainRecordDto result = painRecordUseCase.getPainRecord("123456789012345678901234567890123456");
     assertAll(
         "result",
-        () -> assertThat(result.getPainRecordID(), is(1L)),
+        () -> assertThat(result.getPainRecordId(), is("123456789012345678901234567890123456")),
+        () -> assertThat(result.getPainLevel(), is(3)),
         () -> assertThat(result.getMemo(), is("test")));
   }
 
@@ -55,28 +56,30 @@ class PainRecordUseCaseTest {
       value = "/painrecord/expected_update_a_record.xml",
       table = "pain_records",
       assertionMode = DatabaseAssertionMode.NON_STRICT)
-  public void testCreatePainRecord() {
+  public void testUpdatePainRecord() {
     PainRecordRequest req = new PainRecordRequest();
-    req.setPainRecordID(1L);
+    req.setPainRecordId("123456789012345678901234567890123456");
     req.setPainLevel(PainLevel.VERY_SEVERE_PAIN.getCode());
     req.setMemo("update test");
     req.setCreatedAt(LocalDateTime.now());
     req.setUpdatedAt(LocalDateTime.now());
-    painRecordUseCase.updatePainRecord(req);
+    assertThat(painRecordUseCase.updatePainRecord(req), is(true));
   }
-  //
-  //  @Test
-  //  @DisplayName("痛み記録を1件更新できる")
-  //  @DatabaseSetup("/painrecord/setup_update_a_record.xml")f
-  //  @ExpectedDatabase(value = "/painrecord/expected_update_a_record.xml", table = "pain_records",
-  //      assertionMode = DatabaseAssertionMode.NON_STRICT)
-  //  public void testUpdatePainRecord() {
-  //    PainRecordRequest req = new PainRecordRequest();
-  //    req.setPainRecordID(1L);
-  //    req.setPainLevel(2);
-  //    req.setMemo("update test");
-  //    req.setUpdatedAt(LocalDateTime.now());
-  //    PainRecordDataModel result = painRecordUseCase.updatePainRecord(req);
-  //    entityManager.flush();
-  //  }
+
+  @Test
+  @DisplayName("痛み記録を1件登録できる")
+  @DatabaseSetup(value = "/painrecord/setup_create_a_record.xml")
+  @ExpectedDatabase(
+      value = "/painrecord/expected_create_a_record.xml",
+      table = "pain_records",
+      assertionMode = DatabaseAssertionMode.NON_STRICT)
+  public void testCreatePainRecord() {
+    PainRecordRequest req = new PainRecordRequest();
+    req.setPainRecordId("123456789012345678901234567890123456");
+    req.setPainLevel(PainLevel.MODERATE.getCode());
+    req.setMemo("create test");
+    req.setCreatedAt(LocalDateTime.now());
+    req.setUpdatedAt(LocalDateTime.now());
+    assertThat(painRecordUseCase.createPainRecord(req), is(true));
+  }
 }

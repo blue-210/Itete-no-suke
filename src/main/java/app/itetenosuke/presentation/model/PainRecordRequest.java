@@ -2,11 +2,14 @@ package app.itetenosuke.presentation.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import app.itetenosuke.domain.bodyParts.model.BodyParts;
 import app.itetenosuke.domain.common.model.Image;
 import app.itetenosuke.domain.medicine.model.Medicine;
@@ -14,20 +17,19 @@ import lombok.Data;
 
 @Data
 public class PainRecordRequest {
-  private Long painRecordID;
-  private Long userID;
+  private String painRecordId;
+  // TODO エンティティに変更
+  private String userId;
   // 痛みレベル
   @NotNull
   @Range(min = 0, max = 3)
   private Integer painLevel;
 
   // お薬
-  @Valid
-  private List<Medicine> medicineList;
+  @Valid private List<Medicine> medicineList;
 
   // 部位
-  @Valid
-  private List<BodyParts> bodyPartsList;
+  @Valid private List<BodyParts> bodyPartsList;
 
   // 部位画像
   private List<Image> imageList;

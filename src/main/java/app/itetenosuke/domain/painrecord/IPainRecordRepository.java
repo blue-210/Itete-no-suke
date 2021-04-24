@@ -1,8 +1,11 @@
 package app.itetenosuke.domain.painrecord;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
-import app.itetenosuke.infrastructure.db.painrecord.PainRecordDataModel;
+public interface IPainRecordRepository {
+  public Optional<PainRecord> findById(String painRecordId);
 
-public interface PainRecordRepository extends JpaRepository<PainRecordDataModel, Long> {
+  public boolean createPainRecord(PainRecord painRecord);
+
+  public boolean updatePainRecord(PainRecord painRecord);
 }
