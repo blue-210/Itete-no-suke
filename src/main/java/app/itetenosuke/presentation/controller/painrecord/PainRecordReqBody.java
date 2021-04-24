@@ -1,4 +1,4 @@
-package app.itetenosuke.presentation.model;
+package app.itetenosuke.presentation.controller.painrecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +16,7 @@ import app.itetenosuke.domain.medicine.model.Medicine;
 import lombok.Data;
 
 @Data
-public class PainRecordRequest {
+public class PainRecordReqBody {
   private String painRecordId;
   // TODO エンティティに変更
   private String userId;

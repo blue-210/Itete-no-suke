@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import app.itetenosuke.domain.painrecord.IPainRecordRepository;
 import app.itetenosuke.domain.painrecord.PainRecord;
 import app.itetenosuke.infra.db.painrecord.PainRecordNotFoundException;
-import app.itetenosuke.presentation.model.PainRecordRequest;
+import app.itetenosuke.presentation.controller.painrecord.PainRecordReqBody;
 
 @Service
 public class PainRecordUseCase {
@@ -25,7 +25,7 @@ public class PainRecordUseCase {
   }
 
   @Transactional
-  public boolean updatePainRecord(PainRecordRequest req) {
+  public boolean updatePainRecord(PainRecordReqBody req) {
     PainRecord painRecord =
         new PainRecord.Builder()
             .setPainRecordId(req.getPainRecordId())
@@ -38,7 +38,7 @@ public class PainRecordUseCase {
   }
 
   @Transactional
-  public boolean createPainRecord(PainRecordRequest req) {
+  public boolean createPainRecord(PainRecordReqBody req) {
     PainRecord painRecord =
         new PainRecord.Builder()
             .setPainRecordId(req.getPainRecordId())

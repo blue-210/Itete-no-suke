@@ -23,7 +23,7 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import app.itetenosuke.application.painrecord.PainRecordDto;
 import app.itetenosuke.application.painrecord.PainRecordUseCase;
 import app.itetenosuke.domain.painrecord.PainLevel;
-import app.itetenosuke.presentation.model.PainRecordRequest;
+import app.itetenosuke.presentation.controller.painrecord.PainRecordReqBody;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
@@ -57,7 +57,7 @@ class PainRecordUseCaseTest {
       table = "pain_records",
       assertionMode = DatabaseAssertionMode.NON_STRICT)
   public void testUpdatePainRecord() {
-    PainRecordRequest req = new PainRecordRequest();
+    PainRecordReqBody req = new PainRecordReqBody();
     req.setPainRecordId("123456789012345678901234567890123456");
     req.setPainLevel(PainLevel.VERY_SEVERE_PAIN.getCode());
     req.setMemo("update test");
@@ -74,7 +74,7 @@ class PainRecordUseCaseTest {
       table = "pain_records",
       assertionMode = DatabaseAssertionMode.NON_STRICT)
   public void testCreatePainRecord() {
-    PainRecordRequest req = new PainRecordRequest();
+    PainRecordReqBody req = new PainRecordReqBody();
     req.setPainRecordId("123456789012345678901234567890123456");
     req.setPainLevel(PainLevel.MODERATE.getCode());
     req.setMemo("create test");
