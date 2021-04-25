@@ -63,6 +63,9 @@ class PainRecordUseCaseTest {
     PainRecordReqBody req = new PainRecordReqBody();
     req.setPainRecordId("123456789012345678901234567890123456");
     req.setPainLevel(PainLevel.VERY_SEVERE_PAIN.getCode());
+    req.setMemo("update test");
+    req.setCreatedAt(LocalDateTime.now());
+    req.setUpdatedAt(LocalDateTime.now());
 
     // TODO ビルダーパターンを適用する
     Medicine medicine1 = new Medicine();
@@ -84,9 +87,9 @@ class PainRecordUseCaseTest {
 
     Medicine medicine3 = new Medicine();
     medicine3.setMedicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3");
-    medicine3.setMedicineSeq(2);
+    medicine3.setMedicineSeq(3);
     medicine3.setUserId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
-    medicine3.setMedicineName("update medicine3");
+    medicine3.setMedicineName("update insert medicine3");
     medicine3.setStatus("ALIVE");
     medicine3.setCreatedAt(LocalDateTime.now());
     medicine3.setUpdatedAt(LocalDateTime.now());
@@ -96,9 +99,7 @@ class PainRecordUseCaseTest {
     medicineList.add(medicine2);
     medicineList.add(medicine3);
     req.setMedicineList(medicineList);
-    req.setMemo("update test");
-    req.setCreatedAt(LocalDateTime.now());
-    req.setUpdatedAt(LocalDateTime.now());
+
     assertThat(painRecordUseCase.updatePainRecord(req), is(true));
   }
 

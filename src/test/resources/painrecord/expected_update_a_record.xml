@@ -6,7 +6,6 @@
     MEMO="update test" />
   <MEDICINE
     MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1"
-    MEDICINE_SEQ="1"
     MEDICINE_NAME="update medicine1"
     MEDICINE_MEMO="test"
     STATUS="ALIVE"
@@ -14,8 +13,14 @@
     UPDATED_AT="2020-06-19 01:03:46.216000000" />
   <MEDICINE
     MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2"
-    MEDICINE_SEQ="2"
     MEDICINE_NAME="update medicine2"
+    MEDICINE_MEMO="test"
+    STATUS="ALIVE"
+    CREATED_AT="2020-06-19 01:03:46.216000000"
+    UPDATED_AT="2020-06-19 01:03:46.216000000" />
+  <MEDICINE
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3"
+    MEDICINE_NAME="update insert medicine3"
     MEDICINE_MEMO="test"
     STATUS="ALIVE"
     CREATED_AT="2020-06-19 01:03:46.216000000"
@@ -28,4 +33,8 @@
     PAIN_RECORD_ID="123456789012345678901234567890123456"
     MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2"
     MEDICINE_SEQ="2"/>
+  <PAINRECORDS_MEDICINE
+    PAIN_RECORD_ID="123456789012345678901234567890123456"
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3"
+    MEDICINE_SEQ="3"/>
 </dataset>
