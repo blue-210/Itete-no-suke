@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import app.itetenosuke.domain.painrecord.IPainRecordRepository;
 import app.itetenosuke.domain.painrecord.PainRecord;
-import app.itetenosuke.infra.db.jooq.generated.tables.BODYPARTS_TABLE;
-import app.itetenosuke.infra.db.jooq.generated.tables.MEDICINE_TABLE;
 import app.itetenosuke.infra.db.jooq.generated.tables.PAIN_RECORDS_TABLE;
 import app.itetenosuke.infra.db.jooq.generated.tables.records.PainRecordsRecord;
 import lombok.AllArgsConstructor;
@@ -26,8 +24,6 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
   private final DSLContext dslContext;
 
   private static final PAIN_RECORDS_TABLE P = PAIN_RECORDS_TABLE.PAIN_RECORDS.as("P");
-  private static final MEDICINE_TABLE M = MEDICINE_TABLE.MEDICINE.as("M");
-  private static final BODYPARTS_TABLE B = BODYPARTS_TABLE.BODYPARTS.as("B");
 
   @Override
   public Optional<PainRecord> findById(String painRecordId) {
@@ -68,7 +64,7 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
               .set(P.UPDATED_AT, painRecord.getUpdatedAt())
               .where(P.PAIN_RECORD_ID.eq(painRecord.getPainRecordId()))
               .execute();
-      log.info("update a pain record : ${1}", updateCount);
+      log.info("update a pain record : {}", updateCount);
     } catch (Exception e) {
       log.warn(e.getMessage(), e);
     }
@@ -89,7 +85,7 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
               .set(P.CREATED_AT, painRecord.getCreatedAt())
               .set(P.UPDATED_AT, painRecord.getUpdatedAt())
               .execute();
-      log.info("create a pain record : ${1}", createCount);
+      log.info("create a pain record : {}", createCount);
     } catch (Exception e) {
       log.warn(e.getMessage(), e);
     }

@@ -12,7 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import app.itetenosuke.domain.bodyParts.model.BodyParts;
 import app.itetenosuke.domain.common.model.Image;
-import app.itetenosuke.domain.medicine.model.Medicine;
+import app.itetenosuke.domain.medicine.Medicine;
 import lombok.Data;
 
 @Data

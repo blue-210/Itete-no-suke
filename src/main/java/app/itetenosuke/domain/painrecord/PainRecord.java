@@ -2,7 +2,6 @@ package app.itetenosuke.domain.painrecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -13,7 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import app.itetenosuke.domain.bodyParts.model.BodyParts;
 import app.itetenosuke.domain.common.model.Image;
-import app.itetenosuke.domain.medicine.model.Medicine;
+import app.itetenosuke.domain.medicine.Medicine;
 import lombok.Getter;
 
 // @Data
@@ -49,6 +48,7 @@ public class PainRecord {
     private String painRecordId;
     private String userId;
     private Integer painLevel = PainLevel.MODERATE.getCode();
+    private List<Medicine> medicineList;
     private String memo = "";
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -65,6 +65,11 @@ public class PainRecord {
 
     public Builder setPainLevel(Integer painLevel) {
       this.painLevel = painLevel;
+      return this;
+    }
+
+    public Builder setMedicineList(List<Medicine> medicineList) {
+      this.medicineList = medicineList;
       return this;
     }
 
@@ -92,6 +97,7 @@ public class PainRecord {
     painRecordId = builder.painRecordId;
     userId = builder.userId;
     painLevel = builder.painLevel;
+    medicineList = builder.medicineList;
     memo = builder.memo;
     createdAt = builder.createdAt;
     updatedAt = builder.updatedAt;

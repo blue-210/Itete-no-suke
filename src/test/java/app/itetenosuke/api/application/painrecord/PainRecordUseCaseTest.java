@@ -5,6 +5,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,7 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
 import app.itetenosuke.application.painrecord.PainRecordDto;
 import app.itetenosuke.application.painrecord.PainRecordUseCase;
+import app.itetenosuke.domain.medicine.Medicine;
 import app.itetenosuke.domain.painrecord.PainLevel;
 import app.itetenosuke.presentation.controller.painrecord.PainRecordReqBody;
 import lombok.extern.slf4j.Slf4j;
@@ -60,6 +63,39 @@ class PainRecordUseCaseTest {
     PainRecordReqBody req = new PainRecordReqBody();
     req.setPainRecordId("123456789012345678901234567890123456");
     req.setPainLevel(PainLevel.VERY_SEVERE_PAIN.getCode());
+
+    // TODO ビルダーパターンを適用する
+    Medicine medicine1 = new Medicine();
+    medicine1.setMedicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1");
+    medicine1.setMedicineSeq(1);
+    medicine1.setUserId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
+    medicine1.setMedicineName("update medicine1");
+    medicine1.setStatus("ALIVE");
+    medicine1.setUpdatedAt(LocalDateTime.now());
+
+    Medicine medicine2 = new Medicine();
+    medicine2.setMedicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2");
+    medicine2.setMedicineSeq(2);
+    medicine2.setUserId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
+    medicine2.setMedicineName("update medicine2");
+    medicine2.setStatus("ALIVE");
+    medicine2.setCreatedAt(LocalDateTime.now());
+    medicine2.setUpdatedAt(LocalDateTime.now());
+
+    Medicine medicine3 = new Medicine();
+    medicine3.setMedicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3");
+    medicine3.setMedicineSeq(2);
+    medicine3.setUserId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
+    medicine3.setMedicineName("update medicine3");
+    medicine3.setStatus("ALIVE");
+    medicine3.setCreatedAt(LocalDateTime.now());
+    medicine3.setUpdatedAt(LocalDateTime.now());
+
+    List<Medicine> medicineList = new ArrayList<>();
+    medicineList.add(medicine1);
+    medicineList.add(medicine2);
+    medicineList.add(medicine3);
+    req.setMedicineList(medicineList);
     req.setMemo("update test");
     req.setCreatedAt(LocalDateTime.now());
     req.setUpdatedAt(LocalDateTime.now());

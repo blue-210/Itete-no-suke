@@ -1,4 +1,4 @@
-package app.itetenosuke.domain.medicine.model;
+package app.itetenosuke.domain.medicine;
 
 import java.time.LocalDateTime;
 
@@ -13,8 +13,8 @@ import lombok.Data;
 
 @Data
 public class Medicine {
-  private Long medicineId;
-  private Long userId;
+  private String medicineId;
+  private String userId;
 
   @Min(1)
   @Max(5)
@@ -26,6 +26,8 @@ public class Medicine {
   private String medicineName;
 
   private String medicineMemo;
+
+  private String status;
 
   @DateTimeFormat(pattern = "yyyy年M月d日H時m分")
   private LocalDateTime createdAt;
