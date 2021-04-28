@@ -1,4 +1,4 @@
-package app.itetenosuke.infra.db.painrecord;
+package app.itetenosuke.api.infra.db.painrecord;
 
 import java.util.Optional;
 
@@ -9,8 +9,8 @@ import org.jooq.exception.DataAccessException;
 import org.jooq.exception.TooManyRowsException;
 import org.springframework.stereotype.Repository;
 
-import app.itetenosuke.domain.painrecord.IPainRecordRepository;
-import app.itetenosuke.domain.painrecord.PainRecord;
+import app.itetenosuke.api.domain.painrecord.IPainRecordRepository;
+import app.itetenosuke.api.domain.painrecord.PainRecord;
 import app.itetenosuke.infra.db.jooq.generated.tables.PAIN_RECORDS_TABLE;
 import app.itetenosuke.infra.db.jooq.generated.tables.records.PainRecordsRecord;
 import lombok.AllArgsConstructor;

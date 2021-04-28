@@ -1,10 +1,10 @@
-package app.itetenosuke.presentation.controller.painrecord;
+package app.itetenosuke.api.presentation.controller.painrecord;
 
 import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import app.itetenosuke.application.painrecord.PainRecordDto;
+import app.itetenosuke.api.application.painrecord.PainRecordDto;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

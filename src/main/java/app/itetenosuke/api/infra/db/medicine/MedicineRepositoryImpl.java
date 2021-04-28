@@ -1,12 +1,12 @@
-package app.itetenosuke.infra.db.medicine;
+package app.itetenosuke.api.infra.db.medicine;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import app.itetenosuke.domain.medicine.IMedicineRepository;
-import app.itetenosuke.domain.medicine.Medicine;
-import app.itetenosuke.domain.painrecord.PainRecord;
+import app.itetenosuke.api.domain.medicine.IMedicineRepository;
+import app.itetenosuke.api.domain.medicine.Medicine;
+import app.itetenosuke.api.domain.painrecord.PainRecord;
 import app.itetenosuke.infra.db.jooq.generated.tables.MEDICINE_TABLE;
 import app.itetenosuke.infra.db.jooq.generated.tables.PAINRECORDS_MEDICINE_TABLE;
 import app.itetenosuke.infra.db.jooq.generated.tables.PAIN_RECORDS_TABLE;

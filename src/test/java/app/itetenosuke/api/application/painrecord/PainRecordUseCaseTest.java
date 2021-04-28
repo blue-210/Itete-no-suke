@@ -22,11 +22,11 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
-import app.itetenosuke.application.painrecord.PainRecordDto;
-import app.itetenosuke.application.painrecord.PainRecordUseCase;
-import app.itetenosuke.domain.medicine.Medicine;
-import app.itetenosuke.domain.painrecord.PainLevel;
-import app.itetenosuke.presentation.controller.painrecord.PainRecordReqBody;
+import app.itetenosuke.api.application.painrecord.PainRecordDto;
+import app.itetenosuke.api.application.painrecord.PainRecordUseCase;
+import app.itetenosuke.api.domain.medicine.Medicine;
+import app.itetenosuke.api.domain.painrecord.PainLevel;
+import app.itetenosuke.api.presentation.controller.painrecord.PainRecordReqBody;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
@@ -67,32 +67,41 @@ class PainRecordUseCaseTest {
     req.setCreatedAt(LocalDateTime.now());
     req.setUpdatedAt(LocalDateTime.now());
 
-    // TODO ビルダーパターンを適用する
-    Medicine medicine1 = new Medicine();
-    medicine1.setMedicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1");
-    medicine1.setMedicineSeq(1);
-    medicine1.setUserId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
-    medicine1.setMedicineName("update medicine1");
-    medicine1.setStatus("ALIVE");
-    medicine1.setUpdatedAt(LocalDateTime.now());
+    Medicine medicine1 =
+        Medicine.builder()
+            .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .medicineSeq(10)
+            .medicineName("update medicine1")
+            // STATUSのenum作成しておく
+            .status("ALIVE")
+            .createdAt(LocalDateTime.now())
+            .updatedAt(LocalDateTime.now())
+            .build();
 
-    Medicine medicine2 = new Medicine();
-    medicine2.setMedicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2");
-    medicine2.setMedicineSeq(2);
-    medicine2.setUserId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
-    medicine2.setMedicineName("update medicine2");
-    medicine2.setStatus("ALIVE");
-    medicine2.setCreatedAt(LocalDateTime.now());
-    medicine2.setUpdatedAt(LocalDateTime.now());
+    Medicine medicine2 =
+        Medicine.builder()
+            .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .medicineSeq(10)
+            .medicineName("update medicine2")
+            // STATUSのenum作成しておく
+            .status("ALIVE")
+            .createdAt(LocalDateTime.now())
+            .updatedAt(LocalDateTime.now())
+            .build();
 
-    Medicine medicine3 = new Medicine();
-    medicine3.setMedicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3");
-    medicine3.setMedicineSeq(3);
-    medicine3.setUserId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
-    medicine3.setMedicineName("update insert medicine3");
-    medicine3.setStatus("ALIVE");
-    medicine3.setCreatedAt(LocalDateTime.now());
-    medicine3.setUpdatedAt(LocalDateTime.now());
+    Medicine medicine3 =
+        Medicine.builder()
+            .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .medicineSeq(10)
+            .medicineName("update insert medicine3")
+            // STATUSのenum作成しておく
+            .status("ALIVE")
+            .createdAt(LocalDateTime.now())
+            .updatedAt(LocalDateTime.now())
+            .build();
 
     List<Medicine> medicineList = new ArrayList<>();
     medicineList.add(medicine1);

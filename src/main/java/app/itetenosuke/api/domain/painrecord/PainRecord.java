@@ -1,4 +1,4 @@
-package app.itetenosuke.domain.painrecord;
+package app.itetenosuke.api.domain.painrecord;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,9 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import app.itetenosuke.domain.bodyParts.model.BodyParts;
-import app.itetenosuke.domain.common.model.Image;
-import app.itetenosuke.domain.medicine.Medicine;
+import app.itetenosuke.api.domain.medicine.Medicine;
 import lombok.Getter;
 
 // @Data
@@ -29,10 +27,10 @@ public class PainRecord {
   @Valid private List<Medicine> medicineList;
 
   // 部位
-  @Valid private List<BodyParts> bodyPartsList;
+  // @Valid private List<BodyParts> bodyPartsList;
 
   // 部位画像
-  private List<Image> imageList;
+  // private List<Image> imageList;
 
   // メモ
   @Length(min = 0, max = 250)

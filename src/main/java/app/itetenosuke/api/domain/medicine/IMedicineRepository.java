@@ -1,6 +1,6 @@
-package app.itetenosuke.domain.medicine;
+package app.itetenosuke.api.domain.medicine;
 
-import app.itetenosuke.domain.painrecord.PainRecord;
+import app.itetenosuke.api.domain.painrecord.PainRecord;
 
 public interface IMedicineRepository {
   public boolean createMedicineRecords(PainRecord painRecord);

@@ -1,4 +1,4 @@
-package app.itetenosuke.domain.painrecord;
+package app.itetenosuke.api.domain.painrecord;
 
 import java.util.UUID;
 

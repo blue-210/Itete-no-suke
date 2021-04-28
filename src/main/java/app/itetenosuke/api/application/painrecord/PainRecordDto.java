@@ -1,8 +1,8 @@
-package app.itetenosuke.application.painrecord;
+package app.itetenosuke.api.application.painrecord;
 
 import java.time.LocalDateTime;
 
-import app.itetenosuke.domain.painrecord.PainRecord;
+import app.itetenosuke.api.domain.painrecord.PainRecord;
 import lombok.Getter;
 
 @Getter

@@ -1,4 +1,4 @@
-package app.itetenosuke.application.painrecord;
+package app.itetenosuke.api.application.painrecord;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,12 +7,12 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import app.itetenosuke.domain.medicine.IMedicineRepository;
-import app.itetenosuke.domain.medicine.Medicine;
-import app.itetenosuke.domain.painrecord.IPainRecordRepository;
-import app.itetenosuke.domain.painrecord.PainRecord;
-import app.itetenosuke.infra.db.painrecord.PainRecordNotFoundException;
-import app.itetenosuke.presentation.controller.painrecord.PainRecordReqBody;
+import app.itetenosuke.api.domain.medicine.IMedicineRepository;
+import app.itetenosuke.api.domain.medicine.Medicine;
+import app.itetenosuke.api.domain.painrecord.IPainRecordRepository;
+import app.itetenosuke.api.domain.painrecord.PainRecord;
+import app.itetenosuke.api.infra.db.painrecord.PainRecordNotFoundException;
+import app.itetenosuke.api.presentation.controller.painrecord.PainRecordReqBody;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -28,6 +28,7 @@ public class PainRecordUseCase {
   }
 
   public boolean updatePainRecord(PainRecordReqBody req) {
+    // TODO lombokでのBuilderに変更する
     PainRecord painRecord =
         new PainRecord.Builder()
             .setPainRecordId(req.getPainRecordId())
