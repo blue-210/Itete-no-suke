@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Slf4j
 public class MedicineRepositoryImpl implements IMedicineRepository {
-  private final DSLContext dslContext;
+  private final DSLContext create;
   private static final MEDICINE_TABLE M = MEDICINE_TABLE.MEDICINE.as("M");
   private static final PAINRECORDS_MEDICINE_TABLE PM =
       PAINRECORDS_MEDICINE_TABLE.PAINRECORDS_MEDICINE.as("PM");
@@ -35,7 +35,7 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
               .mapToInt(
                   medicine -> {
                     Integer updateCount =
-                        dslContext
+                        create
                             .update(M)
                             .set(M.MEDICINE_NAME, medicine.getMedicineName())
                             .set(M.MEDICINE_MEMO, medicine.getMedicineMemo())
@@ -51,7 +51,7 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
                         medicine.getMedicineId());
 
                     Integer updateJunctionCount =
-                        dslContext
+                        create
                             .update(PM)
                             .set(PM.PAIN_RECORD_ID, painRecord.getPainRecordId())
                             .set(PM.MEDICINE_ID, medicine.getMedicineId())
@@ -77,9 +77,10 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
   }
 
   @Override
+  @Transactional
   public boolean exists(Medicine medicine, String painRecordId) {
-    return dslContext.fetchExists(
-        dslContext
+    return create.fetchExists(
+        create
             .selectOne()
             .from(M)
             .join(PM)
@@ -102,7 +103,7 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
               .mapToInt(
                   medicine -> {
                     Integer insertCount =
-                        dslContext
+                        create
                             .insertInto(M)
                             .set(M.MEDICINE_ID, medicine.getMedicineId())
                             .set(M.MEDICINE_NAME, medicine.getMedicineName())
@@ -113,7 +114,7 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
                     // TODO ログ出力
 
                     Integer insertJunctionCount =
-                        dslContext
+                        create
                             .insertInto(PM)
                             .set(PM.PAIN_RECORD_ID, painRecord.getPainRecordId())
                             .set(PM.MEDICINE_ID, medicine.getMedicineId())

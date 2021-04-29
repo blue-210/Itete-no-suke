@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PainRecordRepositoryImpl implements IPainRecordRepository {
 
-  private final DSLContext dslContext;
+  private final DSLContext create;
 
   private static final PAIN_RECORDS_TABLE P = PAIN_RECORDS_TABLE.PAIN_RECORDS.as("P");
 
@@ -29,8 +29,7 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
   public Optional<PainRecord> findById(String painRecordId) {
     Optional<PainRecordsRecord> selected = Optional.empty();
     try {
-      // TODO ドメインモデルへの詰替
-      selected = dslContext.selectFrom(P).where(P.PAIN_RECORD_ID.eq(painRecordId)).fetchOptional();
+      selected = create.selectFrom(P).where(P.PAIN_RECORD_ID.eq(painRecordId)).fetchOptional();
       // TODO ただエラーをログ出力するならExceptionでまとめてもいいかも？
     } catch (TooManyRowsException tmre) {
       log.warn(tmre.getMessage(), tmre);
@@ -41,12 +40,12 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
     }
     return selected.map(
         v -> {
-          return new PainRecord.Builder()
-              .setPainRecordId(v.getPainRecordId())
-              .setPainLevel(v.getPainLevel())
-              .setMemo(v.getMemo())
-              .setCreatedAt(v.getCreatedAt())
-              .setUpdatedAt(v.getUpdatedAt())
+          return PainRecord.builder()
+              .painRecordId(v.getPainRecordId())
+              .painLevel(v.getPainLevel())
+              .memo(v.getMemo())
+              .createdAt(v.getCreatedAt())
+              .updatedAt(v.getUpdatedAt())
               .build();
         });
   }
@@ -57,7 +56,7 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
     Integer updateCount = -1;
     try {
       updateCount =
-          dslContext
+          create
               .update(P)
               .set(P.PAIN_LEVEL, painRecord.getPainLevel())
               .set(P.MEMO, painRecord.getMemo())
@@ -77,7 +76,7 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
     Integer createCount = -1;
     try {
       createCount =
-          dslContext
+          create
               .insertInto(P)
               .set(P.PAIN_RECORD_ID, painRecord.getPainRecordId())
               .set(P.PAIN_LEVEL, painRecord.getPainLevel())
