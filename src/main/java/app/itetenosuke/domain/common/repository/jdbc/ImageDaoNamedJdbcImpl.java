@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import app.itetenosuke.domain.common.model.Image;
 import app.itetenosuke.domain.common.repository.ImageDao;
-import app.itetenosuke.domain.note.model.NoteForm;
+import app.itetenosuke.domain.painrecord.NoteForm;
 
 @Repository("ImageDaoNamedJdbcImpl")
 public class ImageDaoNamedJdbcImpl implements ImageDao {

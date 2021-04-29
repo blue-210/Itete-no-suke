@@ -1,4 +1,4 @@
-package app.itetenosuke.api.presentation.controller.painrecord;
+package app.itetenosuke.presentation.controller.painrecord;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,32 +8,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import app.itetenosuke.api.presentation.model.PainRecordRequest;
-import app.itetenosuke.domain.note.model.PainRecord;
-import app.itetenosuke.domain.note.service.PainRecordService;
+
+import app.itetenosuke.application.painrecord.PainRecordUseCase;
 import app.itetenosuke.domain.user.model.UserDetailsImpl;
 
 @RestController
 public class PainRecordController {
   private static final Logger logger = LoggerFactory.getLogger(PainRecordController.class);
 
-  private final PainRecordService noteService;
+  private final PainRecordUseCase painRecordUseCase;
 
-  public PainRecordController(PainRecordService noteService) {
-    this.noteService = noteService;
+  public PainRecordController(PainRecordUseCase painRecordUseCase) {
+    this.painRecordUseCase = painRecordUseCase;
   }
 
   @GetMapping(path = "/v1/painrecord/{recordID}", produces = "application/json")
-  public PainRecord getPainRecord(@PathVariable("recordID") Long recordID,
+  public PainRecordResBody getPainRecord(
+      @PathVariable("recordID") String painRecordID,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
-    PainRecord painRecord = noteService.getNote(userDetails.getUserId(), recordID);
-    return painRecord;
+    return PainRecordResBody.of(painRecordUseCase.getPainRecord(painRecordID));
   }
 
   @PostMapping(path = "/v1/painrecord/{recordID}", produces = "application/json")
-  public void postPainRecord(@RequestBody PainRecordRequest painRecordRequest,
+  public void postPainRecord(
+      @RequestBody PainRecordReqBody painRecordRequest,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
-
-
+    painRecordUseCase.createPainRecord(painRecordRequest);
   }
 }

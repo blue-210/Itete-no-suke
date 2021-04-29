@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
-import app.itetenosuke.domain.note.model.PainLevel;
+import app.itetenosuke.domain.painrecord.PainLevel;
 
 @SpringBootTest
 @AutoConfigureMockMvc

@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import app.itetenosuke.domain.common.model.Image;
 import app.itetenosuke.domain.common.repository.ImageDao;
-import app.itetenosuke.domain.note.model.NoteForm;
+import app.itetenosuke.domain.painrecord.NoteForm;
 
 @Transactional(rollbackFor = Exception.class)
 @Service

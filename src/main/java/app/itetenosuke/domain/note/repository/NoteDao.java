@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import app.itetenosuke.domain.note.model.NoteForm;
+import app.itetenosuke.domain.painrecord.NoteForm;
 
 public interface NoteDao {
   public Integer createNote(NoteForm noteForm) throws DataAccessException;
