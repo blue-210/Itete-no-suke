@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import app.itetenosuke.api.domain.bodypart.IBodyPartRepository;
 import app.itetenosuke.api.domain.medicine.IMedicineRepository;
 import app.itetenosuke.api.domain.medicine.Medicine;
 import app.itetenosuke.api.domain.painrecord.IPainRecordRepository;
@@ -20,6 +21,7 @@ import lombok.AllArgsConstructor;
 public class PainRecordUseCase {
   private final IPainRecordRepository painRecordRepository;
   private final IMedicineRepository medicineRepository;
+  private final IBodyPartRepository bodyPartRepository;
 
   @Transactional(readOnly = true)
   public PainRecordDto getPainRecord(String painRecordID) {
@@ -28,15 +30,14 @@ public class PainRecordUseCase {
   }
 
   public boolean updatePainRecord(PainRecordReqBody req) {
-    // TODO lombokでのBuilderに変更する
     PainRecord painRecord =
-        new PainRecord.Builder()
-            .setPainRecordId(req.getPainRecordId())
-            .setUserId(req.getUserId())
-            .setPainLevel(req.getPainLevel())
-            .setMedicineList(req.getMedicineList())
-            .setMemo(req.getMemo())
-            .setUpdatedAt(req.getUpdatedAt())
+        PainRecord.builder()
+            .painRecordId(req.getPainRecordId())
+            .painLevel(req.getPainLevel())
+            .medicineList(req.getMedicineList())
+            .bodyPartsList(req.getBodyPartsList())
+            .memo(req.getMemo())
+            .updatedAt(req.getUpdatedAt())
             .build();
 
     boolean canUpdatePainRecord = painRecordRepository.updatePainRecord(painRecord);
@@ -46,6 +47,7 @@ public class PainRecordUseCase {
         painRecord
             .getMedicineList()
             .stream()
+            // existsはリポジトリで実装しない？？
             .filter(medicine -> !medicineRepository.exists(medicine, painRecord.getPainRecordId()))
             .collect(Collectors.toList());
 
@@ -53,13 +55,12 @@ public class PainRecordUseCase {
     if (!insertMedicineList.isEmpty()) {
       // TODO ファクトリに切り出し?
       PainRecord painRecordWithInsertMedicine =
-          new PainRecord.Builder()
-              .setPainRecordId(req.getPainRecordId())
-              .setUserId(req.getUserId())
-              .setPainLevel(req.getPainLevel())
-              .setMedicineList(insertMedicineList)
-              .setMemo(req.getMemo())
-              .setUpdatedAt(req.getUpdatedAt())
+          PainRecord.builder()
+              .painRecordId(req.getPainRecordId())
+              .painLevel(req.getPainLevel())
+              .medicineList(insertMedicineList)
+              .memo(req.getMemo())
+              .updatedAt(req.getUpdatedAt())
               .build();
 
       canInsertMedicine = medicineRepository.createMedicineRecords(painRecordWithInsertMedicine);
@@ -77,16 +78,17 @@ public class PainRecordUseCase {
     if (!updateMedicineList.isEmpty()) {
       // TODO ファクトリに切り出し?
       PainRecord painRecordWithUpdateMedicine =
-          new PainRecord.Builder()
-              .setPainRecordId(req.getPainRecordId())
-              .setUserId(req.getUserId())
-              .setPainLevel(req.getPainLevel())
-              .setMedicineList(updateMedicineList)
-              .setMemo(req.getMemo())
-              .setUpdatedAt(req.getUpdatedAt())
+          PainRecord.builder()
+              .painRecordId(req.getPainRecordId())
+              .painLevel(req.getPainLevel())
+              .medicineList(updateMedicineList)
+              .memo(req.getMemo())
+              .updatedAt(req.getUpdatedAt())
               .build();
       canUpdateMedicine = medicineRepository.updateMedicineRecords(painRecordWithUpdateMedicine);
     }
+
+    bodyPartRepository.save(painRecord);
 
     return canUpdatePainRecord && (canUpdateMedicine && canInsertMedicine);
   }
@@ -94,13 +96,13 @@ public class PainRecordUseCase {
   @Transactional
   public boolean createPainRecord(PainRecordReqBody req) {
     PainRecord painRecord =
-        new PainRecord.Builder()
-            .setPainRecordId(req.getPainRecordId())
-            .setUserId(req.getUserId())
-            .setPainLevel(req.getPainLevel())
-            .setMemo(req.getMemo())
-            .setCreatedAt(req.getCreatedAt())
-            .setUpdatedAt(req.getUpdatedAt())
+        PainRecord.builder()
+            .painRecordId(req.getPainRecordId())
+            .painLevel(req.getPainLevel())
+            .medicineList(req.getMedicineList())
+            .memo(req.getMemo())
+            .updatedAt(req.getUpdatedAt())
+            .createdAt(req.getCreatedAt())
             .build();
     return painRecordRepository.createPainRecord(painRecord);
   }

@@ -22,8 +22,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
-import app.itetenosuke.api.application.painrecord.PainRecordDto;
-import app.itetenosuke.api.application.painrecord.PainRecordUseCase;
+import app.itetenosuke.api.domain.bodypart.BodyPart;
 import app.itetenosuke.api.domain.medicine.Medicine;
 import app.itetenosuke.api.domain.painrecord.PainLevel;
 import app.itetenosuke.api.presentation.controller.painrecord.PainRecordReqBody;
@@ -39,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 class PainRecordUseCaseTest {
   @Autowired private PainRecordUseCase painRecordUseCase;
-  // TODO jOOQのバナー表示をなくす
+
   @Test
   @DisplayName("痛み記録を1件取得できる")
   @DatabaseSetup("/painrecord/setup_get_a_record.xml")
@@ -57,7 +56,6 @@ class PainRecordUseCaseTest {
   @DatabaseSetup(value = "/painrecord/setup_update_a_record.xml")
   @ExpectedDatabase(
       value = "/painrecord/expected_update_a_record.xml",
-      table = "pain_records",
       assertionMode = DatabaseAssertionMode.NON_STRICT)
   public void testUpdatePainRecord() {
     PainRecordReqBody req = new PainRecordReqBody();
@@ -70,8 +68,7 @@ class PainRecordUseCaseTest {
     Medicine medicine1 =
         Medicine.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1")
-            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
-            .medicineSeq(10)
+            .medicineSeq(1)
             .medicineName("update medicine1")
             // STATUSのenum作成しておく
             .status("ALIVE")
@@ -82,8 +79,7 @@ class PainRecordUseCaseTest {
     Medicine medicine2 =
         Medicine.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2")
-            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
-            .medicineSeq(10)
+            .medicineSeq(2)
             .medicineName("update medicine2")
             // STATUSのenum作成しておく
             .status("ALIVE")
@@ -94,8 +90,7 @@ class PainRecordUseCaseTest {
     Medicine medicine3 =
         Medicine.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3")
-            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
-            .medicineSeq(10)
+            .medicineSeq(3)
             .medicineName("update insert medicine3")
             // STATUSのenum作成しておく
             .status("ALIVE")
@@ -108,6 +103,32 @@ class PainRecordUseCaseTest {
     medicineList.add(medicine2);
     medicineList.add(medicine3);
     req.setMedicineList(medicineList);
+
+    // TODO DBより取得する形に修正する
+    BodyPart bodyPart1 =
+        BodyPart.builder()
+            .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+            .bodyPartName("部位更新1")
+            .bodyPartSeq(1)
+            .status("ALIVE")
+            .createdAt(LocalDateTime.now())
+            .updatedAt(LocalDateTime.now())
+            .build();
+
+    BodyPart bodyPart2 =
+        BodyPart.builder()
+            .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2")
+            .bodyPartName("部位更新(新規追加)")
+            .bodyPartSeq(2)
+            .status("ALIVE")
+            .createdAt(LocalDateTime.now())
+            .updatedAt(LocalDateTime.now())
+            .build();
+
+    List<BodyPart> bodyPartsList = new ArrayList<>();
+    bodyPartsList.add(bodyPart1);
+    bodyPartsList.add(bodyPart2);
+    req.setBodyPartsList(bodyPartsList);
 
     assertThat(painRecordUseCase.updatePainRecord(req), is(true));
   }

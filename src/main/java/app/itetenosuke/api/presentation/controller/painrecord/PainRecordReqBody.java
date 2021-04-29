@@ -10,13 +10,14 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import app.itetenosuke.api.domain.bodypart.BodyPart;
 import app.itetenosuke.api.domain.medicine.Medicine;
 import lombok.Data;
 
 @Data
 public class PainRecordReqBody {
   private String painRecordId;
-  // TODO エンティティに変更
+  // TODO Value Objectに変更
   private String userId;
   // 痛みレベル
   @NotNull
@@ -27,7 +28,7 @@ public class PainRecordReqBody {
   @Valid private List<Medicine> medicineList;
 
   // 部位
-  // @Valid private List<BodyParts> bodyPartsList;
+  private List<BodyPart> bodyPartsList;
 
   // 部位画像
   // private List<Image> imageList;
