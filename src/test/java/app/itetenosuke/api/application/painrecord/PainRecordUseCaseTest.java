@@ -25,6 +25,7 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import app.itetenosuke.api.domain.bodypart.BodyPart;
 import app.itetenosuke.api.domain.medicine.Medicine;
 import app.itetenosuke.api.domain.painrecord.PainLevel;
+import app.itetenosuke.api.domain.shared.Status;
 import app.itetenosuke.api.presentation.controller.painrecord.PainRecordReqBody;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,6 +49,7 @@ class PainRecordUseCaseTest {
         "result",
         () -> assertThat(result.getPainRecordId(), is("123456789012345678901234567890123456")),
         () -> assertThat(result.getPainLevel(), is(3)),
+        () -> assertThat(result.getMedicineList().size(), is(2)),
         () -> assertThat(result.getMemo(), is("test")));
   }
 
@@ -70,8 +72,7 @@ class PainRecordUseCaseTest {
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1")
             .medicineSeq(1)
             .medicineName("update medicine1")
-            // STATUSのenum作成しておく
-            .status("ALIVE")
+            .status(Status.ALIVE.name())
             .createdAt(LocalDateTime.now())
             .updatedAt(LocalDateTime.now())
             .build();
@@ -81,8 +82,7 @@ class PainRecordUseCaseTest {
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2")
             .medicineSeq(2)
             .medicineName("update medicine2")
-            // STATUSのenum作成しておく
-            .status("ALIVE")
+            .status(Status.ALIVE.name())
             .createdAt(LocalDateTime.now())
             .updatedAt(LocalDateTime.now())
             .build();
@@ -93,7 +93,7 @@ class PainRecordUseCaseTest {
             .medicineSeq(3)
             .medicineName("update insert medicine3")
             // STATUSのenum作成しておく
-            .status("ALIVE")
+            .status(Status.ALIVE.name())
             .createdAt(LocalDateTime.now())
             .updatedAt(LocalDateTime.now())
             .build();
@@ -120,7 +120,7 @@ class PainRecordUseCaseTest {
             .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2")
             .bodyPartName("部位更新(新規追加)")
             .bodyPartSeq(2)
-            .status("ALIVE")
+            .status(Status.ALIVE.name())
             .createdAt(LocalDateTime.now())
             .updatedAt(LocalDateTime.now())
             .build();
