@@ -129,8 +129,7 @@ class PainRecordUseCaseTest {
     bodyPartsList.add(bodyPart1);
     bodyPartsList.add(bodyPart2);
     req.setBodyPartsList(bodyPartsList);
-
-    assertThat(painRecordUseCase.updatePainRecord(req), is(true));
+    painRecordUseCase.updatePainRecord(req);
   }
 
   @Test
@@ -138,7 +137,6 @@ class PainRecordUseCaseTest {
   @DatabaseSetup(value = "/painrecord/setup_create_a_record.xml")
   @ExpectedDatabase(
       value = "/painrecord/expected_create_a_record.xml",
-      table = "pain_records",
       assertionMode = DatabaseAssertionMode.NON_STRICT)
   public void testCreatePainRecord() {
     PainRecordReqBody req = new PainRecordReqBody();
@@ -147,6 +145,34 @@ class PainRecordUseCaseTest {
     req.setMemo("create test");
     req.setCreatedAt(LocalDateTime.now());
     req.setUpdatedAt(LocalDateTime.now());
-    assertThat(painRecordUseCase.createPainRecord(req), is(true));
+
+    Medicine medicine1 =
+        Medicine.builder()
+            .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1")
+            .medicineSeq(1)
+            .medicineName("薬登録1")
+            .status(Status.ALIVE.name())
+            .createdAt(LocalDateTime.now())
+            .updatedAt(LocalDateTime.now())
+            .build();
+
+    BodyPart bodyPart1 =
+        BodyPart.builder()
+            .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+            .bodyPartName("部位登録1")
+            .bodyPartSeq(1)
+            .status("ALIVE")
+            .createdAt(LocalDateTime.now())
+            .updatedAt(LocalDateTime.now())
+            .build();
+
+    List<Medicine> medicineList = new ArrayList<>();
+    List<BodyPart> bodyPartList = new ArrayList<>();
+    medicineList.add(medicine1);
+    bodyPartList.add(bodyPart1);
+    req.setMedicineList(medicineList);
+    req.setBodyPartsList(bodyPartList);
+
+    painRecordUseCase.createPainRecord(req);
   }
 }

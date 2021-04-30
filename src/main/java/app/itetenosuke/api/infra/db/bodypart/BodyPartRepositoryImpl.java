@@ -68,9 +68,9 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
                     return bodyPartsCount + enrollmentCount;
                   })
               .sum();
-      log.info("BodyPart Update count : {}", resultCount);
+      log.info("BodyPart save count : {}", resultCount);
     } catch (Exception e) {
-      log.error("BodyPart update info : {}", painRecord.toString());
+      log.error("BodyPart save info : {}", painRecord.toString());
       log.error(e.getMessage(), e);
     }
   }
