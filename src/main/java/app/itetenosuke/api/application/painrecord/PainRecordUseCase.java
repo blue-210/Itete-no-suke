@@ -26,7 +26,19 @@ public class PainRecordUseCase {
   @Transactional(readOnly = true)
   public PainRecordDto getPainRecord(String painRecordID) {
     Optional<PainRecord> painRecord = painRecordRepository.findById(painRecordID);
-    return painRecord.map(v -> new PainRecordDto(v)).orElseThrow(PainRecordNotFoundException::new);
+    List<Medicine> medicineList = medicineRepository.findAllByPainRecordId(painRecordID);
+    return painRecord
+        .map(
+            v ->
+                PainRecordDto.builder()
+                    .painRecordId(v.getPainRecordId())
+                    .painLevel(v.getPainLevel())
+                    .medicineList(medicineList)
+                    .memo(v.getMemo())
+                    .createdAt(v.getCreatedAt())
+                    .updatedAt(v.getUpdatedAt())
+                    .build())
+        .orElseThrow(PainRecordNotFoundException::new);
   }
 
   public boolean updatePainRecord(PainRecordReqBody req) {

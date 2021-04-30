@@ -1,6 +1,11 @@
 package app.itetenosuke.api.infra.db.medicine;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.jooq.DSLContext;
+import org.jooq.Record;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -127,5 +132,40 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
       log.info(e.getMessage(), e);
     }
     return resultCount > 0 ? true : false;
+  }
+
+  @Override
+  public List<Medicine> findAllByPainRecordId(String painRecordId) {
+    List<Record> selected = new ArrayList<>();
+    try {
+      selected =
+          create
+              .select(M.asterisk(), PM.asterisk())
+              .from(M)
+              .join(PM)
+              .on(PM.MEDICINE_ID.eq(M.MEDICINE_ID))
+              .join(P)
+              .on(P.PAIN_RECORD_ID.eq(PM.PAIN_RECORD_ID))
+              .where(P.PAIN_RECORD_ID.eq(painRecordId))
+              .fetch();
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+    List<Medicine> medicineList =
+        selected
+            .stream()
+            .map(
+                record -> {
+                  return Medicine.builder()
+                      .medicineId(record.get(M.MEDICINE_ID))
+                      .medicineSeq(record.get(PM.MEDICINE_SEQ))
+                      .medicineName(record.get(M.MEDICINE_NAME))
+                      .medicineMemo(record.get(M.MEDICINE_MEMO))
+                      .createdAt(record.get(M.CREATED_AT))
+                      .updatedAt(record.get(M.UPDATED_AT))
+                      .build();
+                })
+            .collect(Collectors.toList());
+    return medicineList;
   }
 }
