@@ -52,30 +52,10 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
 
   @Override
   @Transactional
-  public boolean updatePainRecord(PainRecord painRecord) {
-    Integer updateCount = -1;
+  public void save(PainRecord painRecord) {
+    Integer resultCount = -1;
     try {
-      updateCount =
-          create
-              .update(P)
-              .set(P.PAIN_LEVEL, painRecord.getPainLevel())
-              .set(P.MEMO, painRecord.getMemo())
-              .set(P.UPDATED_AT, painRecord.getUpdatedAt())
-              .where(P.PAIN_RECORD_ID.eq(painRecord.getPainRecordId()))
-              .execute();
-      log.info("update a pain record : {}", updateCount);
-    } catch (Exception e) {
-      log.warn(e.getMessage(), e);
-    }
-    return updateCount > 0 ? true : false;
-  }
-
-  @Override
-  @Transactional
-  public boolean createPainRecord(PainRecord painRecord) {
-    Integer createCount = -1;
-    try {
-      createCount =
+      resultCount =
           create
               .insertInto(P)
               .set(P.PAIN_RECORD_ID, painRecord.getPainRecordId())
@@ -83,11 +63,15 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
               .set(P.MEMO, painRecord.getMemo())
               .set(P.CREATED_AT, painRecord.getCreatedAt())
               .set(P.UPDATED_AT, painRecord.getUpdatedAt())
+              .onDuplicateKeyUpdate()
+              .set(P.PAIN_LEVEL, painRecord.getPainLevel())
+              .set(P.MEMO, painRecord.getMemo())
+              .set(P.UPDATED_AT, painRecord.getUpdatedAt())
               .execute();
-      log.info("create a pain record : {}", createCount);
+      log.info("Painrecord save count : {}", resultCount);
     } catch (Exception e) {
-      log.warn(e.getMessage(), e);
+      log.error("PainRecord save info : {}", painRecord.toString());
+      log.error(e.getMessage(), e);
     }
-    return createCount > 0 ? true : false;
   }
 }

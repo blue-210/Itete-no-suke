@@ -8,9 +8,5 @@ import app.itetenosuke.api.domain.painrecord.PainRecord;
 public interface IMedicineRepository {
   public List<Medicine> findAllByPainRecordId(String painRecordId);
 
-  public boolean createMedicineRecords(PainRecord painRecord);
-
-  public boolean updateMedicineRecords(PainRecord painRecord);
-
-  public boolean exists(Medicine medicine, String painRecordId);
+  public void save(PainRecord painRecord);
 }
