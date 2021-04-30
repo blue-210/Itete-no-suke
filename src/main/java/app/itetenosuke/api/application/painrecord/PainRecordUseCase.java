@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import app.itetenosuke.api.domain.bodypart.BodyPart;
 import app.itetenosuke.api.domain.bodypart.IBodyPartRepository;
 import app.itetenosuke.api.domain.medicine.IMedicineRepository;
 import app.itetenosuke.api.domain.medicine.Medicine;
@@ -27,6 +28,7 @@ public class PainRecordUseCase {
   public PainRecordDto getPainRecord(String painRecordID) {
     Optional<PainRecord> painRecord = painRecordRepository.findById(painRecordID);
     List<Medicine> medicineList = medicineRepository.findAllByPainRecordId(painRecordID);
+    List<BodyPart> bodyPartList = bodyPartRepository.findAllByPainRecordId(painRecordID);
     return painRecord
         .map(
             v ->
@@ -34,6 +36,7 @@ public class PainRecordUseCase {
                     .painRecordId(v.getPainRecordId())
                     .painLevel(v.getPainLevel())
                     .medicineList(medicineList)
+                    .bodyPartList(bodyPartList)
                     .memo(v.getMemo())
                     .createdAt(v.getCreatedAt())
                     .updatedAt(v.getUpdatedAt())
