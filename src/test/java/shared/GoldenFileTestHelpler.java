@@ -28,7 +28,7 @@ public class GoldenFileTestHelpler {
 
   public GoldenFileTestHelpler(Class<?> clazz, String fileName) {
     this.filePath = clazz.getPackageName().replace(packageName, "").replaceAll("\\.", "/");
-    this.fileName = fileName;
+    this.fileName = fileName + ".json";
   }
 
   public void writeOrCompare(MvcResult result) throws Exception {

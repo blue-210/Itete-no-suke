@@ -48,7 +48,7 @@ public class PainRecordControllerTest {
             .andReturn();
 
     GoldenFileTestHelpler helper =
-        new GoldenFileTestHelpler(PainRecordControllerTest.class, "get_a_record.json");
+        new GoldenFileTestHelpler(PainRecordControllerTest.class, "get_a_record");
     helper.writeOrCompare(result);
   }
 }
