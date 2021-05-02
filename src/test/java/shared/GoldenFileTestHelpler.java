@@ -2,7 +2,6 @@ package shared;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -15,8 +14,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import lombok.extern.slf4j.Slf4j;
 import shared.exception.FirtstJsonOutputException;
 
+@Slf4j
 public class GoldenFileTestHelpler {
   private static ObjectMapper objectMapper =
       new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
@@ -33,7 +34,31 @@ public class GoldenFileTestHelpler {
   public void writeOrCompare(MvcResult result) throws Exception {
     JsonNode resultJsonNode =
         objectMapper.readTree(result.getResponse().getContentAsString(StandardCharsets.UTF_8));
+    Path tempOutputPath = writeActualOutputToFile(resultJsonNode);
+    compareActualAndExpected(tempOutputPath);
+  }
 
+  private void compareActualAndExpected(Path tempOutputPath) {
+    Path expectedFilePath = Paths.get("./src/test/resources/", filePath, fileName);
+    if (Files.exists(expectedFilePath)) {
+      assertThat(tempOutputPath.toFile()).hasSameTextualContentAs(expectedFilePath.toFile());
+    } else {
+      copyActualOutputToFile(tempOutputPath, expectedFilePath);
+    }
+  }
+
+  private void copyActualOutputToFile(Path tempOutputPath, Path expectedFilePath) {
+    try {
+      Files.createDirectories(expectedFilePath.getParent());
+      Files.copy(tempOutputPath, expectedFilePath);
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+    throw new FirtstJsonOutputException(
+        "Golden file not found and created golden file : " + expectedFilePath.toAbsolutePath());
+  }
+
+  private Path writeActualOutputToFile(JsonNode resultJsonNode) {
     Path tempOutputPath = Paths.get("./target/test-output/" + filePath, fileName);
     try {
       Files.createDirectories(tempOutputPath.getParent());
@@ -41,19 +66,6 @@ public class GoldenFileTestHelpler {
     } catch (IOException e) {
       // TODO: handle exception
     }
-
-    String expectedFilePath = "src/test/resources/presentation/painrecord/get_a_record.json";
-    File expectedFile = new File(expectedFilePath);
-    if (expectedFile.exists()) {
-      assertThat(tempOutputPath.toFile()).hasSameTextualContentAs(expectedFile);
-    } else {
-      try {
-        Files.copy(tempOutputPath, expectedFile.toPath());
-      } catch (Exception e) {
-        // TODO: handle exception
-      }
-      throw new FirtstJsonOutputException(
-          "Golden file not found and reated golden file : " + expectedFile.getAbsolutePath());
-    }
+    return tempOutputPath;
   }
 }

@@ -36,7 +36,7 @@ public class PainRecordControllerTest {
 
   @Test
   @DisplayName("痛み記録取得APIで期待するJSONが取得できる")
-  @DatabaseSetup("/presentation/painrecord/setup_get_a_record.xml")
+  @DatabaseSetup("/presentation/controller/painrecord/setup_get_a_record.xml")
   void testGetPainRecord() throws Exception {
     // 期待値のJSONを取得する
     //  String expected = StreamUtils.copyToString(new ClassPathResource(path), charset)
