@@ -1,7 +1,5 @@
 package app.itetenosuke.api.presentation.controller.painrecord;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +12,6 @@ import app.itetenosuke.domain.user.model.UserDetailsImpl;
 
 @RestController
 public class PainRecordController {
-  private static final Logger logger = LoggerFactory.getLogger(PainRecordController.class);
 
   private final app.itetenosuke.api.application.painrecord.PainRecordUseCase painRecordUseCase;
 
