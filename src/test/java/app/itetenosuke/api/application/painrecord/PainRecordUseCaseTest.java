@@ -46,7 +46,7 @@ class PainRecordUseCaseTest {
 
   @Test
   @DisplayName("痛み記録を1件取得できる")
-  @DatabaseSetup("/painrecord/setup_get_a_record.xml")
+  @DatabaseSetup("/application/painrecord/setup_get_a_record.xml")
   public void testGetPainRecord() {
     PainRecordDto result = painRecordUseCase.getPainRecord("123456789012345678901234567890123456");
     assertAll(
@@ -54,14 +54,15 @@ class PainRecordUseCaseTest {
         () -> assertThat(result.getPainRecordId(), is("123456789012345678901234567890123456")),
         () -> assertThat(result.getPainLevel(), is(3)),
         () -> assertThat(result.getMedicineList().size(), is(2)),
+        () -> assertThat(result.getBodyPartList().size(), is(1)),
         () -> assertThat(result.getMemo(), is("test")));
   }
 
   @Test
   @DisplayName("痛み記録を1件更新できる")
-  @DatabaseSetup(value = "/painrecord/setup_update_a_record.xml")
+  @DatabaseSetup(value = "/application/painrecord/setup_update_a_record.xml")
   @ExpectedDatabase(
-      value = "/painrecord/expected_update_a_record.xml",
+      value = "/application/painrecord/expected_update_a_record.xml",
       assertionMode = DatabaseAssertionMode.NON_STRICT)
   public void testUpdatePainRecord() {
     PainRecordReqBody req = new PainRecordReqBody();
@@ -138,9 +139,9 @@ class PainRecordUseCaseTest {
 
   @Test
   @DisplayName("痛み記録を1件登録できる")
-  @DatabaseSetup(value = "/painrecord/setup_create_a_record.xml")
+  @DatabaseSetup(value = "/application/painrecord/setup_create_a_record.xml")
   @ExpectedDatabase(
-      value = "/painrecord/expected_create_a_record.xml",
+      value = "/application/painrecord/expected_create_a_record.xml",
       assertionMode = DatabaseAssertionMode.NON_STRICT)
   public void testCreatePainRecord() {
     PainRecordReqBody req = new PainRecordReqBody();
@@ -182,7 +183,7 @@ class PainRecordUseCaseTest {
 
   @Test
   @DisplayName("痛み記録一覧を取得できる")
-  @DatabaseSetup(value = "/painrecord/setup_get_records.xml")
+  @DatabaseSetup(value = "/application/painrecord/setup_get_records.xml")
   public void testGetPainRecordList() {
     DateTimeFormatter formatter =
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS", Locale.JAPAN);
