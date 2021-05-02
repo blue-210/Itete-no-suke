@@ -1,8 +1,10 @@
 package app.itetenosuke.api.domain.painrecord;
 
 public enum PainLevel {
-  NO_PAIN(0, "痛くない", "no-pain"), MODERATE(1, "ちょっと痛い", "moderate"), VERY_SEVERE_PAIN(2, "そこそこ痛い",
-      "very-severe-pain"), WORST_PAIN_POSSIBLE(3, "かなり痛い", "worst-pain-possible");
+  NO_PAIN(0, "痛くない", "no-pain"),
+  MODERATE(1, "ちょっと痛い", "moderate"),
+  VERY_SEVERE_PAIN(2, "そこそこ痛い", "very-severe-pain"),
+  WORST_PAIN_POSSIBLE(3, "かなり痛い", "worst-pain-possible");
 
   private final int code;
   private final String name;

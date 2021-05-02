@@ -66,4 +66,8 @@ public class PainRecordUseCase {
     medicineRepository.save(painRecord);
     bodyPartRepository.save(painRecord);
   }
+
+  public List<PainRecord> getPainRecordList(String userId) {
+    return painRecordRepository.findAllByUserId(userId);
+  }
 }

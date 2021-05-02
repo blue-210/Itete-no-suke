@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import app.itetenosuke.domain.user.service.UserDetailsServiceImpl;
 
 @EnableWebSecurity
@@ -21,9 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     return new BCryptPasswordEncoder();
   }
 
-  @Autowired
-  private UserDetailsServiceImpl userService;
-
+  @Autowired private UserDetailsServiceImpl userService;
 
   @Override
   public void configure(WebSecurity web) throws Exception {
@@ -32,17 +31,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/webjars/**").permitAll().antMatchers("/js/**")
-        .permitAll().antMatchers("/css/**").permitAll().antMatchers("/images/**").permitAll()
-        .antMatchers("/login").permitAll().antMatchers("/signup").permitAll().anyRequest()
+    http.authorizeRequests()
+        .antMatchers("/webjars/**")
+        .permitAll()
+        .antMatchers("/js/**")
+        .permitAll()
+        .antMatchers("/css/**")
+        .permitAll()
+        .antMatchers("/images/**")
+        .permitAll()
+        .antMatchers("/login")
+        .permitAll()
+        .antMatchers("/signup")
+        .permitAll()
+        // テスト用に一時的に追加
+        .antMatchers("/v1/**")
+        .permitAll()
+        .anyRequest()
         .authenticated();
 
-    http.formLogin().loginProcessingUrl("/login").loginPage("/login").failureUrl("/login")
-        .usernameParameter("email").passwordParameter("password").defaultSuccessUrl("/home", true);
+    http.formLogin()
+        .loginProcessingUrl("/login")
+        .loginPage("/login")
+        .failureUrl("/login")
+        .usernameParameter("email")
+        .passwordParameter("password")
+        .defaultSuccessUrl("/home", true);
 
     http.logout()
         // .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-        .logoutUrl("/logout").logoutSuccessUrl("/login").and().rememberMe().alwaysRemember(false)
+        .logoutUrl("/logout")
+        .logoutSuccessUrl("/login")
+        .and()
+        .rememberMe()
+        .alwaysRemember(false)
         .useSecureCookie(true);
   }
 

@@ -1,10 +1,14 @@
 package app.itetenosuke.api.infra.db.painrecord;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import org.jooq.DSLContext;
+import org.jooq.Record;
 import org.jooq.exception.DataAccessException;
 import org.jooq.exception.TooManyRowsException;
 import org.springframework.stereotype.Repository;
@@ -73,5 +77,35 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
       log.error("PainRecord save info : {}", painRecord.toString());
       log.error(e.getMessage(), e);
     }
+  }
+
+  @Override
+  public List<PainRecord> findAllByUserId(String userId) {
+    List<Record> resultList = new ArrayList<>();
+    try {
+      resultList =
+          create
+              .select(P.asterisk())
+              .from(P)
+              .where(P.USER_ID.eq(userId))
+              .orderBy(P.CREATED_AT.desc())
+              .fetch();
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+    return resultList
+        .stream()
+        .map(
+            record -> {
+              return PainRecord.builder()
+                  .userId(record.get(P.USER_ID))
+                  .painRecordId(record.get(P.PAIN_RECORD_ID))
+                  .painLevel(record.get(P.PAIN_LEVEL))
+                  .memo(record.get(P.MEMO))
+                  .createdAt(record.get(P.CREATED_AT))
+                  .updatedAt(record.get(P.UPDATED_AT))
+                  .build();
+            })
+        .collect(Collectors.toList());
   }
 }

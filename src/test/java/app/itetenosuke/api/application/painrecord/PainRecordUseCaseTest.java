@@ -3,10 +3,13 @@ package app.itetenosuke.api.application.painrecord;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,6 +28,7 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import app.itetenosuke.api.domain.bodypart.BodyPart;
 import app.itetenosuke.api.domain.medicine.Medicine;
 import app.itetenosuke.api.domain.painrecord.PainLevel;
+import app.itetenosuke.api.domain.painrecord.PainRecord;
 import app.itetenosuke.api.domain.shared.Status;
 import app.itetenosuke.api.presentation.controller.painrecord.PainRecordReqBody;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +46,7 @@ class PainRecordUseCaseTest {
 
   @Test
   @DisplayName("痛み記録を1件取得できる")
-  @DatabaseSetup("/painrecord/setup_get_a_record.xml")
+  @DatabaseSetup("/application/painrecord/setup_get_a_record.xml")
   public void testGetPainRecord() {
     PainRecordDto result = painRecordUseCase.getPainRecord("123456789012345678901234567890123456");
     assertAll(
@@ -50,14 +54,15 @@ class PainRecordUseCaseTest {
         () -> assertThat(result.getPainRecordId(), is("123456789012345678901234567890123456")),
         () -> assertThat(result.getPainLevel(), is(3)),
         () -> assertThat(result.getMedicineList().size(), is(2)),
+        () -> assertThat(result.getBodyPartList().size(), is(1)),
         () -> assertThat(result.getMemo(), is("test")));
   }
 
   @Test
   @DisplayName("痛み記録を1件更新できる")
-  @DatabaseSetup(value = "/painrecord/setup_update_a_record.xml")
+  @DatabaseSetup(value = "/application/painrecord/setup_update_a_record.xml")
   @ExpectedDatabase(
-      value = "/painrecord/expected_update_a_record.xml",
+      value = "/application/painrecord/expected_update_a_record.xml",
       assertionMode = DatabaseAssertionMode.NON_STRICT)
   public void testUpdatePainRecord() {
     PainRecordReqBody req = new PainRecordReqBody();
@@ -134,9 +139,9 @@ class PainRecordUseCaseTest {
 
   @Test
   @DisplayName("痛み記録を1件登録できる")
-  @DatabaseSetup(value = "/painrecord/setup_create_a_record.xml")
+  @DatabaseSetup(value = "/application/painrecord/setup_create_a_record.xml")
   @ExpectedDatabase(
-      value = "/painrecord/expected_create_a_record.xml",
+      value = "/application/painrecord/expected_create_a_record.xml",
       assertionMode = DatabaseAssertionMode.NON_STRICT)
   public void testCreatePainRecord() {
     PainRecordReqBody req = new PainRecordReqBody();
@@ -174,5 +179,39 @@ class PainRecordUseCaseTest {
     req.setBodyPartsList(bodyPartList);
 
     painRecordUseCase.createPainRecord(req);
+  }
+
+  @Test
+  @DisplayName("痛み記録一覧を取得できる")
+  @DatabaseSetup(value = "/application/painrecord/setup_get_records.xml")
+  public void testGetPainRecordList() {
+    DateTimeFormatter formatter =
+        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS", Locale.JAPAN);
+    List<PainRecord> expected = new ArrayList<>();
+    PainRecord painRecord1 =
+        PainRecord.builder()
+            .painRecordId("ppppppppppppppppppppppppppppppppppp1")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .painLevel(PainLevel.WORST_PAIN_POSSIBLE.getCode())
+            .memo("test")
+            .createdAt(LocalDateTime.parse("2020-06-19 01:03:46.216000000", formatter))
+            .updatedAt(LocalDateTime.parse("2020-06-19 01:03:46.216000000", formatter))
+            .build();
+    PainRecord painRecord2 =
+        PainRecord.builder()
+            .painRecordId("ppppppppppppppppppppppppppppppppppp2")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .painLevel(PainLevel.MODERATE.getCode())
+            .memo("test")
+            .createdAt(LocalDateTime.parse("2020-06-19 01:03:46.216000000", formatter))
+            .updatedAt(LocalDateTime.parse("2020-06-19 01:03:46.216000000", formatter))
+            .build();
+    expected.add(painRecord1);
+    expected.add(painRecord2);
+
+    List<PainRecord> actual =
+        painRecordUseCase.getPainRecordList("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
+
+    assertIterableEquals(expected, actual);
   }
 }
