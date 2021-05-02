@@ -19,14 +19,14 @@ public class PainRecordController {
     this.painRecordUseCase = painRecordUseCase;
   }
 
-  @GetMapping(path = "/v1/painrecord/{recordID}", produces = "application/json")
+  @GetMapping(path = "/v1/painrecords/{recordID}", produces = "application/json")
   public PainRecordResBody getPainRecord(
       @PathVariable("recordID") String painRecordID,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
     return PainRecordResBody.of(painRecordUseCase.getPainRecord(painRecordID));
   }
 
-  @PostMapping(path = "/v1/painrecord/{recordID}", produces = "application/json")
+  @PostMapping(path = "/v1/painrecords/{recordID}", produces = "application/json")
   public void postPainRecord(
       @RequestBody PainRecordReqBody painRecordRequest,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {

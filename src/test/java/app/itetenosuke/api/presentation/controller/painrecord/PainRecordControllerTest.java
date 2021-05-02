@@ -38,13 +38,10 @@ public class PainRecordControllerTest {
   @DisplayName("痛み記録取得APIで期待するJSONが取得できる")
   @DatabaseSetup("/presentation/controller/painrecord/setup_get_a_record.xml")
   void testGetPainRecord() throws Exception {
-    // 期待値のJSONを取得する
-    //  String expected = StreamUtils.copyToString(new ClassPathResource(path), charset)
-    // mockMvcでgetPainRecordを呼び出す
     MvcResult result =
         this.mockMvc
             .perform(
-                MockMvcRequestBuilders.get("/v1/painrecord/ppppppppppppppppppppppppppppppppppp1")
+                MockMvcRequestBuilders.get("/v1/painrecords/ppppppppppppppppppppppppppppppppppp1")
                     .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().is(HttpStatus.OK.value()))
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
