@@ -14,7 +14,7 @@ import app.itetenosuke.api.domain.medicine.Medicine;
 import app.itetenosuke.api.domain.painrecord.IPainRecordRepository;
 import app.itetenosuke.api.domain.painrecord.PainRecord;
 import app.itetenosuke.api.infra.db.painrecord.PainRecordNotFoundException;
-import app.itetenosuke.api.presentation.controller.painrecord.PainRecordReqBody;
+import app.itetenosuke.api.presentation.controller.shared.PainRecordReqBody;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -53,16 +53,48 @@ public class PainRecordUseCase {
   }
 
   private void savePainRecord(PainRecordReqBody req) {
+    List<Medicine> medicines =
+        req.getMedicineList()
+            .stream()
+            .map(
+                medicine ->
+                    Medicine.builder()
+                        .medicineId(medicine.getMedicineId())
+                        .medicineSeq(medicine.getMedicineSeq())
+                        .medicineName(medicine.getMedicineName())
+                        .medicineMemo(medicine.getMedicineMemo())
+                        .status(medicine.getStatus())
+                        .createdAt(medicine.getCreatedAt())
+                        .updatedAt(medicine.getUpdatedAt())
+                        .build())
+            .collect(Collectors.toList());
+
+    List<BodyPart> bodyParts =
+        req.getBodyPartsList()
+            .stream()
+            .map(
+                bodypart ->
+                    BodyPart.builder()
+                        .bodyPartId(bodypart.getBodyPartId())
+                        .bodyPartName(bodypart.getBodyPartName())
+                        .bodyPartSeq(bodypart.getBodyPartSeq())
+                        .status(bodypart.getStatus())
+                        .createdAt(bodypart.getCreatedAt())
+                        .updatedAt(bodypart.getUpdatedAt())
+                        .build())
+            .collect(Collectors.toList());
+
     PainRecord painRecord =
         PainRecord.builder()
             .painRecordId(req.getPainRecordId())
             .painLevel(req.getPainLevel())
-            .medicineList(req.getMedicineList())
-            .bodyPartsList(req.getBodyPartsList())
+            .medicineList(medicines)
+            .bodyPartsList(bodyParts)
             .memo(req.getMemo())
             .updatedAt(req.getUpdatedAt())
             .createdAt(req.getCreatedAt())
             .build();
+
     painRecordRepository.save(painRecord);
     medicineRepository.save(painRecord);
     bodyPartRepository.save(painRecord);

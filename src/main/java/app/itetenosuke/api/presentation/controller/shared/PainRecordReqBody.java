@@ -1,4 +1,4 @@
-package app.itetenosuke.api.presentation.controller.painrecord;
+package app.itetenosuke.api.presentation.controller.shared;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,8 +10,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import app.itetenosuke.api.domain.bodypart.BodyPart;
-import app.itetenosuke.api.domain.medicine.Medicine;
 import lombok.Data;
 
 @Data
@@ -25,10 +23,10 @@ public class PainRecordReqBody {
   private Integer painLevel;
 
   // お薬
-  @Valid private List<Medicine> medicineList;
+  @Valid private List<MedicineReqBody> medicineList;
 
   // 部位
-  private List<BodyPart> bodyPartsList;
+  private List<BodyPartReqBody> bodyPartsList;
 
   // 部位画像
   // private List<Image> imageList;
