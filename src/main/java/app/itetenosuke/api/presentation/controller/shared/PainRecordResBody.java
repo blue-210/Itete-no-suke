@@ -1,10 +1,13 @@
 package app.itetenosuke.api.presentation.controller.shared;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import app.itetenosuke.api.application.painrecord.PainRecordDto;
+import app.itetenosuke.api.domain.bodypart.BodyPart;
+import app.itetenosuke.api.domain.medicine.Medicine;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,6 +26,8 @@ public class PainRecordResBody {
         painRecordDto.getUserId(),
         painRecordDto.getPainLevel(),
         painRecordDto.getMemo(),
+        painRecordDto.getMedicineList(),
+        painRecordDto.getBodyPartList(),
         painRecordDto.getCreatedAt(),
         painRecordDto.getUpdatedAt());
   }
@@ -30,8 +35,9 @@ public class PainRecordResBody {
   private String painRecordId;
   private String userId;
   private Integer painLevel;
-  // TODO 薬、部位、画像のエンティティ追加
   private String memo;
+  private List<Medicine> medicineList;
+  private List<BodyPart> bodyPartList;
 
   @DateTimeFormat(pattern = "yyyy年M月d日H時m分")
   private LocalDateTime createdAt;
