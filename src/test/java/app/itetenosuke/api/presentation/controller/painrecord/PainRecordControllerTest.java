@@ -10,6 +10,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
@@ -24,11 +27,13 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import shared.GoldenFileTestHelpler;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @Transactional
 @TestExecutionListeners({
   DependencyInjectionTestExecutionListener.class,
   DirtiesContextTestExecutionListener.class,
-  TransactionDbUnitTestExecutionListener.class
+  TransactionDbUnitTestExecutionListener.class,
+  WithSecurityContextTestExecutionListener.class
 })
 @AutoConfigureMockMvc
 public class PainRecordControllerTest {
@@ -38,20 +43,36 @@ public class PainRecordControllerTest {
   @DisplayName("痛み記録取得APIで期待するJSONが取得できる")
   @DatabaseSetup("/presentation/controller/painrecord/setup_get_a_record.xml")
   void testGetPainRecord() throws Exception {
-    // 期待値のJSONを取得する
-    //  String expected = StreamUtils.copyToString(new ClassPathResource(path), charset)
-    // mockMvcでgetPainRecordを呼び出す
     MvcResult result =
         this.mockMvc
             .perform(
-                MockMvcRequestBuilders.get("/v1/painrecord/ppppppppppppppppppppppppppppppppppp1")
+                MockMvcRequestBuilders.get("/v1/painrecords/ppppppppppppppppppppppppppppppppppp1")
                     .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().is(HttpStatus.OK.value()))
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
 
     GoldenFileTestHelpler helper =
-        new GoldenFileTestHelpler(PainRecordControllerTest.class, "get_a_record.json");
+        new GoldenFileTestHelpler(PainRecordControllerTest.class, "get_a_record");
     helper.writeOrCompare(result);
+  }
+
+  @Test
+  @DisplayName("痛み記録一覧取得APIで期待するJSONが取得できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup("/presentation/controller/painrecord/setup_get_records.xml")
+  void testGetPainRecordList() throws Exception {
+    MvcResult result =
+        this.mockMvc
+            .perform(
+                MockMvcRequestBuilders.get("/v1/painrecords")
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().is(HttpStatus.OK.value()))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+
+    GoldenFileTestHelpler helpler =
+        new GoldenFileTestHelpler(PainRecordControllerTest.class, "get_painrecords");
+    helpler.writeOrCompare(result);
   }
 }

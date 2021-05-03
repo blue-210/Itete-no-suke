@@ -73,9 +73,7 @@ jooq {
 		                name = 'org.jooq.meta.postgres.PostgresDatabase'
 		                inputSchema = 'sukeroku'
 		                includes = '.*'
-		                // Java9 以降で _ が識別子として使えないことの対策として information_schema を生成対象から除外
-		                // see https://github.com/jOOQ/jOOQ/issues/4703
-		                excludes = '(?i:information_schema\\..*)'
+		                excludes = 'flyway_schema_history'
 		            }
 		            target {
 		                directory = jooqTargetDirectory
