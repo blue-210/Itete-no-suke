@@ -100,6 +100,7 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
                   .bodyPartId(record.get(B.BODY_PART_ID))
                   .bodyPartSeq(record.get(BE.BODY_PART_SEQ))
                   .bodyPartName(record.get(B.BODY_PART_NAME))
+                  .status(record.get(B.STATUS))
                   .createdAt(record.get(B.CREATED_AT))
                   .updatedAt(record.get(B.UPDATED_AT))
                   .build();

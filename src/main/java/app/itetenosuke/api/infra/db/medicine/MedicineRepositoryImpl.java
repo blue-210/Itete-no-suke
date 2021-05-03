@@ -54,6 +54,7 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
                   .medicineSeq(record.get(ME.MEDICINE_SEQ))
                   .medicineName(record.get(M.MEDICINE_NAME))
                   .medicineMemo(record.get(M.MEDICINE_MEMO))
+                  .status(record.get(M.STATUS))
                   .createdAt(record.get(M.CREATED_AT))
                   .updatedAt(record.get(M.UPDATED_AT))
                   .build();
