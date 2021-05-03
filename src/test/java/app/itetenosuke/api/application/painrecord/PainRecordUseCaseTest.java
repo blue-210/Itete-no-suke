@@ -5,7 +5,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,23 +20,22 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
-import app.itetenosuke.api.domain.bodypart.BodyPart;
-import app.itetenosuke.api.domain.medicine.Medicine;
 import app.itetenosuke.api.domain.painrecord.PainLevel;
 import app.itetenosuke.api.domain.shared.Status;
-import app.itetenosuke.api.presentation.controller.painrecord.PainRecordReqBody;
+import app.itetenosuke.api.presentation.controller.shared.BodyPartReqBody;
+import app.itetenosuke.api.presentation.controller.shared.MedicineReqBody;
+import app.itetenosuke.api.presentation.controller.shared.PainRecordReqBody;
 import lombok.extern.slf4j.Slf4j;
+import shared.TestDatetimeHelper;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@Transactional
 @TestExecutionListeners({
   DependencyInjectionTestExecutionListener.class,
   DirtiesContextTestExecutionListener.class,
@@ -73,68 +71,68 @@ class PainRecordUseCaseTest {
     req.setPainRecordId("123456789012345678901234567890123456");
     req.setPainLevel(PainLevel.VERY_SEVERE_PAIN.getCode());
     req.setMemo("update test");
-    req.setCreatedAt(LocalDateTime.now());
-    req.setUpdatedAt(LocalDateTime.now());
+    req.setCreatedAt(TestDatetimeHelper.getTestDatetime());
+    req.setUpdatedAt(TestDatetimeHelper.getTestDatetime());
 
-    Medicine medicine1 =
-        Medicine.builder()
+    MedicineReqBody medicine1 =
+        MedicineReqBody.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1")
             .medicineSeq(1)
             .medicineName("update medicine1")
             .status(Status.ALIVE.name())
-            .createdAt(LocalDateTime.now())
-            .updatedAt(LocalDateTime.now())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
             .build();
 
-    Medicine medicine2 =
-        Medicine.builder()
+    MedicineReqBody medicine2 =
+        MedicineReqBody.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2")
             .medicineSeq(2)
             .medicineName("update medicine2")
             .status(Status.ALIVE.name())
-            .createdAt(LocalDateTime.now())
-            .updatedAt(LocalDateTime.now())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
             .build();
 
-    Medicine medicine3 =
-        Medicine.builder()
+    MedicineReqBody medicine3 =
+        MedicineReqBody.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3")
             .medicineSeq(3)
             .medicineName("update insert medicine3")
             // STATUSのenum作成しておく
             .status(Status.ALIVE.name())
-            .createdAt(LocalDateTime.now())
-            .updatedAt(LocalDateTime.now())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
             .build();
 
-    List<Medicine> medicineList = new ArrayList<>();
+    List<MedicineReqBody> medicineList = new ArrayList<>();
     medicineList.add(medicine1);
     medicineList.add(medicine2);
     medicineList.add(medicine3);
     req.setMedicineList(medicineList);
 
     // TODO DBより取得する形に修正する
-    BodyPart bodyPart1 =
-        BodyPart.builder()
+    BodyPartReqBody bodyPart1 =
+        BodyPartReqBody.builder()
             .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
             .bodyPartName("部位更新1")
             .bodyPartSeq(1)
             .status("ALIVE")
-            .createdAt(LocalDateTime.now())
-            .updatedAt(LocalDateTime.now())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
             .build();
 
-    BodyPart bodyPart2 =
-        BodyPart.builder()
+    BodyPartReqBody bodyPart2 =
+        BodyPartReqBody.builder()
             .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2")
             .bodyPartName("部位更新(新規追加)")
             .bodyPartSeq(2)
             .status(Status.ALIVE.name())
-            .createdAt(LocalDateTime.now())
-            .updatedAt(LocalDateTime.now())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
             .build();
 
-    List<BodyPart> bodyPartsList = new ArrayList<>();
+    List<BodyPartReqBody> bodyPartsList = new ArrayList<>();
     bodyPartsList.add(bodyPart1);
     bodyPartsList.add(bodyPart2);
     req.setBodyPartsList(bodyPartsList);
@@ -152,31 +150,31 @@ class PainRecordUseCaseTest {
     req.setPainRecordId("123456789012345678901234567890123456");
     req.setPainLevel(PainLevel.MODERATE.getCode());
     req.setMemo("create test");
-    req.setCreatedAt(LocalDateTime.now());
-    req.setUpdatedAt(LocalDateTime.now());
+    req.setCreatedAt(TestDatetimeHelper.getTestDatetime());
+    req.setUpdatedAt(TestDatetimeHelper.getTestDatetime());
 
-    Medicine medicine1 =
-        Medicine.builder()
+    MedicineReqBody medicine1 =
+        MedicineReqBody.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1")
             .medicineSeq(1)
             .medicineName("薬登録1")
             .status(Status.ALIVE.name())
-            .createdAt(LocalDateTime.now())
-            .updatedAt(LocalDateTime.now())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
             .build();
 
-    BodyPart bodyPart1 =
-        BodyPart.builder()
+    BodyPartReqBody bodyPart1 =
+        BodyPartReqBody.builder()
             .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
             .bodyPartName("部位登録1")
             .bodyPartSeq(1)
             .status("ALIVE")
-            .createdAt(LocalDateTime.now())
-            .updatedAt(LocalDateTime.now())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
             .build();
 
-    List<Medicine> medicineList = new ArrayList<>();
-    List<BodyPart> bodyPartList = new ArrayList<>();
+    List<MedicineReqBody> medicineList = new ArrayList<>();
+    List<BodyPartReqBody> bodyPartList = new ArrayList<>();
     medicineList.add(medicine1);
     bodyPartList.add(bodyPart1);
     req.setMedicineList(medicineList);
@@ -199,8 +197,8 @@ class PainRecordUseCaseTest {
             .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .painLevel(PainLevel.WORST_PAIN_POSSIBLE.getCode())
             .memo("test")
-            .createdAt(LocalDateTime.parse("2020-06-19 01:03:46.216000000", formatter))
-            .updatedAt(LocalDateTime.parse("2020-06-19 01:03:46.216000000", formatter))
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
             .build();
     PainRecordDto painRecord2 =
         PainRecordDto.builder()
@@ -208,8 +206,8 @@ class PainRecordUseCaseTest {
             .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .painLevel(PainLevel.MODERATE.getCode())
             .memo("test")
-            .createdAt(LocalDateTime.parse("2020-06-19 01:03:46.216000000", formatter))
-            .updatedAt(LocalDateTime.parse("2020-06-19 01:03:46.216000000", formatter))
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
             .build();
     expected.add(painRecord1);
     expected.add(painRecord2);

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+  <PAIN_RECORDS
+    PAIN_RECORD_ID="123456789012345678901234567890123456"
+    PAIN_LEVEL="2"
+    MEMO="update test" />
+  <MEDICINE
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1"
+    MEDICINE_NAME="update medicine1"
+    STATUS="ALIVE"/>
+  <MEDICINE
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2"
+    MEDICINE_NAME="update medicine2"
+    STATUS="ALIVE"/>
+  <MEDICINE
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3"
+    MEDICINE_NAME="update insert medicine3"
+    STATUS="ALIVE"/>
+  <MEDICINE_ENROLLMENTS
+    PAIN_RECORD_ID="123456789012345678901234567890123456"
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1"
+    MEDICINE_SEQ="1"/>
+  <MEDICINE_ENROLLMENTS
+    PAIN_RECORD_ID="123456789012345678901234567890123456"
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2"
+    MEDICINE_SEQ="2"/>
+  <MEDICINE_ENROLLMENTS
+    PAIN_RECORD_ID="123456789012345678901234567890123456"
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3"
+    MEDICINE_SEQ="3"/>
+  <BODY_PARTS
+    BODY_PART_ID="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1"
+    BODY_PART_NAME="部位更新1"
+    STATUS="ALIVE"/>
+  <BODY_PARTS
+    BODY_PART_ID="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2"
+    BODY_PART_NAME="部位更新(新規追加)"
+    STATUS="ALIVE"/>
+  <BODY_PARTS_ENROLLMENTS
+    PAIN_RECORD_ID="123456789012345678901234567890123456"
+    BODY_PART_ID="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1"
+    BODY_PART_SEQ="1"/>
+  <BODY_PARTS_ENROLLMENTS
+    PAIN_RECORD_ID="123456789012345678901234567890123456"
+    BODY_PART_ID="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2"
+    BODY_PART_SEQ="2"/>
+</dataset>

@@ -1,4 +1,4 @@
-package app.itetenosuke.api.presentation.controller.painrecord;
+package app.itetenosuke.api.presentation.controller.shared;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +17,7 @@ import lombok.ToString;
 public class PainRecordResBody {
   // Presentation Layerからのみ利用
   // static ファクトリメソッドでやってみる
-  static PainRecordResBody of(PainRecordDto painRecordDto) {
+  public static PainRecordResBody of(PainRecordDto painRecordDto) {
     return new PainRecordResBody(
         painRecordDto.getPainRecordId(),
         painRecordDto.getUserId(),
