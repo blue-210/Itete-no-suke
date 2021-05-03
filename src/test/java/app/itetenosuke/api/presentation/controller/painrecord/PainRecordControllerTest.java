@@ -98,6 +98,7 @@ public class PainRecordControllerTest {
   void testUpdatePainRecord() throws Exception {
     PainRecordReqBody req = new PainRecordReqBody();
     req.setPainRecordId("123456789012345678901234567890123456");
+    req.setUserId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
     req.setPainLevel(PainLevel.VERY_SEVERE_PAIN.getCode());
     req.setMemo("update test");
     req.setCreatedAt(TestDatetimeHelper.getTestDatetime());
@@ -179,6 +180,65 @@ public class PainRecordControllerTest {
 
     GoldenFileTestHelpler helpler =
         new GoldenFileTestHelpler(PainRecordControllerTest.class, "update_a_painrecord");
+    helpler.writeOrCompare(result);
+  }
+
+  @Test
+  @DisplayName("痛み記録登録APIで期待するJSONが取得できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup("/presentation/controller/painrecord/setup_create_a_record.xml")
+  @ExpectedDatabase(
+      value = "/presentation/controller/painrecord/expected_create_a_record.xml",
+      assertionMode = DatabaseAssertionMode.NON_STRICT)
+  public void testCreatePainRecord() throws Exception {
+    PainRecordReqBody req = new PainRecordReqBody();
+    req.setPainRecordId("123456789012345678901234567890123456");
+    req.setUserId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
+    req.setPainLevel(PainLevel.MODERATE.getCode());
+    req.setMemo("create test");
+    req.setCreatedAt(TestDatetimeHelper.getTestDatetime());
+    req.setUpdatedAt(TestDatetimeHelper.getTestDatetime());
+
+    MedicineReqBody medicine1 =
+        MedicineReqBody.builder()
+            .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1")
+            .medicineSeq(1)
+            .medicineName("薬登録1")
+            .status(Status.ALIVE.name())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
+            .build();
+
+    BodyPartReqBody bodyPart1 =
+        BodyPartReqBody.builder()
+            .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+            .bodyPartName("部位登録1")
+            .bodyPartSeq(1)
+            .status("ALIVE")
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
+            .build();
+
+    List<MedicineReqBody> medicineList = new ArrayList<>();
+    List<BodyPartReqBody> bodyPartList = new ArrayList<>();
+    medicineList.add(medicine1);
+    bodyPartList.add(bodyPart1);
+    req.setMedicineList(medicineList);
+    req.setBodyPartsList(bodyPartList);
+
+    MvcResult result =
+        this.mockMvc
+            .perform(
+                MockMvcRequestBuilders.post("/v1/painrecords")
+                    .with(csrf())
+                    .content(mapper.writeValueAsString(req))
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().is(HttpStatus.OK.value()))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+
+    GoldenFileTestHelpler helpler =
+        new GoldenFileTestHelpler(PainRecordControllerTest.class, "create_a_painrecord");
     helpler.writeOrCompare(result);
   }
 }

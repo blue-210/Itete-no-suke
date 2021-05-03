@@ -2,6 +2,7 @@
 <dataset>
   <PAIN_RECORDS
     PAIN_RECORD_ID="ppppppppppppppppppppppppppppppppppp1"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
     PAIN_LEVEL="3"
     MEMO="test"
     CREATED_AT="2020-06-19 01:03:46.216000000"
