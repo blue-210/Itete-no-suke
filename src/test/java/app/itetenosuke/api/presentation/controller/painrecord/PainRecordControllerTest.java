@@ -241,4 +241,13 @@ public class PainRecordControllerTest {
         new GoldenFileTestHelpler(PainRecordControllerTest.class, "create_a_painrecord");
     helpler.writeOrCompare(result);
   }
+
+  //  @Test
+  //  @DisplayName("痛み記録削除APIで期待するJSONが取得できる")
+  //  @WithUserDetails(value = "test@gmail.com")
+  //  @DatabaseSetup("/presentation/controller/painrecord/setup_delete_a_record.xml")
+  //  @ExpectedDatabase(
+  //      value = "/presentation/controller/painrecord/expected_delete_a_record.xml",
+  //      assertionMode = DatabaseAssertionMode.NON_STRICT)
+  //  public void testDeletePainRecord() {}
 }

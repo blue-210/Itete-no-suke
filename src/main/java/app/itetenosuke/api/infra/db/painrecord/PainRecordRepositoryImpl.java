@@ -111,4 +111,15 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
             })
         .collect(Collectors.toList());
   }
+
+  @Override
+  @Transactional
+  public void delete(String painRecordId) {
+    try {
+      int result = create.delete(P).where(P.PAIN_RECORD_ID.eq(painRecordId)).execute();
+      log.info("Delete painrecord : count = {}, painRecordId = {}", result, painRecordId);
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+  }
 }

@@ -118,4 +118,10 @@ public class PainRecordUseCase {
                     .build())
         .collect(Collectors.toList());
   }
+
+  public void deletePainRecord(String painRecordId) {
+    painRecordRepository.delete(painRecordId);
+    medicineRepository.delete(painRecordId);
+    bodyPartRepository.delete(painRecordId);
+  }
 }

@@ -8,4 +8,6 @@ public interface IBodyPartRepository {
   public void save(PainRecord painRecord);
 
   public List<BodyPart> findAllByPainRecordId(String painRecordID);
+
+  public void delete(String painRecordId);
 }
