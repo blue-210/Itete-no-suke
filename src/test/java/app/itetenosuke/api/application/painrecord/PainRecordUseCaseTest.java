@@ -5,10 +5,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -188,9 +186,6 @@ class PainRecordUseCaseTest {
   @WithUserDetails(value = "test@gmail.com")
   @DatabaseSetup(value = "/application/painrecord/setup_get_records.xml")
   public void testGetPainRecordList() {
-    // TODO formatter くくりだしたので消す
-    DateTimeFormatter formatter =
-        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS", Locale.JAPAN);
     List<PainRecordDto> expected = new ArrayList<>();
     PainRecordDto painRecord1 =
         PainRecordDto.builder()
