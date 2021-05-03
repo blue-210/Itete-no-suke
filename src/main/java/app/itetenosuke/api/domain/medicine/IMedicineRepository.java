@@ -9,4 +9,6 @@ public interface IMedicineRepository {
   public List<Medicine> findAllByPainRecordId(String painRecordId);
 
   public void save(PainRecord painRecord);
+
+  public void delete(String painRecordId);
 }

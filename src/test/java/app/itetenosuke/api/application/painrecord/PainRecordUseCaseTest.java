@@ -188,6 +188,7 @@ class PainRecordUseCaseTest {
   @WithUserDetails(value = "test@gmail.com")
   @DatabaseSetup(value = "/application/painrecord/setup_get_records.xml")
   public void testGetPainRecordList() {
+    // TODO formatter くくりだしたので消す
     DateTimeFormatter formatter =
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS", Locale.JAPAN);
     List<PainRecordDto> expected = new ArrayList<>();
@@ -216,5 +217,15 @@ class PainRecordUseCaseTest {
         painRecordUseCase.getPainRecordList("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
 
     assertIterableEquals(expected, actual);
+  }
+
+  @Test
+  @DisplayName("痛み記録を1件削除できる")
+  @DatabaseSetup(value = "/application/painrecord/setup_delete_a_record.xml")
+  @ExpectedDatabase(
+      value = "/application/painrecord/expected_delete_a_record.xml",
+      assertionMode = DatabaseAssertionMode.NON_STRICT)
+  public void testDeletePainRecord() {
+    painRecordUseCase.deletePainRecord("ppppppppppppppppppppppppppppppppppp1");
   }
 }

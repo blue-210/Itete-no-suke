@@ -109,4 +109,15 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
       log.error(e.getMessage(), e);
     }
   }
+
+  @Override
+  @Transactional
+  public void delete(String painRecordId) {
+    try {
+      int result = create.delete(ME).where(ME.PAIN_RECORD_ID.eq(painRecordId)).execute();
+      log.info("Delete medicine enrollments : count = {}, painRecordId = {}", result, painRecordId);
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+  }
 }
