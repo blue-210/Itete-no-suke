@@ -1,30 +1,21 @@
 {
-  "painRecordId" : "ppppppppppppppppppppppppppppppppppp1",
+  "painRecordId" : "123456789012345678901234567890123456",
   "userId" : "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1",
-  "painLevel" : 3,
-  "memo" : "test",
+  "painLevel" : 1,
+  "memo" : "create test",
   "medicineList" : [ {
     "medicineId" : "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1",
     "userId" : null,
     "medicineSeq" : 1,
-    "medicineName" : "medicine name1",
-    "medicineMemo" : "",
-    "status" : "ALIVE",
-    "createdAt" : "2020-06-19T01:03:46.216",
-    "updatedAt" : "2020-06-19T01:03:46.216"
-  }, {
-    "medicineId" : "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2",
-    "userId" : null,
-    "medicineSeq" : 2,
-    "medicineName" : "medicine name2",
-    "medicineMemo" : "",
+    "medicineName" : "薬登録1",
+    "medicineMemo" : null,
     "status" : "ALIVE",
     "createdAt" : "2020-06-19T01:03:46.216",
     "updatedAt" : "2020-06-19T01:03:46.216"
   } ],
   "bodyPartList" : [ {
     "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1",
-    "bodyPartName" : "update bodyPart1",
+    "bodyPartName" : "部位登録1",
     "bodyPartSeq" : 1,
     "status" : "ALIVE",
     "createdAt" : "2020-06-19T01:03:46.216",

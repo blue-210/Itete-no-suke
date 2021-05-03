@@ -17,6 +17,7 @@ import app.itetenosuke.api.presentation.controller.shared.PainRecordReqBody;
 import app.itetenosuke.api.presentation.controller.shared.PainRecordResBody;
 import app.itetenosuke.domain.user.model.UserDetailsImpl;
 
+// TODO /v1部分を共通パスとしてマッピングする
 @RestController
 public class PainRecordController {
 
@@ -43,11 +44,13 @@ public class PainRecordController {
         .collect(Collectors.toList());
   }
 
-  @PostMapping(path = "/v1/painrecords/{recordID}", produces = "application/json")
-  public void postPainRecord(
+  @PostMapping(path = "/v1/painrecords", produces = MediaType.APPLICATION_JSON_VALUE)
+  public PainRecordResBody postPainRecord(
       @RequestBody PainRecordReqBody painRecordRequest,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
     painRecordUseCase.createPainRecord(painRecordRequest);
+    return PainRecordResBody.of(
+        painRecordUseCase.getPainRecord(painRecordRequest.getPainRecordId()));
   }
 
   @PutMapping(path = "/v1/painrecords/{recordID}", produces = MediaType.APPLICATION_JSON_VALUE)

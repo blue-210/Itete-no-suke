@@ -1,8 +1,65 @@
 {
   "painRecordId" : "123456789012345678901234567890123456",
-  "userId" : null,
+  "userId" : "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1",
   "painLevel" : 2,
   "memo" : "update test",
+  "medicineList" : [ {
+    "medicineId" : "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1",
+    "userId" : null,
+    "medicineSeq" : 1,
+    "medicineName" : "update medicine1",
+    "medicineMemo" : null,
+    "status" : "ALIVE",
+    "createdAt" : "2020-06-19T01:03:46.216",
+    "updatedAt" : "2020-06-19T01:03:46.216"
+  }, {
+    "medicineId" : "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2",
+    "userId" : null,
+    "medicineSeq" : 2,
+    "medicineName" : "update medicine2",
+    "medicineMemo" : null,
+    "status" : "ALIVE",
+    "createdAt" : "2020-06-19T01:03:46.216",
+    "updatedAt" : "2020-06-19T01:03:46.216"
+  }, {
+    "medicineId" : "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3",
+    "userId" : null,
+    "medicineSeq" : 3,
+    "medicineName" : "update insert medicine3",
+    "medicineMemo" : null,
+    "status" : "ALIVE",
+    "createdAt" : "2020-06-19T01:03:46.216",
+    "updatedAt" : "2020-06-19T01:03:46.216"
+  } ],
+  "bodyPartList" : [ {
+    "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1",
+    "bodyPartName" : "部位更新1",
+    "bodyPartSeq" : 1,
+    "status" : "ALIVE",
+    "createdAt" : "2020-06-19T01:03:46.216",
+    "updatedAt" : "2020-06-19T01:03:46.216"
+  }, {
+    "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1",
+    "bodyPartName" : "部位更新1",
+    "bodyPartSeq" : 2,
+    "status" : "ALIVE",
+    "createdAt" : "2020-06-19T01:03:46.216",
+    "updatedAt" : "2020-06-19T01:03:46.216"
+  }, {
+    "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2",
+    "bodyPartName" : "部位更新(新規追加)",
+    "bodyPartSeq" : 1,
+    "status" : "ALIVE",
+    "createdAt" : "2020-06-19T01:03:46.216",
+    "updatedAt" : "2020-06-19T01:03:46.216"
+  }, {
+    "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2",
+    "bodyPartName" : "部位更新(新規追加)",
+    "bodyPartSeq" : 2,
+    "status" : "ALIVE",
+    "createdAt" : "2020-06-19T01:03:46.216",
+    "updatedAt" : "2020-06-19T01:03:46.216"
+  } ],
   "createdAt" : "2020-06-19T01:03:46.216",
   "updatedAt" : "2020-06-19T01:03:46.216"
 }

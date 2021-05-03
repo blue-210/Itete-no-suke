@@ -46,6 +46,7 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
         v -> {
           return PainRecord.builder()
               .painRecordId(v.getPainRecordId())
+              .userId(v.getUserId())
               .painLevel(v.getPainLevel())
               .memo(v.getMemo())
               .createdAt(v.getCreatedAt())
@@ -63,12 +64,14 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
           create
               .insertInto(P)
               .set(P.PAIN_RECORD_ID, painRecord.getPainRecordId())
+              .set(P.USER_ID, painRecord.getUserId())
               .set(P.PAIN_LEVEL, painRecord.getPainLevel())
               .set(P.MEMO, painRecord.getMemo())
               .set(P.CREATED_AT, painRecord.getCreatedAt())
               .set(P.UPDATED_AT, painRecord.getUpdatedAt())
               .onDuplicateKeyUpdate()
               .set(P.PAIN_LEVEL, painRecord.getPainLevel())
+              .set(P.USER_ID, painRecord.getUserId())
               .set(P.MEMO, painRecord.getMemo())
               .set(P.UPDATED_AT, painRecord.getUpdatedAt())
               .execute();
