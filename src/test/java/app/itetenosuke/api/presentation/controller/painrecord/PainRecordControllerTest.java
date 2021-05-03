@@ -170,7 +170,7 @@ public class PainRecordControllerTest {
     MvcResult result =
         this.mockMvc
             .perform(
-                MockMvcRequestBuilders.put("/v1/painrecords/ppppppppppppppppppppppppppppppppppp1")
+                MockMvcRequestBuilders.put("/v1/painrecords/123456789012345678901234567890123456")
                     .with(csrf())
                     .content(mapper.writeValueAsString(req))
                     .contentType(MediaType.APPLICATION_JSON))
@@ -242,12 +242,25 @@ public class PainRecordControllerTest {
     helpler.writeOrCompare(result);
   }
 
-  //  @Test
-  //  @DisplayName("痛み記録削除APIで期待するJSONが取得できる")
-  //  @WithUserDetails(value = "test@gmail.com")
-  //  @DatabaseSetup("/presentation/controller/painrecord/setup_delete_a_record.xml")
-  //  @ExpectedDatabase(
-  //      value = "/presentation/controller/painrecord/expected_delete_a_record.xml",
-  //      assertionMode = DatabaseAssertionMode.NON_STRICT)
-  //  public void testDeletePainRecord() {}
+  @Test
+  @DisplayName("痛み記録削除APIで期待するJSONが取得できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup("/presentation/controller/painrecord/setup_delete_a_record.xml")
+  @ExpectedDatabase(
+      value = "/presentation/controller/painrecord/expected_delete_a_record.xml",
+      assertionMode = DatabaseAssertionMode.NON_STRICT)
+  public void testDeletePainRecord() throws Exception {
+    MvcResult result =
+        this.mockMvc
+            .perform(
+                MockMvcRequestBuilders.delete(
+                        "/v1/painrecords/ppppppppppppppppppppppppppppppppppp1")
+                    .with(csrf()))
+            .andExpect(status().is(HttpStatus.OK.value()))
+            .andReturn();
+
+    GoldenFileTestHelpler helpler =
+        new GoldenFileTestHelpler(PainRecordControllerTest.class, "delete_a_painrecord");
+    helpler.writeOrCompare(result);
+  }
 }

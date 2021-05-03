@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,10 +57,18 @@ public class PainRecordController {
 
   @PutMapping(path = "/v1/painrecords/{recordID}", produces = MediaType.APPLICATION_JSON_VALUE)
   public PainRecordResBody putPainRecord(
+      @PathVariable("recordID") String painRecordID,
       @RequestBody PainRecordReqBody painRecordRequest,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
     painRecordUseCase.updatePainRecord(painRecordRequest);
-    return PainRecordResBody.of(
-        painRecordUseCase.getPainRecord(painRecordRequest.getPainRecordId()));
+    return PainRecordResBody.of(painRecordUseCase.getPainRecord(painRecordID));
+  }
+
+  @DeleteMapping(path = "/v1/painrecords/{recordID}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> deletePainRecord(
+      @PathVariable("recordID") String painRecordID,
+      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    painRecordUseCase.deletePainRecord(painRecordID);
+    return ResponseEntity.ok().build();
   }
 }
