@@ -2,7 +2,6 @@ package shared;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,7 +38,7 @@ public class GoldenFileTestHelpler {
   }
 
   private void compareActualAndExpected(Path tempOutputPath) {
-    Path expectedFilePath = Paths.get("./src/test/resources/", filePath, fileName);
+    Path expectedFilePath = Paths.get("./src/test/resources/" + filePath, fileName);
     if (Files.exists(expectedFilePath)) {
       assertThat(tempOutputPath.toFile()).hasSameTextualContentAs(expectedFilePath.toFile());
     } else {
@@ -63,8 +62,8 @@ public class GoldenFileTestHelpler {
     try {
       Files.createDirectories(tempOutputPath.getParent());
       objectMapper.writeValue(tempOutputPath.toFile(), resultJsonNode);
-    } catch (IOException e) {
-      // TODO: handle exception
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
     }
     return tempOutputPath;
   }

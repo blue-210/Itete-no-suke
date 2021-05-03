@@ -20,6 +20,7 @@ public class PainRecordResBody {
   static PainRecordResBody of(PainRecordDto painRecordDto) {
     return new PainRecordResBody(
         painRecordDto.getPainRecordId(),
+        painRecordDto.getUserId(),
         painRecordDto.getPainLevel(),
         painRecordDto.getMemo(),
         painRecordDto.getCreatedAt(),
@@ -27,6 +28,7 @@ public class PainRecordResBody {
   }
 
   private String painRecordId;
+  private String userId;
   private Integer painLevel;
   // TODO 薬、部位、画像のエンティティ追加
   private String memo;

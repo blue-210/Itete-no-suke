@@ -15,6 +15,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
@@ -28,17 +31,18 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import app.itetenosuke.api.domain.bodypart.BodyPart;
 import app.itetenosuke.api.domain.medicine.Medicine;
 import app.itetenosuke.api.domain.painrecord.PainLevel;
-import app.itetenosuke.api.domain.painrecord.PainRecord;
 import app.itetenosuke.api.domain.shared.Status;
 import app.itetenosuke.api.presentation.controller.painrecord.PainRecordReqBody;
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @Transactional
 @TestExecutionListeners({
   DependencyInjectionTestExecutionListener.class,
   DirtiesContextTestExecutionListener.class,
-  TransactionDbUnitTestExecutionListener.class
+  TransactionDbUnitTestExecutionListener.class,
+  WithSecurityContextTestExecutionListener.class
 })
 @Slf4j
 class PainRecordUseCaseTest {
@@ -183,13 +187,14 @@ class PainRecordUseCaseTest {
 
   @Test
   @DisplayName("痛み記録一覧を取得できる")
+  @WithUserDetails(value = "test@gmail.com")
   @DatabaseSetup(value = "/application/painrecord/setup_get_records.xml")
   public void testGetPainRecordList() {
     DateTimeFormatter formatter =
         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSSSSS", Locale.JAPAN);
-    List<PainRecord> expected = new ArrayList<>();
-    PainRecord painRecord1 =
-        PainRecord.builder()
+    List<PainRecordDto> expected = new ArrayList<>();
+    PainRecordDto painRecord1 =
+        PainRecordDto.builder()
             .painRecordId("ppppppppppppppppppppppppppppppppppp1")
             .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .painLevel(PainLevel.WORST_PAIN_POSSIBLE.getCode())
@@ -197,8 +202,8 @@ class PainRecordUseCaseTest {
             .createdAt(LocalDateTime.parse("2020-06-19 01:03:46.216000000", formatter))
             .updatedAt(LocalDateTime.parse("2020-06-19 01:03:46.216000000", formatter))
             .build();
-    PainRecord painRecord2 =
-        PainRecord.builder()
+    PainRecordDto painRecord2 =
+        PainRecordDto.builder()
             .painRecordId("ppppppppppppppppppppppppppppppppppp2")
             .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .painLevel(PainLevel.MODERATE.getCode())
@@ -209,7 +214,7 @@ class PainRecordUseCaseTest {
     expected.add(painRecord1);
     expected.add(painRecord2);
 
-    List<PainRecord> actual =
+    List<PainRecordDto> actual =
         painRecordUseCase.getPainRecordList("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1");
 
     assertIterableEquals(expected, actual);

@@ -2,6 +2,7 @@ package app.itetenosuke.api.application.painrecord;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,7 +68,20 @@ public class PainRecordUseCase {
     bodyPartRepository.save(painRecord);
   }
 
-  public List<PainRecord> getPainRecordList(String userId) {
-    return painRecordRepository.findAllByUserId(userId);
+  public List<PainRecordDto> getPainRecordList(String userId) {
+    return painRecordRepository
+        .findAllByUserId(userId)
+        .stream()
+        .map(
+            v ->
+                PainRecordDto.builder()
+                    .painRecordId(v.getPainRecordId())
+                    .userId(v.getUserId())
+                    .painLevel(v.getPainLevel())
+                    .memo(v.getMemo())
+                    .createdAt(v.getCreatedAt())
+                    .updatedAt(v.getUpdatedAt())
+                    .build())
+        .collect(Collectors.toList());
   }
 }

@@ -6,10 +6,9 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
 public class UserDetailsImpl extends User {
-  /**
-   * 
-   */
+  /** */
   private static final long serialVersionUID = 245907654695993450L;
+
   private AppUser user;
 
   public UserDetailsImpl(AppUser user) {
@@ -18,7 +17,7 @@ public class UserDetailsImpl extends User {
   }
 
   // ユーザー情報取得
-  public Long getUserId() {
+  public String getUserId() {
     return this.user.getUserId();
   }
 
@@ -74,5 +73,4 @@ public class UserDetailsImpl extends User {
   public boolean isEnabled() {
     return "ALIVE".equals(this.user.getStatus());
   }
-
 }
