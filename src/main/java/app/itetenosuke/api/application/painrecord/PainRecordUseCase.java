@@ -34,6 +34,7 @@ public class PainRecordUseCase {
             v ->
                 PainRecordDto.builder()
                     .painRecordId(v.getPainRecordId())
+                    .userId(v.getUserId())
                     .painLevel(v.getPainLevel())
                     .medicineList(medicineList)
                     .bodyPartList(bodyPartList)
@@ -87,6 +88,7 @@ public class PainRecordUseCase {
     PainRecord painRecord =
         PainRecord.builder()
             .painRecordId(req.getPainRecordId())
+            .userId(req.getUserId())
             .painLevel(req.getPainLevel())
             .medicineList(medicines)
             .bodyPartsList(bodyParts)
