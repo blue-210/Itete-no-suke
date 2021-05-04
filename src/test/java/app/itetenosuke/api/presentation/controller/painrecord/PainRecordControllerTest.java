@@ -23,6 +23,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
@@ -47,6 +48,7 @@ import shared.TestDatetimeHelper;
   WithSecurityContextTestExecutionListener.class
 })
 @AutoConfigureMockMvc
+@Transactional
 public class PainRecordControllerTest {
   @Autowired private MockMvc mockMvc;
   @Autowired private ObjectMapper mapper;

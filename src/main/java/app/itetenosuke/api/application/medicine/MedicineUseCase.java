@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import app.itetenosuke.api.domain.medicine.IMedicineRepository;
 import app.itetenosuke.api.domain.medicine.Medicine;
+import app.itetenosuke.api.domain.shared.Status;
 import app.itetenosuke.api.infra.db.medicine.MedicineNotFoundException;
 import app.itetenosuke.api.presentation.controller.shared.MedicineReqBody;
 import lombok.AllArgsConstructor;
@@ -40,7 +41,7 @@ public class MedicineUseCase {
         Medicine.builder()
             .medicineId(req.getMedicineId())
             .medicineName(req.getMedicineName())
-            .status(req.getStatus())
+            .status(Status.ALIVE.toString())
             .createdAt(req.getCreatedAt())
             .updatedAt(req.getUpdatedAt())
             .build();
@@ -50,7 +51,7 @@ public class MedicineUseCase {
 
   public MedicineDto getMedicine(String medicineId) {
     return medicineRepository
-        .getMedicineByMedicineId(medicineId)
+        .findByMedicineId(medicineId)
         .map(
             v ->
                 MedicineDto.builder()
@@ -62,5 +63,19 @@ public class MedicineUseCase {
                     .updatedAt(v.getUpdatedAt())
                     .build())
         .orElseThrow(MedicineNotFoundException::new);
+  }
+
+  public String updateMedicine(MedicineReqBody req) {
+    Medicine medicine =
+        Medicine.builder()
+            .medicineId(req.getMedicineId())
+            .medicineName(req.getMedicineName())
+            .status(Status.ALIVE.toString())
+            .createdAt(req.getCreatedAt())
+            .updatedAt(req.getUpdatedAt())
+            .build();
+
+    medicineRepository.save(medicine);
+    return medicine.getMedicineId();
   }
 }

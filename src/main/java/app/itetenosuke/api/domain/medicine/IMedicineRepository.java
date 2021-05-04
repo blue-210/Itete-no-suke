@@ -17,5 +17,5 @@ public interface IMedicineRepository {
 
   public List<Medicine> findAllByUserId(String userId);
 
-  public Optional<Medicine> getMedicineByMedicineId(String medicineId);
+  public Optional<Medicine> findByMedicineId(String medicineId);
 }
