@@ -24,6 +24,7 @@ import lombok.ToString;
 @Builder
 public class MedicineReqBody {
   private String medicineId;
+  private String userId;
 
   @Min(1)
   @Max(5)

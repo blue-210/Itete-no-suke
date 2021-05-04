@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+  <MEDICINE
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
+    MEDICINE_NAME="薬登録1"
+    STATUS="ALIVE"/>
+</dataset>

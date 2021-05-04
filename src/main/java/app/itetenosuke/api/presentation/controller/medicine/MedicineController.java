@@ -6,9 +6,12 @@ import java.util.stream.Collectors;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.itetenosuke.api.application.medicine.MedicineUseCase;
+import app.itetenosuke.api.presentation.controller.shared.MedicineReqBody;
 import app.itetenosuke.api.presentation.controller.shared.MedicineResBody;
 import app.itetenosuke.domain.user.model.UserDetailsImpl;
 import lombok.AllArgsConstructor;
@@ -34,5 +37,13 @@ public class MedicineController {
                     .updatedAt(v.getUpdatedAt())
                     .build())
         .collect(Collectors.toList());
+  }
+
+  @PostMapping(path = "/v1/medicines", produces = MediaType.APPLICATION_JSON_VALUE)
+  public MedicineResBody createMedicine(
+      @RequestBody MedicineReqBody medicineReqBody,
+      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    String medicineId = medicineUseCase.createMedicine(medicineReqBody);
+    return MedicineResBody.of(medicineUseCase.getMedicine(medicineId));
   }
 }
