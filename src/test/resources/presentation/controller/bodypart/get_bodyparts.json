@@ -1,0 +1,17 @@
+[ {
+  "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1",
+  "bodyPartSeq" : null,
+  "userId" : "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1",
+  "bodyPartName" : "一覧取得 部位1",
+  "status" : "ALIVE",
+  "createdAt" : "2020-06-19T01:03:46.216",
+  "updatedAt" : "2020-06-19T01:03:46.216"
+}, {
+  "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2",
+  "bodyPartSeq" : null,
+  "userId" : "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1",
+  "bodyPartName" : "一覧取得 部位2",
+  "status" : "ALIVE",
+  "createdAt" : "2020-06-19T01:03:46.216",
+  "updatedAt" : "2020-06-19T01:03:46.216"
+} ]

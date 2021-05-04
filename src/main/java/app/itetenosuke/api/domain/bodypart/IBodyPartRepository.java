@@ -10,4 +10,6 @@ public interface IBodyPartRepository {
   public List<BodyPart> findAllByPainRecordId(String painRecordID);
 
   public void delete(String painRecordId);
+
+  public List<BodyPart> findAllByUserId(String userId);
 }

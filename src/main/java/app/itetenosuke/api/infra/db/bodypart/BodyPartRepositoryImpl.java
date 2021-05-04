@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import app.itetenosuke.api.domain.bodypart.BodyPart;
 import app.itetenosuke.api.domain.bodypart.IBodyPartRepository;
 import app.itetenosuke.api.domain.painrecord.PainRecord;
+import app.itetenosuke.api.domain.shared.Status;
 import app.itetenosuke.infra.db.jooq.generated.tables.BODY_PARTS_ENROLLMENTS_TABLE;
 import app.itetenosuke.infra.db.jooq.generated.tables.BODY_PARTS_TABLE;
 import app.itetenosuke.infra.db.jooq.generated.tables.PAIN_RECORDS_TABLE;
@@ -117,5 +118,35 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
     } catch (Exception e) {
       log.error(e.getMessage(), e);
     }
+  }
+
+  @Override
+  public List<BodyPart> findAllByUserId(String userId) {
+    List<Record> selected = new ArrayList<>();
+    try {
+      selected =
+          create
+              .select(B.asterisk())
+              .from(B)
+              .where(B.USER_ID.eq(userId))
+              .and(B.STATUS.eq(Status.ALIVE.toString()))
+              .fetch();
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+    return selected
+        .stream()
+        .map(
+            record -> {
+              return BodyPart.builder()
+                  .bodyPartId(record.get(B.BODY_PART_ID))
+                  .userId(record.get(B.USER_ID))
+                  .bodyPartName(record.get(B.BODY_PART_NAME))
+                  .status(record.get(B.STATUS))
+                  .createdAt(record.get(B.CREATED_AT))
+                  .updatedAt(record.get(B.UPDATED_AT))
+                  .build();
+            })
+        .collect(Collectors.toList());
   }
 }
