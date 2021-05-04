@@ -7,9 +7,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.itetenosuke.api.application.bodypart.BodyPartUseCase;
+import app.itetenosuke.api.presentation.controller.shared.BodyPartReqBody;
 import app.itetenosuke.api.presentation.controller.shared.BodyPartResBody;
 import app.itetenosuke.domain.user.model.UserDetailsImpl;
 import lombok.AllArgsConstructor;
@@ -34,6 +37,14 @@ public class BodyPartController {
   public BodyPartResBody getBodyPart(
       @PathVariable String bodyPartId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
+    return BodyPartResBody.of(bodyPartUseCase.getBodyPart(bodyPartId));
+  }
+
+  @PostMapping(path = "/v1/bodyparts", produces = MediaType.APPLICATION_JSON_VALUE)
+  public BodyPartResBody createBodyPart(
+      @RequestBody BodyPartReqBody bodyPartReqBody,
+      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    String bodyPartId = bodyPartUseCase.createBodyPart(bodyPartReqBody);
     return BodyPartResBody.of(bodyPartUseCase.getBodyPart(bodyPartId));
   }
 }
