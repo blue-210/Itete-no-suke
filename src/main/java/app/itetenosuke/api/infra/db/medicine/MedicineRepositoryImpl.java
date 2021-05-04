@@ -155,4 +155,28 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
             })
         .collect(Collectors.toList());
   }
+
+  @Override
+  public void save(Medicine medicine) {
+    Integer result = -1;
+    try {
+      result =
+          create
+              .insertInto(M)
+              .set(M.MEDICINE_ID, medicine.getMedicineId())
+              .set(M.MEDICINE_NAME, medicine.getMedicineName())
+              .set(M.STATUS, medicine.getStatus())
+              .set(M.CREATED_AT, medicine.getCreatedAt())
+              .set(M.UPDATED_AT, medicine.getUpdatedAt())
+              .onDuplicateKeyUpdate()
+              .set(M.MEDICINE_NAME, medicine.getMedicineName())
+              .set(M.STATUS, medicine.getStatus())
+              .set(M.UPDATED_AT, medicine.getUpdatedAt())
+              .execute();
+
+      log.info("Save medicine : count = {}, medicine = {}", result, medicine.toString());
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+  }
 }

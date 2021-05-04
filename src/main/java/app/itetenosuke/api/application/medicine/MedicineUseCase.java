@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import app.itetenosuke.api.domain.medicine.IMedicineRepository;
+import app.itetenosuke.api.domain.medicine.Medicine;
+import app.itetenosuke.api.presentation.controller.shared.MedicineReqBody;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -30,5 +32,17 @@ public class MedicineUseCase {
                   .build();
             })
         .collect(Collectors.toList());
+  }
+
+  public void createMedicine(MedicineReqBody req) {
+    Medicine medicine =
+        Medicine.builder()
+            .medicineId(req.getMedicineId())
+            .medicineName(req.getMedicineName())
+            .status(req.getStatus())
+            .createdAt(req.getCreatedAt())
+            .updatedAt(req.getUpdatedAt())
+            .build();
+    medicineRepository.save(medicine);
   }
 }

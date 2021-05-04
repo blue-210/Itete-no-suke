@@ -20,8 +20,11 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
 import app.itetenosuke.api.domain.shared.Status;
+import app.itetenosuke.api.presentation.controller.shared.MedicineReqBody;
 import shared.TestDatetimeHelper;
 
 @SpringBootTest
@@ -65,5 +68,25 @@ class MedicineUseCaseTest {
 
     assertThat(actual.size(), is(expected.size()));
     assertIterableEquals(expected, actual);
+  }
+
+  @Test
+  @DisplayName("お薬を登録できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup(value = "/application/medicine/setup_create_a_medicine.xml")
+  @ExpectedDatabase(
+      value = "/application/medicine/expected_create_a_medicine.xml",
+      assertionMode = DatabaseAssertionMode.NON_STRICT)
+  void testCreateMedicineList() {
+    MedicineReqBody medicine1 =
+        MedicineReqBody.builder()
+            .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1")
+            .medicineName("登録薬1")
+            .status(Status.ALIVE.toString())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
+            .build();
+
+    medicineUseCase.createMedicine(medicine1);
   }
 }
