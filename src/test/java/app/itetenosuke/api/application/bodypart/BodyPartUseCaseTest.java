@@ -2,6 +2,7 @@ package app.itetenosuke.api.application.bodypart;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import java.util.ArrayList;
@@ -69,5 +70,29 @@ class BodyPartUseCaseTest {
 
     assertThat(actual.size(), is(expected.size()));
     assertIterableEquals(expected, actual);
+  }
+
+  @Test
+  @DisplayName("部位を取得できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup(value = "/application/bodypart/setup_get_a_bodypart.xml")
+  void testGetBodyPart() {
+    BodyPartDto expected =
+        BodyPartDto.builder()
+            .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .bodyPartName("一覧取得 部位1")
+            .bodyPartSeq(1)
+            .status(Status.ALIVE.toString())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
+            .build();
+
+    BodyPartDto actual = bodyPartUseCase.getBodyPart("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1");
+    assertAll(
+        "actual",
+        () -> assertThat(actual.getBodyPartId(), is(expected.getBodyPartId())),
+        () -> assertThat(actual.getBodyPartName(), is(expected.getBodyPartName())),
+        () -> assertThat(actual.getStatus(), is(expected.getStatus())));
   }
 }

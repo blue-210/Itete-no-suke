@@ -15,6 +15,7 @@
   } ],
   "bodyPartList" : [ {
     "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1",
+    "userId" : null,
     "bodyPartName" : "部位登録1",
     "bodyPartSeq" : 1,
     "status" : "ALIVE",

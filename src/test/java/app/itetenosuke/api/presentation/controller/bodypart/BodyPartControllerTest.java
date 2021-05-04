@@ -58,4 +58,23 @@ class BodyPartControllerTest {
         new GoldenFileTestHelpler(BodyPartControllerTest.class, "get_bodyparts");
     helper.writeOrCompare(result);
   }
+
+  @Test
+  @DisplayName("部位取得APIで期待するJSONが取得できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup("/presentation/controller/bodypart/setup_get_a_bodypart.xml")
+  void testGetBodyPart() throws Exception {
+    MvcResult result =
+        this.mockMvc
+            .perform(
+                MockMvcRequestBuilders.get("/v1/bodyparts/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().is(HttpStatus.OK.value()))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+
+    GoldenFileTestHelpler helper =
+        new GoldenFileTestHelpler(BodyPartControllerTest.class, "get_a_bodypart");
+    helper.writeOrCompare(result);
+  }
 }

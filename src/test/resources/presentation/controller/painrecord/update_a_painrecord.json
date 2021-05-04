@@ -33,6 +33,7 @@
   } ],
   "bodyPartList" : [ {
     "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1",
+    "userId" : null,
     "bodyPartName" : "部位更新1",
     "bodyPartSeq" : 1,
     "status" : "ALIVE",
@@ -40,6 +41,7 @@
     "updatedAt" : "2020-06-19T01:03:46.216"
   }, {
     "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1",
+    "userId" : null,
     "bodyPartName" : "部位更新1",
     "bodyPartSeq" : 2,
     "status" : "ALIVE",
@@ -47,6 +49,7 @@
     "updatedAt" : "2020-06-19T01:03:46.216"
   }, {
     "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2",
+    "userId" : null,
     "bodyPartName" : "部位更新(新規追加)",
     "bodyPartSeq" : 1,
     "status" : "ALIVE",
@@ -54,6 +57,7 @@
     "updatedAt" : "2020-06-19T01:03:46.216"
   }, {
     "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2",
+    "userId" : null,
     "bodyPartName" : "部位更新(新規追加)",
     "bodyPartSeq" : 2,
     "status" : "ALIVE",
