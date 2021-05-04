@@ -2,6 +2,7 @@ package app.itetenosuke.api.infra.db.medicine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.jooq.DSLContext;
@@ -17,6 +18,7 @@ import app.itetenosuke.infra.db.jooq.generated.tables.MEDICINE_ENROLLMENTS_TABLE
 import app.itetenosuke.infra.db.jooq.generated.tables.MEDICINE_TABLE;
 import app.itetenosuke.infra.db.jooq.generated.tables.PAIN_RECORDS_TABLE;
 import app.itetenosuke.infra.db.jooq.generated.tables.USERS_TABLE;
+import app.itetenosuke.infra.db.jooq.generated.tables.records.MedicineRecord;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -178,5 +180,25 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
     } catch (Exception e) {
       log.error(e.getMessage(), e);
     }
+  }
+
+  @Override
+  public Optional<Medicine> getMedicineByMedicineId(String medicineId) {
+    Optional<MedicineRecord> selected = Optional.empty();
+    try {
+      selected = create.selectFrom(M).where(M.MEDICINE_ID.eq(medicineId)).fetchOptional();
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+    return selected.map(
+        v ->
+            Medicine.builder()
+                .medicineId(v.getMedicineId())
+                .medicineName(v.getMedicineName())
+                .medicineMemo(v.getMedicineMemo())
+                .status(v.getStatus())
+                .createdAt(v.getCreatedAt())
+                .updatedAt(v.getUpdatedAt())
+                .build());
   }
 }

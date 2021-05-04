@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import app.itetenosuke.api.domain.medicine.IMedicineRepository;
 import app.itetenosuke.api.domain.medicine.Medicine;
+import app.itetenosuke.api.infra.db.medicine.MedicineNotFoundException;
 import app.itetenosuke.api.presentation.controller.shared.MedicineReqBody;
 import lombok.AllArgsConstructor;
 
@@ -34,7 +35,7 @@ public class MedicineUseCase {
         .collect(Collectors.toList());
   }
 
-  public void createMedicine(MedicineReqBody req) {
+  public String createMedicine(MedicineReqBody req) {
     Medicine medicine =
         Medicine.builder()
             .medicineId(req.getMedicineId())
@@ -44,5 +45,22 @@ public class MedicineUseCase {
             .updatedAt(req.getUpdatedAt())
             .build();
     medicineRepository.save(medicine);
+    return medicine.getMedicineId();
+  }
+
+  public MedicineDto getMedicine(String medicineId) {
+    return medicineRepository
+        .getMedicineByMedicineId(medicineId)
+        .map(
+            v ->
+                MedicineDto.builder()
+                    .medicineId(v.getMedicineId())
+                    .medicineName(v.getMedicineName())
+                    .medicineMemo(v.getMedicineMemo())
+                    .status(v.getStatus())
+                    .createdAt(v.getCreatedAt())
+                    .updatedAt(v.getUpdatedAt())
+                    .build())
+        .orElseThrow(MedicineNotFoundException::new);
   }
 }

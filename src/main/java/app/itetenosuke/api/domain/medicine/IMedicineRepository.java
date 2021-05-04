@@ -1,6 +1,7 @@
 package app.itetenosuke.api.domain.medicine;
 
 import java.util.List;
+import java.util.Optional;
 
 import app.itetenosuke.api.domain.painrecord.PainRecord;
 
@@ -15,4 +16,6 @@ public interface IMedicineRepository {
   public void delete(String painRecordId);
 
   public List<Medicine> findAllByUserId(String userId);
+
+  public Optional<Medicine> getMedicineByMedicineId(String medicineId);
 }

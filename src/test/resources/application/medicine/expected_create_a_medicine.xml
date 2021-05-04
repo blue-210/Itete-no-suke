@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
   <MEDICINE
-    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1"
     MEDICINE_NAME="登録薬1"
     STATUS="ALIVE"/>
 </dataset>
