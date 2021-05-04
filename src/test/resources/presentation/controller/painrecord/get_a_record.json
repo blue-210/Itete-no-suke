@@ -24,6 +24,7 @@
   } ],
   "bodyPartList" : [ {
     "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1",
+    "userId" : null,
     "bodyPartName" : "update bodyPart1",
     "bodyPartSeq" : 1,
     "status" : "ALIVE",

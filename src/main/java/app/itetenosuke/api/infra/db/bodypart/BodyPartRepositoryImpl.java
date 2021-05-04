@@ -2,6 +2,7 @@ package app.itetenosuke.api.infra.db.bodypart;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.jooq.DSLContext;
@@ -16,6 +17,7 @@ import app.itetenosuke.api.domain.shared.Status;
 import app.itetenosuke.infra.db.jooq.generated.tables.BODY_PARTS_ENROLLMENTS_TABLE;
 import app.itetenosuke.infra.db.jooq.generated.tables.BODY_PARTS_TABLE;
 import app.itetenosuke.infra.db.jooq.generated.tables.PAIN_RECORDS_TABLE;
+import app.itetenosuke.infra.db.jooq.generated.tables.records.BodyPartsRecord;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -130,6 +132,7 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
               .from(B)
               .where(B.USER_ID.eq(userId))
               .and(B.STATUS.eq(Status.ALIVE.toString()))
+              .orderBy(B.CREATED_AT.desc())
               .fetch();
     } catch (Exception e) {
       log.error(e.getMessage(), e);
@@ -148,5 +151,25 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
                   .build();
             })
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public Optional<BodyPart> findByBodyPartId(String bodyPartId) {
+    Optional<BodyPartsRecord> selected = Optional.empty();
+    try {
+      selected = create.selectFrom(B).where(B.BODY_PART_ID.eq(bodyPartId)).fetchOptional();
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+    return selected.map(
+        v ->
+            BodyPart.builder()
+                .bodyPartId(v.get(B.BODY_PART_ID))
+                .userId(v.get(B.USER_ID))
+                .bodyPartName(v.get(B.BODY_PART_NAME))
+                .status(v.get(B.STATUS))
+                .createdAt(v.get(B.CREATED_AT))
+                .updatedAt(v.get(B.UPDATED_AT))
+                .build());
   }
 }
