@@ -183,7 +183,7 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
   }
 
   @Override
-  public Optional<Medicine> getMedicineByMedicineId(String medicineId) {
+  public Optional<Medicine> findByMedicineId(String medicineId) {
     Optional<MedicineRecord> selected = Optional.empty();
     try {
       selected = create.selectFrom(M).where(M.MEDICINE_ID.eq(medicineId)).fetchOptional();

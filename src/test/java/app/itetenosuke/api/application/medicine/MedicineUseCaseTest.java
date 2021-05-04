@@ -17,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -35,6 +36,7 @@ import shared.TestDatetimeHelper;
   TransactionDbUnitTestExecutionListener.class,
   WithSecurityContextTestExecutionListener.class
 })
+@Transactional
 class MedicineUseCaseTest {
   @Autowired private MedicineUseCase medicineUseCase;
 
@@ -88,5 +90,25 @@ class MedicineUseCaseTest {
             .build();
 
     medicineUseCase.createMedicine(medicine1);
+  }
+
+  @Test
+  @DisplayName("お薬を更新できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup(value = "/application/medicine/setup_update_a_medicine.xml")
+  @ExpectedDatabase(
+      value = "/application/medicine/expected_update_a_medicine.xml",
+      assertionMode = DatabaseAssertionMode.NON_STRICT)
+  void testUpdateMedicine() {
+    MedicineReqBody medicine1 =
+        MedicineReqBody.builder()
+            .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2")
+            .medicineName("更新 薬2")
+            .status(Status.ALIVE.toString())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
+            .build();
+
+    medicineUseCase.updateMedicine(medicine1);
   }
 }

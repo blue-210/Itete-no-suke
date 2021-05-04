@@ -91,4 +91,35 @@ class MedicineControllerTest {
         new GoldenFileTestHelpler(MedicineControllerTest.class, "create_a_medicine");
     helper.writeOrCompare(result);
   }
+
+  @Test
+  @DisplayName("お薬更新APIで期待するJSONが取得できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup("/presentation/controller/medicine/setup_update_a_medicine.xml")
+  void testUpdateMedicine() throws Exception {
+    MedicineReqBody medicine1 =
+        MedicineReqBody.builder()
+            .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .medicineName("更新 薬")
+            .status(Status.ALIVE.toString())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
+            .build();
+
+    MvcResult result =
+        this.mockMvc
+            .perform(
+                MockMvcRequestBuilders.put("/v1/medicines/mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3")
+                    .with(csrf())
+                    .content(mapper.writeValueAsString(medicine1))
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().is(HttpStatus.OK.value()))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+
+    GoldenFileTestHelpler helper =
+        new GoldenFileTestHelpler(MedicineControllerTest.class, "update_a_medicine");
+    helper.writeOrCompare(result);
+  }
 }
