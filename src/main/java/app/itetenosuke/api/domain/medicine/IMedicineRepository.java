@@ -15,6 +15,8 @@ public interface IMedicineRepository {
 
   public void delete(String painRecordId);
 
+  public void deleteByMedicineId(String medicineId);
+
   public List<Medicine> findAllByUserId(String userId);
 
   public Optional<Medicine> findByMedicineId(String medicineId);

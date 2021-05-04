@@ -1,11 +1,15 @@
 package app.itetenosuke.api.presentation.controller.medicine;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,5 +58,12 @@ public class MedicineController {
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
     String medicineId = medicineUseCase.updateMedicine(medicineReqBody);
     return MedicineResBody.of(medicineUseCase.getMedicine(medicineId));
+  }
+
+  @DeleteMapping(path = "/v1/medicines/{medicineId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> deleteMedicine(
+      @PathVariable String medicineId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    medicineUseCase.deleteMedicine(medicineId);
+    return ResponseEntity.ok(Collections.EMPTY_MAP);
   }
 }

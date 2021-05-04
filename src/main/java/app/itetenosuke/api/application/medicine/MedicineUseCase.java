@@ -78,4 +78,8 @@ public class MedicineUseCase {
     medicineRepository.save(medicine);
     return medicine.getMedicineId();
   }
+
+  public void deleteMedicine(String medicineId) {
+    medicineRepository.deleteByMedicineId(medicineId);
+  }
 }
