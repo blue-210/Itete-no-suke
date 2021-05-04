@@ -111,4 +111,15 @@ class MedicineUseCaseTest {
 
     medicineUseCase.updateMedicine(medicine1);
   }
+
+  @Test
+  @DisplayName("お薬を削除できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup(value = "/application/medicine/setup_delete_a_medicine.xml")
+  @ExpectedDatabase(
+      value = "/application/medicine/expected_delete_a_medicine.xml",
+      assertionMode = DatabaseAssertionMode.NON_STRICT)
+  void testDeleteMedicine() {
+    medicineUseCase.deleteMedicine("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3");
+  }
 }

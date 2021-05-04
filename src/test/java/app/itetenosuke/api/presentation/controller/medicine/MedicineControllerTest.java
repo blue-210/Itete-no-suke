@@ -122,4 +122,22 @@ class MedicineControllerTest {
         new GoldenFileTestHelpler(MedicineControllerTest.class, "update_a_medicine");
     helper.writeOrCompare(result);
   }
+
+  @Test
+  @DisplayName("お薬削除APIで期待するJSONが取得できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup("/presentation/controller/medicine/setup_delete_a_medicine.xml")
+  public void testDeletePainRecord() throws Exception {
+    MvcResult result =
+        this.mockMvc
+            .perform(
+                MockMvcRequestBuilders.delete("/v1/medicines/mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3")
+                    .with(csrf()))
+            .andExpect(status().is(HttpStatus.OK.value()))
+            .andReturn();
+
+    GoldenFileTestHelpler helpler =
+        new GoldenFileTestHelpler(MedicineControllerTest.class, "delete_a_medicine");
+    helpler.writeOrCompare(result);
+  }
 }

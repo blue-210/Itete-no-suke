@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+  <MEDICINE
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
+    MEDICINE_NAME="薬1"
+    STATUS="ALIVE"
+    CREATED_AT="2020-06-19 01:03:46.216000000"
+    UPDATED_AT="2020-06-19 01:03:46.216000000" />
+  <MEDICINE
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
+    MEDICINE_NAME="薬2"
+    STATUS="ALIVE"
+    CREATED_AT="2020-06-19 01:03:46.216000000"
+    UPDATED_AT="2020-06-19 01:03:46.216000000" />
+  <MEDICINE
+    MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
+    MEDICINE_NAME="薬3"
+    STATUS="DELETED"
+    CREATED_AT="2020-06-19 01:03:46.216000000"
+    UPDATED_AT="2020-06-19 01:03:46.216000000" />
+</dataset>

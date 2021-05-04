@@ -1,5 +1,6 @@
 package app.itetenosuke.api.presentation.controller.painrecord;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +70,6 @@ public class PainRecordController {
       @PathVariable("recordID") String painRecordID,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
     painRecordUseCase.deletePainRecord(painRecordID);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok(Collections.EMPTY_MAP);
   }
 }

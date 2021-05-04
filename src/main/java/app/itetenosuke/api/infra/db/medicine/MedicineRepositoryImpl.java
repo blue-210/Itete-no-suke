@@ -201,4 +201,20 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
                 .updatedAt(v.getUpdatedAt())
                 .build());
   }
+
+  @Override
+  @Transactional
+  public void deleteByMedicineId(String medicineId) {
+    try {
+      int result =
+          create
+              .update(M)
+              .set(M.STATUS, Status.DELETED.toString())
+              .where(M.MEDICINE_ID.eq(medicineId))
+              .execute();
+      log.info("Delete medicine : count = {}, painRecordId = {}", result, medicineId);
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+  }
 }
