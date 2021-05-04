@@ -1,0 +1,17 @@
+[ {
+  "medicineId" : "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1",
+  "medicineSeq" : null,
+  "medicineName" : "薬1",
+  "medicineMemo" : null,
+  "status" : "ALIVE",
+  "createdAt" : "2020-06-19T01:03:46.216",
+  "updatedAt" : "2020-06-19T01:03:46.216"
+}, {
+  "medicineId" : "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2",
+  "medicineSeq" : null,
+  "medicineName" : "薬2",
+  "medicineMemo" : null,
+  "status" : "ALIVE",
+  "createdAt" : "2020-06-19T01:03:46.216",
+  "updatedAt" : "2020-06-19T01:03:46.216"
+} ]
