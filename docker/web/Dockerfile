@@ -1,16 +1,11 @@
-FROM maven:3.6.3-jdk-8 as builder
+FROM gradle:7.0.0-jre11 as builder
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build bootjar
 
-WORKDIR /itetenosuke
-# pom.xmlだけCOPYし、先に依存解決
-COPY ./pom.xml /itetenosuke/
-RUN mvn -B package; echo ""
-COPY ./src/ /itetenosuke/src/
-RUN mvn -B package
-
-FROM openjdk:8-jdk-alpine
-
+FROM openjdk:11-jre-slim
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
-
-COPY --from=builder /itetenosuke/target/Itete-no-suke-1.0.0-SNAPSHOT.jar /
+RUN mkdir /app
+COPY --from=builder /home/gradle/src/build/libs/*jar /app/Itete-no-suke-1.0.0-SNAPSHOT.jar
 ENV CLASSPATH /Itete-no-suke-1.0.0-SNAPSHOT.jar
