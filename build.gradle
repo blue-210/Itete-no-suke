@@ -77,3 +77,4 @@ tasks.withType(JavaCompile) {
 task stage(dependsOn: ['build -x test', 'infra:flywayMigrate'])
 build.mustRunAfter "infra:flywayMigrate"
 
+test.onlyIf { !System.getenv()['ENV'].equals('PROD') }
