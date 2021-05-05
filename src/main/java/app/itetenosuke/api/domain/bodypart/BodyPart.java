@@ -3,6 +3,7 @@ package app.itetenosuke.api.domain.bodypart;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import app.itetenosuke.api.domain.shared.Status;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +22,7 @@ public class BodyPart {
   private String userId;
   private String bodyPartName;
   private Integer bodyPartSeq;
-  private String status;
+  @Default private String status = Status.ALIVE.toString();
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
 }
