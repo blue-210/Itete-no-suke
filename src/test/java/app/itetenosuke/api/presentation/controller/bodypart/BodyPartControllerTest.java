@@ -112,4 +112,35 @@ class BodyPartControllerTest {
         new GoldenFileTestHelpler(BodyPartControllerTest.class, "create_a_bodypart");
     helper.writeOrCompare(result);
   }
+
+  @Test
+  @DisplayName("部位更新APIで期待するJSONが取得できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup("/presentation/controller/bodypart/setup_update_a_bodypart.xml")
+  void testUpdateBodyPart() throws Exception {
+    BodyPartReqBody bodyPart1 =
+        BodyPartReqBody.builder()
+            .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .bodyPartName("部位更新")
+            .status(Status.ALIVE.toString())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
+            .build();
+
+    MvcResult result =
+        this.mockMvc
+            .perform(
+                MockMvcRequestBuilders.put("/v1/bodyparts/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+                    .with(csrf())
+                    .content(mapper.writeValueAsString(bodyPart1))
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().is(HttpStatus.OK.value()))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+
+    GoldenFileTestHelpler helper =
+        new GoldenFileTestHelpler(BodyPartControllerTest.class, "update_a_bodypart");
+    helper.writeOrCompare(result);
+  }
 }

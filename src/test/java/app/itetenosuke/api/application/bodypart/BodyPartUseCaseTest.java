@@ -119,4 +119,25 @@ class BodyPartUseCaseTest {
 
     bodyPartUseCase.createBodyPart(bodyPart1);
   }
+
+  @Test
+  @DisplayName("部位を更新できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup(value = "/application/bodypart/setup_update_a_bodypart.xml")
+  @ExpectedDatabase(
+      value = "/application/bodypart/expected_update_a_bodypart.xml",
+      assertionMode = DatabaseAssertionMode.NON_STRICT)
+  void testUpdateMedicineList() {
+    BodyPartReqBody bodyPart1 =
+        BodyPartReqBody.builder()
+            .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .bodyPartName("部位更新")
+            .status(Status.ALIVE.toString())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
+            .build();
+
+    bodyPartUseCase.updateBodyPart(bodyPart1);
+  }
 }

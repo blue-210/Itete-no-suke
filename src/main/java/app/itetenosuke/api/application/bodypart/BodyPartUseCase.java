@@ -66,4 +66,18 @@ public class BodyPartUseCase {
     bodyPartRepository.save(bodyPart);
     return bodyPart.getBodyPartId();
   }
+
+  public String updateBodyPart(BodyPartReqBody req) {
+    BodyPart bodyPart =
+        BodyPart.builder()
+            .bodyPartId(req.getBodyPartId())
+            .userId(req.getUserId())
+            .bodyPartName(req.getBodyPartName())
+            .status(Status.ALIVE.toString())
+            .createdAt(req.getCreatedAt())
+            .updatedAt(req.getUpdatedAt())
+            .build();
+    bodyPartRepository.save(bodyPart);
+    return bodyPart.getBodyPartId();
+  }
 }

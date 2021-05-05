@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,6 +46,14 @@ public class BodyPartController {
       @RequestBody BodyPartReqBody bodyPartReqBody,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
     String bodyPartId = bodyPartUseCase.createBodyPart(bodyPartReqBody);
+    return BodyPartResBody.of(bodyPartUseCase.getBodyPart(bodyPartId));
+  }
+
+  @PutMapping(path = "/v1/bodyparts/{bodyPartId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public BodyPartResBody updateBodyPart(
+      @RequestBody BodyPartReqBody bodyPartReqBody,
+      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    String bodyPartId = bodyPartUseCase.updateBodyPart(bodyPartReqBody);
     return BodyPartResBody.of(bodyPartUseCase.getBodyPart(bodyPartId));
   }
 }
