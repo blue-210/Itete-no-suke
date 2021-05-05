@@ -74,6 +74,6 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-task stage(dependsOn: ['flyway:migrate','build', 'clean'])
-build.mustRunAfter flyway:migrate
+task stage(dependsOn: ['flywayMigrate','build', 'clean'])
+build.mustRunAfter flywayMigrate
 
