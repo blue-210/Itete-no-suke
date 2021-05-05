@@ -1,7 +1,7 @@
 spring:
     datasource:
         driver-class-name: org.postgresql.Driver
-        url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/itetenosuke}
+        url: ${DATABASE_URL_POSTGRES:jdbc:postgresql://localhost:5432/itetenosuke}
         username: ${DATABASE_USER:sukeroku}
         password: ${DATABASE_PASSWORD:D23iKlso3iqoiad}
     servlet:
