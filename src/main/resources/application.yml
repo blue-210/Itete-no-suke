@@ -11,7 +11,7 @@ spring:
     messages:
         fallback-to-system-locale: false
     flyway:
-        enabled: false
+        enabled: true
 sendgrid:
     api-key: ${SEND_GRID_API_KEY}
 logging:
