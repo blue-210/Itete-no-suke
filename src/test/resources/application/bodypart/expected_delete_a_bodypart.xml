@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+  <BODY_PARTS
+    BODY_PART_ID="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
+    BODY_PART_NAME="部位1"
+    STATUS="DELETED" />
+</dataset>

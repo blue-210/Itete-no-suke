@@ -197,4 +197,19 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
       log.error(e.getMessage(), e);
     }
   }
+
+  @Override
+  public void deleteByBodyPartId(String bodyPartId) {
+    try {
+      int result =
+          create
+              .update(B)
+              .set(B.STATUS, Status.DELETED.toString())
+              .where(B.BODY_PART_ID.eq(bodyPartId))
+              .execute();
+      log.info("Delete bodypart : count = {}, painRecordId = {}", result, bodyPartId);
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+  }
 }

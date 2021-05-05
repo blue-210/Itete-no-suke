@@ -76,7 +76,7 @@ class BodyPartUseCaseTest {
   }
 
   @Test
-  @DisplayName("部位を取得できる")
+  @DisplayName("部位を1件取得できる")
   @WithUserDetails(value = "test@gmail.com")
   @DatabaseSetup(value = "/application/bodypart/setup_get_a_bodypart.xml")
   void testGetBodyPart() {
@@ -100,7 +100,7 @@ class BodyPartUseCaseTest {
   }
 
   @Test
-  @DisplayName("部位を登録できる")
+  @DisplayName("部位を1件登録できる")
   @WithUserDetails(value = "test@gmail.com")
   @DatabaseSetup(value = "/application/bodypart/setup_create_a_bodypart.xml")
   @ExpectedDatabase(
@@ -139,5 +139,16 @@ class BodyPartUseCaseTest {
             .build();
 
     bodyPartUseCase.updateBodyPart(bodyPart1);
+  }
+
+  @Test
+  @DisplayName("部位を1件削除できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup(value = "/application/bodypart/setup_delete_a_bodypart.xml")
+  @ExpectedDatabase(
+      value = "/application/bodypart/expected_delete_a_bodypart.xml",
+      assertionMode = DatabaseAssertionMode.NON_STRICT)
+  void testDeleteMedicineList() {
+    bodyPartUseCase.deleteBodyPart("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1");
   }
 }

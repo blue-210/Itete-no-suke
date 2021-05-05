@@ -143,4 +143,24 @@ class BodyPartControllerTest {
         new GoldenFileTestHelpler(BodyPartControllerTest.class, "update_a_bodypart");
     helper.writeOrCompare(result);
   }
+
+  @Test
+  @DisplayName("部位削除APIで期待するJSONが取得できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup("/presentation/controller/bodypart/setup_delete_a_bodypart.xml")
+  void testDeleteBodyPart() throws Exception {
+    MvcResult result =
+        this.mockMvc
+            .perform(
+                MockMvcRequestBuilders.delete("/v1/bodyparts/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().is(HttpStatus.OK.value()))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+
+    GoldenFileTestHelpler helper =
+        new GoldenFileTestHelpler(BodyPartControllerTest.class, "delete_a_bodypart");
+    helper.writeOrCompare(result);
+  }
 }

@@ -1,10 +1,13 @@
 package app.itetenosuke.api.presentation.controller.bodypart;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,5 +58,12 @@ public class BodyPartController {
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
     String bodyPartId = bodyPartUseCase.updateBodyPart(bodyPartReqBody);
     return BodyPartResBody.of(bodyPartUseCase.getBodyPart(bodyPartId));
+  }
+
+  @DeleteMapping(path = "/v1/bodyparts/{bodyPartId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<?> deleteBodyPart(
+      @PathVariable String bodyPartId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    bodyPartUseCase.deleteBodyPart(bodyPartId);
+    return ResponseEntity.ok(Collections.EMPTY_MAP);
   }
 }

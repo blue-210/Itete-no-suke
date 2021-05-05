@@ -17,4 +17,6 @@ public interface IBodyPartRepository {
   public Optional<BodyPart> findByBodyPartId(String bodyPartId);
 
   public void save(BodyPart bodyPart);
+
+  public void deleteByBodyPartId(String bodyPartId);
 }

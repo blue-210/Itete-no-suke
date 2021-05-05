@@ -80,4 +80,8 @@ public class BodyPartUseCase {
     bodyPartRepository.save(bodyPart);
     return bodyPart.getBodyPartId();
   }
+
+  public void deleteBodyPart(String bodyPartId) {
+    bodyPartRepository.deleteByBodyPartId(bodyPartId);
+  }
 }
