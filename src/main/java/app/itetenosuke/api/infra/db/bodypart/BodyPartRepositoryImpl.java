@@ -172,4 +172,29 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
                 .updatedAt(v.get(B.UPDATED_AT))
                 .build());
   }
+
+  @Override
+  public void save(BodyPart bodyPart) {
+    try {
+      Integer result =
+          create
+              .insertInto(B)
+              .set(B.BODY_PART_ID, bodyPart.getBodyPartId())
+              .set(B.USER_ID, bodyPart.getUserId())
+              .set(B.BODY_PART_NAME, bodyPart.getBodyPartName())
+              .set(B.STATUS, bodyPart.getStatus())
+              .set(B.CREATED_AT, bodyPart.getCreatedAt())
+              .set(B.UPDATED_AT, bodyPart.getUpdatedAt())
+              .onDuplicateKeyUpdate()
+              .set(B.BODY_PART_NAME, bodyPart.getBodyPartName())
+              .set(B.USER_ID, bodyPart.getUserId())
+              .set(B.STATUS, bodyPart.getStatus())
+              .set(B.UPDATED_AT, bodyPart.getUpdatedAt())
+              .execute();
+
+      log.info("Save bodypart : count = {}, medicine = {}", result, bodyPart.toString());
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+    }
+  }
 }

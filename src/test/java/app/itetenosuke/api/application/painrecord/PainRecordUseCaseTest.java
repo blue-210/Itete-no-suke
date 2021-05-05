@@ -18,6 +18,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -29,7 +30,6 @@ import app.itetenosuke.api.domain.shared.Status;
 import app.itetenosuke.api.presentation.controller.shared.BodyPartReqBody;
 import app.itetenosuke.api.presentation.controller.shared.MedicineReqBody;
 import app.itetenosuke.api.presentation.controller.shared.PainRecordReqBody;
-import lombok.extern.slf4j.Slf4j;
 import shared.TestDatetimeHelper;
 
 @SpringBootTest
@@ -40,7 +40,7 @@ import shared.TestDatetimeHelper;
   TransactionDbUnitTestExecutionListener.class,
   WithSecurityContextTestExecutionListener.class
 })
-@Slf4j
+@Transactional
 class PainRecordUseCaseTest {
   @Autowired private PainRecordUseCase painRecordUseCase;
 

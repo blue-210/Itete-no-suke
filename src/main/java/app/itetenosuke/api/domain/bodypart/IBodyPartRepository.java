@@ -15,4 +15,6 @@ public interface IBodyPartRepository {
   public List<BodyPart> findAllByUserId(String userId);
 
   public Optional<BodyPart> findByBodyPartId(String bodyPartId);
+
+  public void save(BodyPart bodyPart);
 }

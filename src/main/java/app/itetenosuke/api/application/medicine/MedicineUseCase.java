@@ -36,6 +36,7 @@ public class MedicineUseCase {
         .collect(Collectors.toList());
   }
 
+  @Transactional
   public String createMedicine(MedicineReqBody req) {
     Medicine medicine =
         Medicine.builder()

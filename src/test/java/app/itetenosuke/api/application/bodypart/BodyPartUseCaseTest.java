@@ -22,8 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
 import app.itetenosuke.api.domain.shared.Status;
+import app.itetenosuke.api.presentation.controller.shared.BodyPartReqBody;
 import shared.TestDatetimeHelper;
 
 @SpringBootTest
@@ -94,5 +97,26 @@ class BodyPartUseCaseTest {
         () -> assertThat(actual.getBodyPartId(), is(expected.getBodyPartId())),
         () -> assertThat(actual.getBodyPartName(), is(expected.getBodyPartName())),
         () -> assertThat(actual.getStatus(), is(expected.getStatus())));
+  }
+
+  @Test
+  @DisplayName("部位を登録できる")
+  @WithUserDetails(value = "test@gmail.com")
+  @DatabaseSetup(value = "/application/bodypart/setup_create_a_bodypart.xml")
+  @ExpectedDatabase(
+      value = "/application/bodypart/expected_create_a_bodypart.xml",
+      assertionMode = DatabaseAssertionMode.NON_STRICT)
+  void testCreateMedicineList() {
+    BodyPartReqBody bodyPart1 =
+        BodyPartReqBody.builder()
+            .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .bodyPartName("部位登録1")
+            .status(Status.ALIVE.toString())
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
+            .build();
+
+    bodyPartUseCase.createBodyPart(bodyPart1);
   }
 }
