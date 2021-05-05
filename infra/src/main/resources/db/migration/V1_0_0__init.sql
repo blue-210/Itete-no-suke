@@ -1,3 +1,5 @@
+CREATE schema sukeroku;
+
 CREATE TABLE sukeroku.pain_records (
    pain_record_id char(36) NOT NULL,
    pain_level int4 NOT NULL,
