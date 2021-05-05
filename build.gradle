@@ -74,3 +74,6 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+task stage(dependsOn: ['build', 'infla:flyway'])
+build.mustRunAfter infla:flyway
+
