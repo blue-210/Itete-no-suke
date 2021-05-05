@@ -93,3 +93,6 @@ jooq {
     	}
     }
 }
+
+task stage(dependsOn: ['build', 'flyway'])
+build.mustRunAfter flyway
