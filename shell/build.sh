@@ -11,7 +11,7 @@ readonly SCRIPT_DIR="$(
 )"
 readonly PROJECT_HOME="${SCRIPT_DIR}/.."
 
-export DATABASE_URL_POSTGRES="${DATABASE_URL_POSTGRES}"
+export DATABASE_URL_POSTGRES="${DATABASE_URL_POSTGRES:-"jdbc:postgresql://localhost:5432/itetenosuke"}"
 export DATABASE_USER="${DATABASE_USER:-sukeroku}"
 export DATABASE_PASSWORD="${DATABASE_PASSWORD:-D23iKlso3iqoiad}"
 export DATABASE="${DATABASE:-itetenosuke}"
