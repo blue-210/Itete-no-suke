@@ -91,6 +91,7 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
               .join(P)
               .on(P.PAIN_RECORD_ID.eq(BE.PAIN_RECORD_ID))
               .where(P.PAIN_RECORD_ID.eq(painRecordID))
+              .orderBy(P.CREATED_AT.desc())
               .fetch();
     } catch (Exception e) {
       log.error(e.getMessage(), e);

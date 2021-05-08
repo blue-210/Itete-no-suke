@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
+  <USERS
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
+    PASSWORD="$2a$10$0Y3dHk3NOzTz0vQAmkrR8u8EoAfJA2ScznFBr9tdTb6BROqBvGowe"
+    USER_NAME="blue210"
+    EMAIL="test@gmail.com"
+    ROLE="ROLE_GENERAL"
+    STATUS="ALIVE"
+    CREATED_AT="2020-06-19 01:02:31.437000000"
+    UPDATED_AT="2020-06-19 01:02:31.437000000" />
   <MEDICINE />
 </dataset>

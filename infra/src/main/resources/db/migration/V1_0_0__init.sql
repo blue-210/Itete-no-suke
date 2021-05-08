@@ -1,4 +1,4 @@
-CREATE schema sukeroku;
+CREATE SCHEMA IF NOT EXISTS sukeroku;
 
 CREATE TABLE sukeroku.pain_records (
    pain_record_id char(36) NOT NULL,
