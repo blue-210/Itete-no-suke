@@ -1,38 +1,4 @@
-version: "3.8"
-
-services:
-  nginx:
-    container_name: itetenosuke-nginx
-    image: nginx:latest
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - $PWD/docker/nginx:/etc/nginx
-      - nginxlog:/var/nginx/log
-    depends_on:
-      - web
-
-  web:
-    container_name: itetenosuke-app
-    build:
-      context: .
-      dockerfile: $PWD/docker/web/Dockerfile
-    restart: always
-    ports:
-      - 8080:8080
-    environment:
-      GOOGLE_MAP_API_KEY: ${GOOGLE_MAP_API_KEY}
-      OPEN_WEATHER_API_KEY: ${OPEN_WEATHER_API_KEY}
-      DATABASE_URL_POSTGRES: jdbc:postgresql://db:5432/itetenosuke
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-    volumes:
-      - images:/static/images
-    depends_on:
-      - db
-    command: ["java", "-jar", "Itete-no-suke-1.0.0-SNAPSHOT.jar"]
-
+version: '3.8'
   db:
     container_name: itetenosuke-db
     image: postgres:12-alpine
@@ -40,16 +6,14 @@ services:
     ports:
       - 5433:5432
     environment:
-      TZ: "Asia/Tokyo"
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=ja_JP.UTF-8"
+      TZ: 'Asia/Tokyo'
+      POSTGRES_USER: sukeroku
+      POSTGRES_DB: itetenosuke
+      POSTGRES_PASSWORD: D23iKlso3iqoiad
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --locale=ja_JP.UTF-8'
     volumes:
-      - $PWD/docker/db/init:/docker-entrypoint-initdb.d
-      - "dbdata:/var/lib/postgresql/data"
+      # - $PWD/docker/db/init:/docker-entrypoint-initdb.d
+      - 'dbdata:/var/lib/postgresql/data'
 
 volumes:
   dbdata:
-  nginxlog:
-  images:

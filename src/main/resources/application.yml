@@ -1,26 +1,26 @@
 spring:
-    datasource:
-        driver-class-name: org.postgresql.Driver
-        url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/itetenosuke}
-        username: ${DATABASE_USER:sukeroku}
-        password: ${DATABASE_PASSWORD:D23iKlso3iqoiad}
-    servlet:
-        multipart:
-            max-file-size: 100MB
-            max-request-size: 100MB
-    messages:
-        fallback-to-system-locale: false
-    flyway:
-        enabled: true
-        baseline-on-migrate: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DATABASE_URL_POSTGRES:jdbc:postgresql://localhost:5432/itetenosuke}
+    username: ${DATABASE_USER:sukeroku}
+    password: ${DATABASE_PASSWORD:D23iKlso3iqoiad}
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  messages:
+    fallback-to-system-locale: false
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
 sendgrid:
-    api-key: ${SEND_GRID_API_KEY}
+  api-key: ${SEND_GRID_API_KEY}
 logging:
-    file:
-        path: /logs
-    level:
-        root: INFO
-google-map-api:
-    key: ${GOOGLE_MAP_API_KEY}
-open-weather-api:
-    key: ${OPEN_WEATHER_API_KEY}
+  file:
+    path: /logs
+  level:
+    root: INFO
+# google-map-api:
+#     key: ${GOOGLE_MAP_API_KEY}
+# open-weather-api:
+#     key: ${OPEN_WEATHER_API_KEY}
