@@ -44,7 +44,7 @@ class BodyPartUseCaseTest {
   @Test
   @DisplayName("部位一覧を取得できる")
   @WithUserDetails(value = "test@gmail.com")
-  @DatabaseSetup(value = "/application/bodypart/setup_get_bodyParts.xml")
+  @DatabaseSetup(value = "/application/bodypart/setup_get_bodyparts.xml")
   void testGetBodyPartList() {
     List<BodyPartDto> expected = new ArrayList<>();
     BodyPartDto bodyPart1 =
