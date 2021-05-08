@@ -74,7 +74,7 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-task stage(dependsOn: ['build -x test', 'infra:flywayMigrate'])
+task stage(dependsOn: ['build', 'infra:flywayMigrate'])
 build.mustRunAfter "infra:flywayMigrate"
 
 test.onlyIf { !System.getenv()['ENV'].equals('PROD') }

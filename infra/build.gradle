@@ -24,9 +24,9 @@ sourceCompatibility = '11'
 
 def jooqVersion = '3.14.4'
 
-def dbUser = "${System.getenv()['DATABASE_USER']}"
-def dbPassword = "${System.getenv()['DATABASE_PASSWORD']}"
-def dbUrl = "${System.getenv()['DATABASE_URL_POSTGRES']}"
+def dbUser = System.getenv()['DATABASE_USER']
+def dbPassword = System.getenv()['DATABASE_PASSWORD']
+def dbUrl = System.getenv()['DATABASE_URL']
 
 def jooqTargetDirectory = 'src/main/java'
 def jooqTargetPackageName = 'app.itetenosuke.infra.db.jooq.generated'
@@ -93,3 +93,4 @@ jooq {
     	}
     }
 }
+generateJooq.mustRunAfter "flywayMigrate"

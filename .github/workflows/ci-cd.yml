@@ -10,12 +10,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: install SSH key
-        uses: shimataro/ssh-key-action@v2
+
+      - uses: actions/cache@v2
         with:
-          key: ${{ secrets.SSH_KEY }} # 必須
-          public-key: ${{ secrets.SSH_KEY_PUBLIC }} # 必須
-          name: id_rsa # optional
-          known_hosts: ${{ secrets.KNOWN_HOSTS }} # 省略可だが、セキュリティ上設定したほうがよい
+          path: ~/.gradle/caches
+          key: ${{ runner.so }}-gradle-${{ hashFiles('**/*.gradle') }}
+
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '11.0.10'
+          java-package: jdk
+          architecture: x64
+      - run: ./shell/build.sh
+
+      - name: archive reports
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: reports
+          path: ./build/reports/**
+
+      - name: archive libs
+        uses: actions/upload-artifact@v2
+        with:
+          name: libs
+          path: ./build/libs/**
+          if-no-files-found: error
+
+      - name: install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+
       - name: deploy
-        run: bash deploy.sh
+        run: ./shell/deploy.sh
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
