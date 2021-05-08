@@ -41,6 +41,7 @@ public class MedicineUseCase {
     Medicine medicine =
         Medicine.builder()
             .medicineId(req.getMedicineId())
+            .userId(req.getUserId())
             .medicineName(req.getMedicineName())
             .status(Status.ALIVE.toString())
             .createdAt(req.getCreatedAt())
@@ -70,6 +71,7 @@ public class MedicineUseCase {
     Medicine medicine =
         Medicine.builder()
             .medicineId(req.getMedicineId())
+            .userId(req.getUserId())
             .medicineName(req.getMedicineName())
             .status(Status.ALIVE.toString())
             .createdAt(req.getCreatedAt())

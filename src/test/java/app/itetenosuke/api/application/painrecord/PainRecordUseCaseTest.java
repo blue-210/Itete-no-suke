@@ -75,6 +75,7 @@ class PainRecordUseCaseTest {
     MedicineReqBody medicine1 =
         MedicineReqBody.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .medicineSeq(1)
             .medicineName("update medicine1")
             .status(Status.ALIVE.name())
@@ -85,6 +86,7 @@ class PainRecordUseCaseTest {
     MedicineReqBody medicine2 =
         MedicineReqBody.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .medicineSeq(2)
             .medicineName("update medicine2")
             .status(Status.ALIVE.name())
@@ -95,6 +97,7 @@ class PainRecordUseCaseTest {
     MedicineReqBody medicine3 =
         MedicineReqBody.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm3")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .medicineSeq(3)
             .medicineName("update insert medicine3")
             // STATUSのenum作成しておく
@@ -113,6 +116,7 @@ class PainRecordUseCaseTest {
     BodyPartReqBody bodyPart1 =
         BodyPartReqBody.builder()
             .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .bodyPartName("部位更新1")
             .bodyPartSeq(1)
             .status("ALIVE")
@@ -123,6 +127,7 @@ class PainRecordUseCaseTest {
     BodyPartReqBody bodyPart2 =
         BodyPartReqBody.builder()
             .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb2")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .bodyPartName("部位更新(新規追加)")
             .bodyPartSeq(2)
             .status(Status.ALIVE.name())
@@ -154,6 +159,7 @@ class PainRecordUseCaseTest {
     MedicineReqBody medicine1 =
         MedicineReqBody.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .medicineSeq(1)
             .medicineName("薬登録1")
             .status(Status.ALIVE.name())
@@ -164,6 +170,7 @@ class PainRecordUseCaseTest {
     BodyPartReqBody bodyPart1 =
         BodyPartReqBody.builder()
             .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .bodyPartName("部位登録1")
             .bodyPartSeq(1)
             .status("ALIVE")

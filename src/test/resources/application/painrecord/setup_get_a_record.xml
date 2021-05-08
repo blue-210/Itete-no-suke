@@ -2,18 +2,21 @@
 <dataset>
   <PAIN_RECORDS
     PAIN_RECORD_ID="123456789012345678901234567890123456"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
     PAIN_LEVEL="3"
     MEMO="test"
     CREATED_AT="2020-06-19 01:03:46.216000000"
     UPDATED_AT="2020-06-19 01:03:46.216000000" />
   <MEDICINE
     MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
     MEDICINE_NAME="medicine name1"
     STATUS="ALIVE"
     CREATED_AT="2020-06-19 01:03:46.216000000"
     UPDATED_AT="2020-06-19 01:03:46.216000000" />
   <MEDICINE
     MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
     MEDICINE_NAME="medicine name2"
     STATUS="ALIVE"
     CREATED_AT="2020-06-19 01:03:46.216000000"
@@ -28,6 +31,7 @@
     MEDICINE_SEQ="2"/>
   <BODY_PARTS
     BODY_PART_ID="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
     BODY_PART_NAME="update bodyPart1"
     STATUS="ALIVE"
     CREATED_AT="2020-06-19 01:03:46.216000000"

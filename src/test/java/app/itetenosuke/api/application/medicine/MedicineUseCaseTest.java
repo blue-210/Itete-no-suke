@@ -83,6 +83,7 @@ class MedicineUseCaseTest {
     MedicineReqBody medicine1 =
         MedicineReqBody.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .medicineName("登録薬1")
             .status(Status.ALIVE.toString())
             .createdAt(TestDatetimeHelper.getTestDatetime())
@@ -103,6 +104,7 @@ class MedicineUseCaseTest {
     MedicineReqBody medicine1 =
         MedicineReqBody.builder()
             .medicineId("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
             .medicineName("更新 薬2")
             .status(Status.ALIVE.toString())
             .createdAt(TestDatetimeHelper.getTestDatetime())

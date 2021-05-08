@@ -47,6 +47,7 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
                         create
                             .insertInto(B)
                             .set(B.BODY_PART_ID, bodyPart.getBodyPartId())
+                            .set(B.USER_ID, bodyPart.getUserId())
                             .set(B.BODY_PART_NAME, bodyPart.getBodyPartName())
                             .set(B.STATUS, bodyPart.getStatus())
                             .set(B.CREATED_AT, bodyPart.getCreatedAt())

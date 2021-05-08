@@ -11,7 +11,7 @@ spring:
   messages:
     fallback-to-system-locale: false
   flyway:
-    shcemas: itetenosuke
+    shcemas: sukeroku
     enabled: true
     baseline-on-migrate: true
 sendgrid:

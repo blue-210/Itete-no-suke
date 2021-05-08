@@ -50,6 +50,7 @@ flyway {
     url = dbUrl
     user = dbUser
     password = dbPassword
+	 schemas = ['sukeroku']
 }
 
 jooq {

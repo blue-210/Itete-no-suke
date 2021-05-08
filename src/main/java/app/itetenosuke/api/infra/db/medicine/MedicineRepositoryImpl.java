@@ -82,12 +82,14 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
                         create
                             .insertInto(M)
                             .set(M.MEDICINE_ID, medicine.getMedicineId())
+                            .set(M.USER_ID, medicine.getUserId())
                             .set(M.MEDICINE_NAME, medicine.getMedicineName())
                             .set(M.MEDICINE_MEMO, medicine.getMedicineMemo())
                             .set(M.STATUS, medicine.getStatus())
                             .set(M.CREATED_AT, medicine.getCreatedAt())
                             .set(M.UPDATED_AT, medicine.getUpdatedAt())
                             .onDuplicateKeyUpdate()
+                            .set(M.USER_ID, medicine.getUserId())
                             .set(M.MEDICINE_NAME, medicine.getMedicineName())
                             .set(M.MEDICINE_MEMO, medicine.getMedicineMemo())
                             .set(M.STATUS, medicine.getStatus())
@@ -166,6 +168,7 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
           create
               .insertInto(M)
               .set(M.MEDICINE_ID, medicine.getMedicineId())
+              .set(M.USER_ID, medicine.getUserId())
               .set(M.MEDICINE_NAME, medicine.getMedicineName())
               .set(M.STATUS, medicine.getStatus())
               .set(M.CREATED_AT, medicine.getCreatedAt())

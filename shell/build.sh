@@ -23,7 +23,7 @@ main() {
   cd "${PROJECT_HOME}"
 
   # クリーンアップ
-  docker-compose down
+  docker-compose down --volumes
 
   # MySQL 起動
   docker-compose up -d
@@ -34,6 +34,6 @@ main() {
   "${PROJECT_HOME}/shell/run.sh" build
 
   # クリーンアップ
-  docker-compose down
+  docker-compose down --volumes
 }
 main "$@"

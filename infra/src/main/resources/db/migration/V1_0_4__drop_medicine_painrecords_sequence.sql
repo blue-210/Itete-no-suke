@@ -1,1 +1,0 @@
---DROP SEQUENCE IF EXISTS sukeroku.pain_records_painrecord_id_seq;

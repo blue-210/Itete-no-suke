@@ -61,6 +61,7 @@ public class PainRecordUseCase {
                 medicine ->
                     Medicine.builder()
                         .medicineId(medicine.getMedicineId())
+                        .userId(medicine.getUserId())
                         .medicineSeq(medicine.getMedicineSeq())
                         .medicineName(medicine.getMedicineName())
                         .medicineMemo(medicine.getMedicineMemo())
@@ -77,6 +78,7 @@ public class PainRecordUseCase {
                 bodypart ->
                     BodyPart.builder()
                         .bodyPartId(bodypart.getBodyPartId())
+                        .userId(bodypart.getUserId())
                         .bodyPartName(bodypart.getBodyPartName())
                         .bodyPartSeq(bodypart.getBodyPartSeq())
                         .status(bodypart.getStatus())

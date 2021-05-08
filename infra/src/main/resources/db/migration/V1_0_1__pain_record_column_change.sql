@@ -1,1 +1,4 @@
--- ALTER TABLE sukeroku.pain_records RENAME COLUMN painrecord_id TO pain_record_id;
+ALTER TABLE
+   sukeroku.pain_records
+ALTER COLUMN
+   pain_record_id TYPE char(36);

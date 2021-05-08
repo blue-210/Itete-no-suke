@@ -18,7 +18,7 @@
 -- DROP TABLE sukeroku.users_bodyparts;
 -- DROP TABLE sukeroku.users_medicine;
 -- DROP TABLE sukeroku.users_notes;
-CREATE TABLE sukeroku.users (
+CREATE TABLE IF NOT EXISTS sukeroku.users (
    -- ユーザid
    user_id bigserial NOT NULL,
    -- パスワード

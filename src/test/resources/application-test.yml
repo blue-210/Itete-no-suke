@@ -1,8 +1,10 @@
 spring:
-    datasource:
-        driver-class-name: org.postgresql.Driver
-        url: jdbc:postgresql://localhost:5432/itetenosuke
-        username: sukeroku
-        password: D23iKlso3iqoiad
-    flyway:
-      enabled: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/itetenosuke
+    username: sukeroku
+    password: D23iKlso3iqoiad
+  flyway:
+    enabled: true
+    shcemas: sukeroku
+    baseline-on-migrate: true
