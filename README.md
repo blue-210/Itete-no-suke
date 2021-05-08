@@ -1,5 +1,5 @@
 # いててのすけ
-;![badge.svg](https://github.com/captain-blue210/itete-no-suke-api/workflows/workflow/badge.svg)
+![badge.svg](https://github.com/captain-blue210/itete-no-suke-api/workflows/workflow/badge.svg)
 
 ## 概要
 
