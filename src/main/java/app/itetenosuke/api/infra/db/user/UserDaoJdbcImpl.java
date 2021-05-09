@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -19,13 +20,13 @@ import app.itetenosuke.api.domain.user.UserDao;
 import app.itetenosuke.api.domain.user.UserRole;
 import lombok.AllArgsConstructor;
 
-@Repository
 @AllArgsConstructor
+@Repository
 public class UserDaoJdbcImpl implements UserDao {
 
   private final NamedParameterJdbcTemplate jdbc;
 
-  private final PasswordEncoder passwordEncoder;
+  @Lazy private final PasswordEncoder passwordEncoder;
 
   @Override
   public int insertOne(SignupForm form) throws DataAccessException {
