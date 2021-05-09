@@ -5,31 +5,23 @@ import java.util.OptionalInt;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import app.itetenosuke.api.domain.user.AppUser;
 import app.itetenosuke.api.domain.user.SignupForm;
-import app.itetenosuke.api.domain.user.UserDetailsImpl;
-import app.itetenosuke.api.infra.db.user.UserDaoJdbcImpl;
+import app.itetenosuke.api.domain.user.UserDao;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+@Transactional(rollbackFor = Exception.class)
 @Service
-@AllArgsConstructor
 @Slf4j
-public class UserDetailsServiceImpl implements UserDetailsService {
-  private final UserDaoJdbcImpl userDao;
-
-  @Override
-  @Transactional(readOnly = true)
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    AppUser user = userDao.selectOne(username);
-    return new UserDetailsImpl(user);
-  }
+@AllArgsConstructor
+public class UserService {
+  private final UserDao userDao;
+  private final AuthenticationManager authenticationManager;
 
   public boolean createUser(SignupForm form, final HttpServletRequest request) {
     boolean canCreated = false;
