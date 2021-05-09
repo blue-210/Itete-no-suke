@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.itetenosuke.api.application.medicine.MedicineUseCase;
+import app.itetenosuke.api.domain.user.UserDetailsImpl;
 import app.itetenosuke.api.presentation.controller.shared.MedicineReqBody;
 import app.itetenosuke.api.presentation.controller.shared.MedicineResBody;
-import app.itetenosuke.domain.user.model.UserDetailsImpl;
 import lombok.AllArgsConstructor;
 
 @RestController

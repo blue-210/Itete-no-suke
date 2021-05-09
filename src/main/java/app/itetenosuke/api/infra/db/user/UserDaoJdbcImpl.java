@@ -1,4 +1,4 @@
-package app.itetenosuke.domain.user.repository.jdbc;
+package app.itetenosuke.api.infra.db.user;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -13,10 +13,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import app.itetenosuke.domain.user.model.AppUser;
-import app.itetenosuke.domain.user.model.SignupForm;
-import app.itetenosuke.domain.user.model.UserRole;
-import app.itetenosuke.domain.user.repository.UserDao;
+import app.itetenosuke.api.domain.user.AppUser;
+import app.itetenosuke.api.domain.user.SignupForm;
+import app.itetenosuke.api.domain.user.UserDao;
+import app.itetenosuke.api.domain.user.UserRole;
 import lombok.AllArgsConstructor;
 
 @Repository

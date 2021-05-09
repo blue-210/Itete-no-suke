@@ -1,6 +1,5 @@
 package app.itetenosuke;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,17 +11,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import app.itetenosuke.domain.user.service.UserDetailsServiceImpl;
+import app.itetenosuke.api.application.user.UserDetailsServiceImpl;
+import lombok.AllArgsConstructor;
 
 @EnableWebSecurity
 @Configuration
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+  private UserDetailsServiceImpl userService;
+
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
-  @Autowired private UserDetailsServiceImpl userService;
 
   @Override
   public void configure(WebSecurity web) throws Exception {

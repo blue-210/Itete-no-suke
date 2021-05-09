@@ -1,4 +1,4 @@
-package app.itetenosuke.domain.user.service;
+package app.itetenosuke.api.application.user;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import app.itetenosuke.domain.user.model.AppUser;
-import app.itetenosuke.domain.user.model.UserDetailsImpl;
-import app.itetenosuke.domain.user.repository.jdbc.UserDaoJdbcImpl;
+import app.itetenosuke.api.domain.user.AppUser;
+import app.itetenosuke.api.domain.user.UserDetailsImpl;
+import app.itetenosuke.api.infra.db.user.UserDaoJdbcImpl;
 import lombok.AllArgsConstructor;
 
 @Service

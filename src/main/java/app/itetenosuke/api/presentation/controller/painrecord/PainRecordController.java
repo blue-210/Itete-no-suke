@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.itetenosuke.api.application.painrecord.PainRecordUseCase;
+import app.itetenosuke.api.domain.user.UserDetailsImpl;
 import app.itetenosuke.api.presentation.controller.shared.PainRecordReqBody;
 import app.itetenosuke.api.presentation.controller.shared.PainRecordResBody;
-import app.itetenosuke.domain.user.model.UserDetailsImpl;
 
 // TODO /v1部分を共通パスとしてマッピングする
 @RestController
