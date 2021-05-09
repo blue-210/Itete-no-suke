@@ -36,4 +36,4 @@ management:
     health:
       enabled: true
 server:
-  port: ${PORT:5000}
+  port: ${PORT:8080}
