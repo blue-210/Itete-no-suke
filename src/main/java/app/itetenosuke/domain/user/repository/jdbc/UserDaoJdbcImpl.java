@@ -17,18 +17,15 @@ import app.itetenosuke.domain.user.model.AppUser;
 import app.itetenosuke.domain.user.model.SignupForm;
 import app.itetenosuke.domain.user.model.UserRole;
 import app.itetenosuke.domain.user.repository.UserDao;
+import lombok.AllArgsConstructor;
 
-@Repository("UserDaoJdbcImpl")
+@Repository
+@AllArgsConstructor
 public class UserDaoJdbcImpl implements UserDao {
 
   private final NamedParameterJdbcTemplate jdbc;
 
   private final PasswordEncoder passwordEncoder;
-
-  public UserDaoJdbcImpl(NamedParameterJdbcTemplate jdbc, PasswordEncoder passwordEncoder) {
-    this.jdbc = jdbc;
-    this.passwordEncoder = passwordEncoder;
-  }
 
   @Override
   public int insertOne(SignupForm form) throws DataAccessException {

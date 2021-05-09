@@ -1,23 +1,25 @@
 package app.itetenosuke.domain.user.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import app.itetenosuke.domain.user.model.AppUser;
 import app.itetenosuke.domain.user.model.UserDetailsImpl;
+import app.itetenosuke.domain.user.repository.jdbc.UserDaoJdbcImpl;
+import lombok.AllArgsConstructor;
 
-@Component
+@Service
+@AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-  @Autowired
-  UserService userService;
+  private final UserDaoJdbcImpl userDao;
 
   @Override
+  @Transactional(readOnly = true)
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    AppUser user = userService.selectOne(username);
+    AppUser user = userDao.selectOne(username);
     return new UserDetailsImpl(user);
   }
-
 }
