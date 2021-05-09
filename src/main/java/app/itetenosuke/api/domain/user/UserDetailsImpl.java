@@ -1,4 +1,4 @@
-package app.itetenosuke.domain.user.model;
+package app.itetenosuke.api.domain.user;
 
 import java.util.Date;
 

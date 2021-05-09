@@ -1,4 +1,4 @@
-package app.itetenosuke.domain.user.model;
+package app.itetenosuke.api.domain.user;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

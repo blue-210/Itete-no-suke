@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import app.itetenosuke.domain.user.repository.UserDao;
+import app.itetenosuke.api.domain.user.UserDao;
 
 @SpringBootTest
 class UserDaoJdbcImplTest {
