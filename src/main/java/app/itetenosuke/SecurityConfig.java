@@ -46,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // テスト用に一時的に追加
         .antMatchers("/v1/**")
         .permitAll()
+        .antMatchers("/actuator/health")
+        .permitAll()
         .anyRequest()
         .authenticated();
 

@@ -39,6 +39,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.hamcrest:hamcrest:2.2'
    	implementation project(':infra')
+   	implementation 'org.springframework.boot:spring-boot-starter-actuator'
     
 	compileOnly 'org.projectlombok:lombok:1.18.20'
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
