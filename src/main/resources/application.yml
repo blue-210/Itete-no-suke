@@ -28,10 +28,12 @@ logging:
 management:
   endpoints:
     enabled-by-default: false
-#      web:
-#        cors:
-#          allowed-origins: "https://example.com"
-#          allowed-methods: "GET"
+  #      web:
+  #        cors:
+  #          allowed-origins: "https://example.com"
+  #          allowed-methods: "GET"
   endpoint:
     health:
       enabled: true
+server:
+  port: ${PORT:8080}
