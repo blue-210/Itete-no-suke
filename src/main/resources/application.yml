@@ -12,7 +12,7 @@ spring:
     fallback-to-system-locale: false
   flyway:
     shcemas: sukeroku
-    enabled: false
+    enabled: true
     baseline-on-migrate: true
 sendgrid:
   api-key: ${SEND_GRID_API_KEY}
