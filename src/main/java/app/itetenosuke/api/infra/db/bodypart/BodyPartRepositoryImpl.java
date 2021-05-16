@@ -88,7 +88,7 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
               .select(B.asterisk(), BE.asterisk())
               .from(B)
               .join(BE)
-              .on(BE.BODY_PART_ID.eq(BE.BODY_PART_ID))
+              .on(B.BODY_PART_ID.eq(BE.BODY_PART_ID))
               .join(P)
               .on(P.PAIN_RECORD_ID.eq(BE.PAIN_RECORD_ID))
               .where(P.PAIN_RECORD_ID.eq(painRecordID))

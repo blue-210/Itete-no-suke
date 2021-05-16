@@ -1,10 +1,10 @@
 package app.itetenosuke.api.application.painrecord;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,15 +26,15 @@ public class PainRecordUseCase {
   private final IPainRecordRepository painRecordRepository;
   private final IMedicineRepository medicineRepository;
   private final IBodyPartRepository bodyPartRepository;
-
-  @Qualifier("ImageCloudStorageRepositoryImpl")
-  private final IImageRepository imageCloudStorageRepository;
+  private final Map<String, IImageRepository> imageRepositoryMap;
 
   @Transactional(readOnly = true)
   public PainRecordDto getPainRecord(String painRecordID) {
     Optional<PainRecord> painRecord = painRecordRepository.findById(painRecordID);
     List<Medicine> medicineList = medicineRepository.findAllByPainRecordId(painRecordID);
     List<BodyPart> bodyPartList = bodyPartRepository.findAllByPainRecordId(painRecordID);
+    List<Image> imageList =
+        imageRepositoryMap.get("ImageRepositoryImpl").findAllByPainRecordId(painRecordID);
     return painRecord
         .map(
             v ->
@@ -44,6 +44,7 @@ public class PainRecordUseCase {
                     .painLevel(v.getPainLevel())
                     .medicineList(medicineList)
                     .bodyPartList(bodyPartList)
+                    .imageList(imageList)
                     .memo(v.getMemo())
                     .createdAt(v.getCreatedAt())
                     .updatedAt(v.getUpdatedAt())
@@ -93,8 +94,11 @@ public class PainRecordUseCase {
                         .build())
             .collect(Collectors.toList());
 
-    // Cloud Storageにファイルを保存してその結果をもとにImageのListを作成する
-    List<Image> images = imageCloudStorageRepository.save(req.getImageFiles());
+    List<Image> images =
+        req.getImageFiles()
+            .stream()
+            .map(image -> Image.builder().userId(req.getUserId()).file(image).build())
+            .collect(Collectors.toList());
 
     PainRecord painRecord =
         PainRecord.builder()
@@ -112,7 +116,15 @@ public class PainRecordUseCase {
     painRecordRepository.save(painRecord);
     medicineRepository.save(painRecord);
     bodyPartRepository.save(painRecord);
-    // TODO DBに画像のURL等を保存する
+    List<Image> imageListWithGCPPath =
+        imageRepositoryMap.get("ImageCloudStorageRepositoryImpl").save(painRecord);
+    imageRepositoryMap
+        .get("ImageRepositoryImpl")
+        .save(
+            PainRecord.builder()
+                .painRecordId(req.getPainRecordId())
+                .imageList(imageListWithGCPPath)
+                .build());
   }
 
   public List<PainRecordDto> getPainRecordList(String userId) {
