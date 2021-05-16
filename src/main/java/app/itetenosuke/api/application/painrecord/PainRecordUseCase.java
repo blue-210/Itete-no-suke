@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import app.itetenosuke.api.domain.bodypart.BodyPart;
 import app.itetenosuke.api.domain.bodypart.IBodyPartRepository;
+import app.itetenosuke.api.domain.image.IImageRepository;
+import app.itetenosuke.api.domain.image.Image;
 import app.itetenosuke.api.domain.medicine.IMedicineRepository;
 import app.itetenosuke.api.domain.medicine.Medicine;
 import app.itetenosuke.api.domain.painrecord.IPainRecordRepository;
@@ -23,6 +26,9 @@ public class PainRecordUseCase {
   private final IPainRecordRepository painRecordRepository;
   private final IMedicineRepository medicineRepository;
   private final IBodyPartRepository bodyPartRepository;
+
+  @Qualifier("ImageCloudStorageRepositoryImpl")
+  private final IImageRepository imageCloudStorageRepository;
 
   @Transactional(readOnly = true)
   public PainRecordDto getPainRecord(String painRecordID) {
@@ -87,6 +93,9 @@ public class PainRecordUseCase {
                         .build())
             .collect(Collectors.toList());
 
+    // Cloud Storageにファイルを保存してその結果をもとにImageのListを作成する
+    List<Image> images = imageCloudStorageRepository.save(req.getImageFiles());
+
     PainRecord painRecord =
         PainRecord.builder()
             .painRecordId(req.getPainRecordId())
@@ -94,6 +103,7 @@ public class PainRecordUseCase {
             .painLevel(req.getPainLevel())
             .medicineList(medicines)
             .bodyPartsList(bodyParts)
+            .imageList(images)
             .memo(req.getMemo())
             .updatedAt(req.getUpdatedAt())
             .createdAt(req.getCreatedAt())
@@ -102,6 +112,7 @@ public class PainRecordUseCase {
     painRecordRepository.save(painRecord);
     medicineRepository.save(painRecord);
     bodyPartRepository.save(painRecord);
+    // TODO DBに画像のURL等を保存する
   }
 
   public List<PainRecordDto> getPainRecordList(String userId) {

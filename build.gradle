@@ -40,6 +40,9 @@ dependencies {
     implementation 'org.hamcrest:hamcrest:2.2'
    	implementation project(':infra')
    	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+   	implementation platform('com.google.cloud:libraries-bom:20.3.0')
+   	implementation 'com.google.cloud:google-cloud-storage'
+   	implementation group: 'commons-io', name: 'commons-io', version: '2.6'
     
 	compileOnly 'org.projectlombok:lombok:1.18.20'
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
