@@ -5,7 +5,7 @@
   "memo" : "test",
   "medicineList" : [ {
     "medicineId" : "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1",
-    "userId" : null,
+    "userId" : "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1",
     "medicineSeq" : 1,
     "medicineName" : "medicine name1",
     "medicineMemo" : null,
@@ -14,7 +14,7 @@
     "updatedAt" : "2020-06-19T01:03:46.216"
   }, {
     "medicineId" : "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm2",
-    "userId" : null,
+    "userId" : "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1",
     "medicineSeq" : 2,
     "medicineName" : "medicine name2",
     "medicineMemo" : null,
@@ -24,13 +24,14 @@
   } ],
   "bodyPartList" : [ {
     "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1",
-    "userId" : null,
+    "userId" : "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1",
     "bodyPartName" : "update bodyPart1",
     "bodyPartSeq" : 1,
     "status" : "ALIVE",
     "createdAt" : "2020-06-19T01:03:46.216",
     "updatedAt" : "2020-06-19T01:03:46.216"
   } ],
+  "imageList" : [ ],
   "createdAt" : "2020-06-19T01:03:46.216",
   "updatedAt" : "2020-06-19T01:03:46.216"
 }

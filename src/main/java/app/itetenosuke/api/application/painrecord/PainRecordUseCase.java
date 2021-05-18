@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,8 +96,9 @@ public class PainRecordUseCase {
             .collect(Collectors.toList());
 
     List<Image> images =
-        req.getImageFiles()
-            .stream()
+        Optional.ofNullable(req.getImageFiles())
+            .map(List::stream)
+            .orElseGet(Stream::empty)
             .map(image -> Image.builder().userId(req.getUserId()).file(image).build())
             .collect(Collectors.toList());
 

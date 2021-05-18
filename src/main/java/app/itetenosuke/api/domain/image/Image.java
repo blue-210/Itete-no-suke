@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import app.itetenosuke.api.domain.shared.Status;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,7 +26,7 @@ public class Image {
   private String userId;
   private String imagePath;
   private Integer imageSeq;
-  private MultipartFile file;
+  @JsonIgnore private MultipartFile file;
   @Default private String status = Status.ALIVE.toString();
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;

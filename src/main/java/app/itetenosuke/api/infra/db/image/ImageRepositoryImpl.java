@@ -1,6 +1,5 @@
 package app.itetenosuke.api.infra.db.image;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,12 +46,12 @@ public class ImageRepositoryImpl implements IImageRepository {
                             .set(I.USER_ID, image.getUserId())
                             .set(I.IMAGE_PATH, image.getImagePath())
                             .set(I.STATUS, image.getStatus())
-                            .set(I.CREATED_AT, LocalDateTime.now())
-                            .set(I.UPDATED_AT, LocalDateTime.now())
+                            .set(I.CREATED_AT, image.getCreatedAt())
+                            .set(I.UPDATED_AT, image.getUpdatedAt())
                             .onDuplicateKeyUpdate()
                             .set(I.IMAGE_PATH, image.getImagePath())
                             .set(I.STATUS, image.getStatus())
-                            .set(I.UPDATED_AT, LocalDateTime.now())
+                            .set(I.UPDATED_AT, image.getUpdatedAt())
                             .execute();
 
                     Integer enrollmentCount =
@@ -102,6 +101,7 @@ public class ImageRepositoryImpl implements IImageRepository {
             record -> {
               return Image.builder()
                   .imageId(record.get(I.IMAGE_ID))
+                  .userId(record.get(I.USER_ID))
                   .imageSeq(record.get(IE.IMAGE_SEQ))
                   .imagePath(record.get(I.IMAGE_PATH))
                   .status(record.get(I.STATUS))

@@ -39,7 +39,6 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
               .where(P.PAIN_RECORD_ID.eq(painRecordId))
               .orderBy(P.CREATED_AT.desc())
               .fetchOptional();
-      // TODO ただエラーをログ出力するならExceptionでまとめてもいいかも？
     } catch (TooManyRowsException tmre) {
       log.warn(tmre.getMessage(), tmre);
       throw tmre;

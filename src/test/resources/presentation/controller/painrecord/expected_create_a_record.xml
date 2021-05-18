@@ -7,6 +7,7 @@
     MEMO="create test" />
   <MEDICINE
     MEDICINE_ID="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
     MEDICINE_NAME="薬登録1"
     STATUS="ALIVE"/>
   <MEDICINE_ENROLLMENTS
@@ -15,10 +16,23 @@
     MEDICINE_SEQ="1"/>
   <BODY_PARTS
     BODY_PART_ID="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1"
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
     BODY_PART_NAME="部位登録1"
     STATUS="ALIVE"/>
   <BODY_PARTS_ENROLLMENTS
     PAIN_RECORD_ID="123456789012345678901234567890123456"
     BODY_PART_ID="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1"
     BODY_PART_SEQ="1"/>
+<!--   <IMAGES
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
+    STATUS="ALIVE"/>
+  <IMAGES
+    USER_ID="uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1"
+    STATUS="ALIVE"/> -->
+<!--   <IMAGES_ENROLLMENTS
+    PAIN_RECORD_ID="123456789012345678901234567890123456"
+    IMAGE_SEQ="1"/>
+  <IMAGES_ENROLLMENTS
+    PAIN_RECORD_ID="123456789012345678901234567890123456"
+    IMAGE_SEQ="2"/> -->
 </dataset>

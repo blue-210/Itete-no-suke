@@ -103,6 +103,7 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
             record -> {
               return BodyPart.builder()
                   .bodyPartId(record.get(B.BODY_PART_ID))
+                  .userId(record.get(B.USER_ID))
                   .bodyPartSeq(record.get(BE.BODY_PART_SEQ))
                   .bodyPartName(record.get(B.BODY_PART_NAME))
                   .status(record.get(B.STATUS))

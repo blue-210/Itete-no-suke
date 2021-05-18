@@ -8,3 +8,6 @@ spring:
     enabled: true
     shcemas: sukeroku
     baseline-on-migrate: true
+gcp:
+  project-id: ${GCP_PROJECT_ID}
+  bucket_name: ${GCP_BUCKET_NAME}

@@ -1,5 +1,6 @@
 package app.itetenosuke.api.infra.gcp.image;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -57,6 +58,8 @@ public class ImageCloudStorageRepositoryImpl implements IImageRepository {
                   .userId(painRecord.getUserId())
                   .imagePath(imagePath)
                   .imageSeq(index + 1)
+                  .updatedAt(LocalDateTime.now())
+                  .createdAt(LocalDateTime.now())
                   .build();
             })
         .collect(Collectors.toList());

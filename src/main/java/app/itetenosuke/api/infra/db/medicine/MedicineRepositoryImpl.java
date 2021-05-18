@@ -58,6 +58,7 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
             record -> {
               return Medicine.builder()
                   .medicineId(record.get(M.MEDICINE_ID))
+                  .userId(record.get(M.USER_ID))
                   .medicineSeq(record.get(ME.MEDICINE_SEQ))
                   .medicineName(record.get(M.MEDICINE_NAME))
                   .status(record.get(M.STATUS))
