@@ -13,15 +13,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import app.itetenosuke.api.application.painrecord.PainRecordUseCase;
 import app.itetenosuke.api.domain.user.UserDetailsImpl;
 import app.itetenosuke.api.presentation.controller.shared.PainRecordReqBody;
 import app.itetenosuke.api.presentation.controller.shared.PainRecordResBody;
+import lombok.extern.slf4j.Slf4j;
 
 // TODO /v1部分を共通パスとしてマッピングする
 @RestController
+@Slf4j
 public class PainRecordController {
 
   private final PainRecordUseCase painRecordUseCase;
@@ -47,10 +51,15 @@ public class PainRecordController {
         .collect(Collectors.toList());
   }
 
-  @PostMapping(path = "/v1/painrecords", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(
+      path = "/v1/painrecords",
+      consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public PainRecordResBody postPainRecord(
-      @RequestBody PainRecordReqBody painRecordRequest,
+      @RequestPart(name = "painRecordRequest") PainRecordReqBody painRecordRequest,
+      @RequestPart(name = "imageFiles") List<MultipartFile> files,
       @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    painRecordRequest.setImageFiles(files);
     painRecordUseCase.createPainRecord(painRecordRequest);
     return PainRecordResBody.of(
         painRecordUseCase.getPainRecord(painRecordRequest.getPainRecordId()));

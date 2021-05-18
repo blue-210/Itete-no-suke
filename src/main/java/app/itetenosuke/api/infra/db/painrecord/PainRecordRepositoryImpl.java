@@ -33,8 +33,12 @@ public class PainRecordRepositoryImpl implements IPainRecordRepository {
   public Optional<PainRecord> findById(String painRecordId) {
     Optional<PainRecordsRecord> selected = Optional.empty();
     try {
-      selected = create.selectFrom(P).where(P.PAIN_RECORD_ID.eq(painRecordId)).fetchOptional();
-      // TODO ただエラーをログ出力するならExceptionでまとめてもいいかも？
+      selected =
+          create
+              .selectFrom(P)
+              .where(P.PAIN_RECORD_ID.eq(painRecordId))
+              .orderBy(P.CREATED_AT.desc())
+              .fetchOptional();
     } catch (TooManyRowsException tmre) {
       log.warn(tmre.getMessage(), tmre);
       throw tmre;

@@ -5,7 +5,7 @@
   "memo" : "create test",
   "medicineList" : [ {
     "medicineId" : "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm1",
-    "userId" : null,
+    "userId" : "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1",
     "medicineSeq" : 1,
     "medicineName" : "薬登録1",
     "medicineMemo" : null,
@@ -15,9 +15,26 @@
   } ],
   "bodyPartList" : [ {
     "bodyPartId" : "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1",
-    "userId" : null,
+    "userId" : "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1",
     "bodyPartName" : "部位登録1",
     "bodyPartSeq" : 1,
+    "status" : "ALIVE",
+    "createdAt" : "2020-06-19T01:03:46.216",
+    "updatedAt" : "2020-06-19T01:03:46.216"
+  } ],
+  "imageList" : [ {
+    "imageId" : "90fe6e47-ab81-43af-8588-5ec1b7340233",
+    "userId" : "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1",
+    "imagePath" : "https://storage.googleapis.com/download/storage/v1/b/itete-no-suke/o/images%2F90fe6e47-ab81-43af-8588-5ec1b7340233.jpg?generation=1621151438532456&alt=media",
+    "imageSeq" : 1,
+    "status" : "ALIVE",
+    "createdAt" : "2020-06-19T01:03:46.216",
+    "updatedAt" : "2020-06-19T01:03:46.216"
+  }, {
+    "imageId" : "11c9f43e-fd08-434e-a0e7-8bca55f61d29",
+    "userId" : "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1",
+    "imagePath" : "https://storage.googleapis.com/download/storage/v1/b/itete-no-suke/o/images%2F11c9f43e-fd08-434e-a0e7-8bca55f61d29.jpg?generation=1621151438749934&alt=media",
+    "imageSeq" : 2,
     "status" : "ALIVE",
     "createdAt" : "2020-06-19T01:03:46.216",
     "updatedAt" : "2020-06-19T01:03:46.216"

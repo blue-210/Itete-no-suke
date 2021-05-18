@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import app.itetenosuke.api.domain.bodypart.BodyPart;
+import app.itetenosuke.api.domain.image.Image;
 import app.itetenosuke.api.domain.medicine.Medicine;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -39,7 +40,7 @@ public class PainRecord {
   @Valid private List<BodyPart> bodyPartsList;
 
   // 部位画像
-  // private List<Image> imageList;
+  private List<Image> imageList;
 
   // メモ
   @Length(min = 0, max = 250)

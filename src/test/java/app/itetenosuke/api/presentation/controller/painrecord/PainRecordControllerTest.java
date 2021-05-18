@@ -1,9 +1,14 @@
 package app.itetenosuke.api.presentation.controller.painrecord;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +17,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
@@ -24,6 +33,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
@@ -31,8 +41,11 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
+import app.itetenosuke.api.domain.image.Image;
 import app.itetenosuke.api.domain.painrecord.PainLevel;
+import app.itetenosuke.api.domain.painrecord.PainRecord;
 import app.itetenosuke.api.domain.shared.Status;
+import app.itetenosuke.api.infra.gcp.image.ImageCloudStorageRepositoryImpl;
 import app.itetenosuke.api.presentation.controller.shared.BodyPartReqBody;
 import app.itetenosuke.api.presentation.controller.shared.MedicineReqBody;
 import app.itetenosuke.api.presentation.controller.shared.PainRecordReqBody;
@@ -45,13 +58,15 @@ import shared.TestDatetimeHelper;
   DependencyInjectionTestExecutionListener.class,
   DirtiesContextTestExecutionListener.class,
   TransactionDbUnitTestExecutionListener.class,
-  WithSecurityContextTestExecutionListener.class
+  WithSecurityContextTestExecutionListener.class,
+  MockitoTestExecutionListener.class
 })
 @AutoConfigureMockMvc
 @Transactional
 public class PainRecordControllerTest {
   @Autowired private MockMvc mockMvc;
   @Autowired private ObjectMapper mapper;
+  @MockBean ImageCloudStorageRepositoryImpl mockRepository;
 
   @Test
   @DisplayName("痛み記録取得APIで期待するJSONが取得できる")
@@ -146,7 +161,6 @@ public class PainRecordControllerTest {
     medicineList.add(medicine3);
     req.setMedicineList(medicineList);
 
-    // TODO DBより取得する形に修正する
     BodyPartReqBody bodyPart1 =
         BodyPartReqBody.builder()
             .bodyPartId("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb1")
@@ -235,13 +249,62 @@ public class PainRecordControllerTest {
     req.setMedicineList(medicineList);
     req.setBodyPartsList(bodyPartList);
 
+    MockMultipartFile file1 =
+        new MockMultipartFile(
+            "imageFiles",
+            "myicon2.jpg",
+            MediaType.MULTIPART_FORM_DATA_VALUE,
+            getImageByte("/presentation/controller/painrecord/myicon2.jpg"));
+
+    MockMultipartFile file2 =
+        new MockMultipartFile(
+            "imageFiles",
+            "myicon2.jpg",
+            MediaType.MULTIPART_FORM_DATA_VALUE,
+            getImageByte("/presentation/controller/painrecord/myicon2.jpg"));
+
+    MockMultipartFile json =
+        new MockMultipartFile(
+            "painRecordRequest",
+            "",
+            MediaType.APPLICATION_JSON_VALUE,
+            mapper.writeValueAsBytes(req));
+
+    Image imageMock1 =
+        Image.builder()
+            .imageId("90fe6e47-ab81-43af-8588-5ec1b7340233")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .imagePath(
+                "https://storage.googleapis.com/download/storage/v1/b/itete-no-suke/o/images%2F90fe6e47-ab81-43af-8588-5ec1b7340233.jpg?generation=1621151438532456&alt=media")
+            .imageSeq(1)
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
+            .build();
+
+    Image imageMock2 =
+        Image.builder()
+            .imageId("11c9f43e-fd08-434e-a0e7-8bca55f61d29")
+            .userId("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu1")
+            .imagePath(
+                "https://storage.googleapis.com/download/storage/v1/b/itete-no-suke/o/images%2F11c9f43e-fd08-434e-a0e7-8bca55f61d29.jpg?generation=1621151438749934&alt=media")
+            .imageSeq(2)
+            .createdAt(TestDatetimeHelper.getTestDatetime())
+            .updatedAt(TestDatetimeHelper.getTestDatetime())
+            .build();
+
+    List<Image> mockImages = List.of(imageMock1, imageMock2);
+    when(mockRepository.save(any(PainRecord.class))).thenReturn(mockImages);
+
     MvcResult result =
         this.mockMvc
             .perform(
-                MockMvcRequestBuilders.post("/v1/painrecords")
+                multipart("/v1/painrecords")
+                    .file(file1)
+                    .file(file2)
+                    .file(json)
                     .with(csrf())
-                    .content(mapper.writeValueAsString(req))
-                    .contentType(MediaType.APPLICATION_JSON))
+                    .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+                    .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().is(HttpStatus.OK.value()))
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
@@ -271,5 +334,12 @@ public class PainRecordControllerTest {
     GoldenFileTestHelpler helpler =
         new GoldenFileTestHelpler(PainRecordControllerTest.class, "delete_a_painrecord");
     helpler.writeOrCompare(result);
+  }
+
+  private byte[] getImageByte(String path) throws IOException {
+    try (InputStream in = new ClassPathResource(path).getInputStream(); ) {
+      byte[] buf = FileCopyUtils.copyToByteArray(in);
+      return buf;
+    }
   }
 }

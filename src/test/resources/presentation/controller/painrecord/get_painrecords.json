@@ -5,6 +5,7 @@
   "memo" : "test",
   "medicineList" : null,
   "bodyPartList" : null,
+  "imageList" : null,
   "createdAt" : "2020-06-19T01:03:46.216",
   "updatedAt" : "2020-06-19T01:03:46.216"
 }, {
@@ -14,6 +15,7 @@
   "memo" : "test",
   "medicineList" : null,
   "bodyPartList" : null,
+  "imageList" : null,
   "createdAt" : "2020-06-19T01:03:46.216",
   "updatedAt" : "2020-06-19T01:03:46.216"
 } ]

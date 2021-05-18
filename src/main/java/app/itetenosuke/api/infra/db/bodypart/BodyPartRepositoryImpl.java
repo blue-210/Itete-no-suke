@@ -88,11 +88,11 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
               .select(B.asterisk(), BE.asterisk())
               .from(B)
               .join(BE)
-              .on(BE.BODY_PART_ID.eq(BE.BODY_PART_ID))
+              .on(B.BODY_PART_ID.eq(BE.BODY_PART_ID))
               .join(P)
               .on(P.PAIN_RECORD_ID.eq(BE.PAIN_RECORD_ID))
               .where(P.PAIN_RECORD_ID.eq(painRecordID))
-              .orderBy(P.CREATED_AT.desc())
+              .orderBy(BE.BODY_PART_SEQ.asc())
               .fetch();
     } catch (Exception e) {
       log.error(e.getMessage(), e);
@@ -103,6 +103,7 @@ public class BodyPartRepositoryImpl implements IBodyPartRepository {
             record -> {
               return BodyPart.builder()
                   .bodyPartId(record.get(B.BODY_PART_ID))
+                  .userId(record.get(B.USER_ID))
                   .bodyPartSeq(record.get(BE.BODY_PART_SEQ))
                   .bodyPartName(record.get(B.BODY_PART_NAME))
                   .status(record.get(B.STATUS))

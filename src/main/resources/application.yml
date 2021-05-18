@@ -41,3 +41,6 @@ management:
       enabled: true
 server:
   port: ${PORT:8080}
+gcp:
+  project-id: ${GCP_PROJECT_ID}
+  bucket_name: ${GCP_BUCKET_NAME}

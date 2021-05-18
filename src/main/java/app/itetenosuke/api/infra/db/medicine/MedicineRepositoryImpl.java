@@ -47,6 +47,7 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
               .on(P.PAIN_RECORD_ID.eq(ME.PAIN_RECORD_ID))
               .where(P.PAIN_RECORD_ID.eq(painRecordId))
               .and(M.STATUS.eq(Status.ALIVE.name()))
+              .orderBy(ME.MEDICINE_SEQ.asc())
               .fetch();
     } catch (Exception e) {
       log.error(e.getMessage(), e);
@@ -57,6 +58,7 @@ public class MedicineRepositoryImpl implements IMedicineRepository {
             record -> {
               return Medicine.builder()
                   .medicineId(record.get(M.MEDICINE_ID))
+                  .userId(record.get(M.USER_ID))
                   .medicineSeq(record.get(ME.MEDICINE_SEQ))
                   .medicineName(record.get(M.MEDICINE_NAME))
                   .status(record.get(M.STATUS))

@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -29,7 +30,7 @@ public class PainRecordReqBody {
   private List<BodyPartReqBody> bodyPartsList;
 
   // 部位画像
-  // private List<Image> imageList;
+  private List<MultipartFile> imageFiles;
 
   // メモ
   @Length(min = 0, max = 250)

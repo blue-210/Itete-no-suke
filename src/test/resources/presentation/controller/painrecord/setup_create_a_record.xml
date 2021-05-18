@@ -14,4 +14,6 @@
   <MEDICINE />
   <BODY_PARTS />
   <BODY_PARTS_ENROLLMENTS />
+  <IMAGES />
+  <IMAGES_ENROLLMENTS />
 </dataset>
